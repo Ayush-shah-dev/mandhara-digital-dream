@@ -10,33 +10,180 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AmenitiesRouteImport } from './routes/amenities'
+import { Route as ArrivalRouteImport } from './routes/arrival'
+import { Route as ClubRouteImport } from './routes/club'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as LocationRouteImport } from './routes/location'
+import { Route as MasterplanRouteImport } from './routes/masterplan'
+import { Route as ResortRouteImport } from './routes/resort'
+import { Route as RevenueRouteImport } from './routes/revenue'
+import { Route as VillasRouteImport } from './routes/villas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AmenitiesRoute = AmenitiesRouteImport.update({
+  id: '/amenities',
+  path: '/amenities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArrivalRoute = ArrivalRouteImport.update({
+  id: '/arrival',
+  path: '/arrival',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClubRoute = ClubRouteImport.update({
+  id: '/club',
+  path: '/club',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationRoute = LocationRouteImport.update({
+  id: '/location',
+  path: '/location',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MasterplanRoute = MasterplanRouteImport.update({
+  id: '/masterplan',
+  path: '/masterplan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResortRoute = ResortRouteImport.update({
+  id: '/resort',
+  path: '/resort',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RevenueRoute = RevenueRouteImport.update({
+  id: '/revenue',
+  path: '/revenue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VillasRoute = VillasRouteImport.update({
+  id: '/villas',
+  path: '/villas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/amenities': typeof AmenitiesRoute
+  '/arrival': typeof ArrivalRoute
+  '/club': typeof ClubRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/location': typeof LocationRoute
+  '/masterplan': typeof MasterplanRoute
+  '/resort': typeof ResortRoute
+  '/revenue': typeof RevenueRoute
+  '/villas': typeof VillasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/amenities': typeof AmenitiesRoute
+  '/arrival': typeof ArrivalRoute
+  '/club': typeof ClubRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/location': typeof LocationRoute
+  '/masterplan': typeof MasterplanRoute
+  '/resort': typeof ResortRoute
+  '/revenue': typeof RevenueRoute
+  '/villas': typeof VillasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/amenities': typeof AmenitiesRoute
+  '/arrival': typeof ArrivalRoute
+  '/club': typeof ClubRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/location': typeof LocationRoute
+  '/masterplan': typeof MasterplanRoute
+  '/resort': typeof ResortRoute
+  '/revenue': typeof RevenueRoute
+  '/villas': typeof VillasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/amenities'
+    | '/arrival'
+    | '/club'
+    | '/contact'
+    | '/gallery'
+    | '/location'
+    | '/masterplan'
+    | '/resort'
+    | '/revenue'
+    | '/villas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/amenities'
+    | '/arrival'
+    | '/club'
+    | '/contact'
+    | '/gallery'
+    | '/location'
+    | '/masterplan'
+    | '/resort'
+    | '/revenue'
+    | '/villas'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/amenities'
+    | '/arrival'
+    | '/club'
+    | '/contact'
+    | '/gallery'
+    | '/location'
+    | '/masterplan'
+    | '/resort'
+    | '/revenue'
+    | '/villas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AmenitiesRoute: typeof AmenitiesRoute
+  ArrivalRoute: typeof ArrivalRoute
+  ClubRoute: typeof ClubRoute
+  ContactRoute: typeof ContactRoute
+  GalleryRoute: typeof GalleryRoute
+  LocationRoute: typeof LocationRoute
+  MasterplanRoute: typeof MasterplanRoute
+  ResortRoute: typeof ResortRoute
+  RevenueRoute: typeof RevenueRoute
+  VillasRoute: typeof VillasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +195,100 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/amenities': {
+      id: '/amenities'
+      path: '/amenities'
+      fullPath: '/amenities'
+      preLoaderRoute: typeof AmenitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/arrival': {
+      id: '/arrival'
+      path: '/arrival'
+      fullPath: '/arrival'
+      preLoaderRoute: typeof ArrivalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/club': {
+      id: '/club'
+      path: '/club'
+      fullPath: '/club'
+      preLoaderRoute: typeof ClubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/location': {
+      id: '/location'
+      path: '/location'
+      fullPath: '/location'
+      preLoaderRoute: typeof LocationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/masterplan': {
+      id: '/masterplan'
+      path: '/masterplan'
+      fullPath: '/masterplan'
+      preLoaderRoute: typeof MasterplanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resort': {
+      id: '/resort'
+      path: '/resort'
+      fullPath: '/resort'
+      preLoaderRoute: typeof ResortRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/revenue': {
+      id: '/revenue'
+      path: '/revenue'
+      fullPath: '/revenue'
+      preLoaderRoute: typeof RevenueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/villas': {
+      id: '/villas'
+      path: '/villas'
+      fullPath: '/villas'
+      preLoaderRoute: typeof VillasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AmenitiesRoute: AmenitiesRoute,
+  ArrivalRoute: ArrivalRoute,
+  ClubRoute: ClubRoute,
+  ContactRoute: ContactRoute,
+  GalleryRoute: GalleryRoute,
+  LocationRoute: LocationRoute,
+  MasterplanRoute: MasterplanRoute,
+  ResortRoute: ResortRoute,
+  RevenueRoute: RevenueRoute,
+  VillasRoute: VillasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

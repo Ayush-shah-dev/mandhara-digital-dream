@@ -28,7 +28,9 @@ export const Route = createFileRoute("/gallery")({
 
 const FILTERS = ["All", "Estate", "Villas", "Resort", "Nature", "Celebrations"] as const;
 
-const ITEMS = [
+type Item = { src: string; tag: string; label: string; tall?: boolean };
+
+const ITEMS: Item[] = [
   { src: img.hero, tag: "Estate", label: "Golden hour over the estate", tall: true },
   { src: img.villa, tag: "Villas", label: "Villa courtyard at dusk" },
   { src: img.resort, tag: "Resort", label: "Infinity pool at sunset", tall: true },
@@ -40,7 +42,7 @@ const ITEMS = [
   { src: img.masterplan, tag: "Estate", label: "Drone view of the masterplan", tall: true },
   { src: img.suite, tag: "Villas", label: "Interior, morning light" },
   { src: img.arrival, tag: "Estate", label: "The arrival gate" },
-] as const;
+];
 
 function Gallery() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");

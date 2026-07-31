@@ -14,6 +14,9 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AmenitiesRouteImport } from './routes/amenities'
 import { Route as ArrivalRouteImport } from './routes/arrival'
 import { Route as ClubRouteImport } from './routes/club'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as LocationRouteImport } from './routes/location'
 import { Route as MasterplanRouteImport } from './routes/masterplan'
 import { Route as ResortRouteImport } from './routes/resort'
 import { Route as RevenueRouteImport } from './routes/revenue'
@@ -44,6 +47,21 @@ const ClubRoute = ClubRouteImport.update({
   path: '/club',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationRoute = LocationRouteImport.update({
+  id: '/location',
+  path: '/location',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MasterplanRoute = MasterplanRouteImport.update({
   id: '/masterplan',
   path: '/masterplan',
@@ -71,6 +89,9 @@ export interface FileRoutesByFullPath {
   '/amenities': typeof AmenitiesRoute
   '/arrival': typeof ArrivalRoute
   '/club': typeof ClubRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/location': typeof LocationRoute
   '/masterplan': typeof MasterplanRoute
   '/resort': typeof ResortRoute
   '/revenue': typeof RevenueRoute
@@ -82,6 +103,9 @@ export interface FileRoutesByTo {
   '/amenities': typeof AmenitiesRoute
   '/arrival': typeof ArrivalRoute
   '/club': typeof ClubRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/location': typeof LocationRoute
   '/masterplan': typeof MasterplanRoute
   '/resort': typeof ResortRoute
   '/revenue': typeof RevenueRoute
@@ -94,6 +118,9 @@ export interface FileRoutesById {
   '/amenities': typeof AmenitiesRoute
   '/arrival': typeof ArrivalRoute
   '/club': typeof ClubRoute
+  '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
+  '/location': typeof LocationRoute
   '/masterplan': typeof MasterplanRoute
   '/resort': typeof ResortRoute
   '/revenue': typeof RevenueRoute
@@ -107,6 +134,9 @@ export interface FileRouteTypes {
     | '/amenities'
     | '/arrival'
     | '/club'
+    | '/contact'
+    | '/gallery'
+    | '/location'
     | '/masterplan'
     | '/resort'
     | '/revenue'
@@ -118,6 +148,9 @@ export interface FileRouteTypes {
     | '/amenities'
     | '/arrival'
     | '/club'
+    | '/contact'
+    | '/gallery'
+    | '/location'
     | '/masterplan'
     | '/resort'
     | '/revenue'
@@ -129,6 +162,9 @@ export interface FileRouteTypes {
     | '/amenities'
     | '/arrival'
     | '/club'
+    | '/contact'
+    | '/gallery'
+    | '/location'
     | '/masterplan'
     | '/resort'
     | '/revenue'
@@ -141,6 +177,9 @@ export interface RootRouteChildren {
   AmenitiesRoute: typeof AmenitiesRoute
   ArrivalRoute: typeof ArrivalRoute
   ClubRoute: typeof ClubRoute
+  ContactRoute: typeof ContactRoute
+  GalleryRoute: typeof GalleryRoute
+  LocationRoute: typeof LocationRoute
   MasterplanRoute: typeof MasterplanRoute
   ResortRoute: typeof ResortRoute
   RevenueRoute: typeof RevenueRoute
@@ -184,6 +223,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClubRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/location': {
+      id: '/location'
+      path: '/location'
+      fullPath: '/location'
+      preLoaderRoute: typeof LocationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/masterplan': {
       id: '/masterplan'
       path: '/masterplan'
@@ -221,6 +281,9 @@ const rootRouteChildren: RootRouteChildren = {
   AmenitiesRoute: AmenitiesRoute,
   ArrivalRoute: ArrivalRoute,
   ClubRoute: ClubRoute,
+  ContactRoute: ContactRoute,
+  GalleryRoute: GalleryRoute,
+  LocationRoute: LocationRoute,
   MasterplanRoute: MasterplanRoute,
   ResortRoute: ResortRoute,
   RevenueRoute: RevenueRoute,
@@ -229,3 +292,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

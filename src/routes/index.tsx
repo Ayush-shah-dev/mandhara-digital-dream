@@ -13,6 +13,7 @@ import {
   TiltCard,
 } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/PageHero";
+import { HoverShowcase, type ShowcaseItem } from "@/components/site/HoverShowcase";
 import { img } from "@/lib/images";
 
 export const Route = createFileRoute("/")({
@@ -36,6 +37,26 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
+
+const NATURE: readonly ShowcaseItem[] = [
+  { id: "canopy", title: "Every mature tree stays", meta: "Canopy", text: "Roads bend around old rain trees; the survey mapped each trunk before a single line was drawn.", image: img.canopy },
+  { id: "valleys", title: "Eighteen garden valleys", meta: "Landform", text: "The natural undulation became gardens rather than being levelled into plots.", image: img.garden },
+  { id: "water", title: "Water returned to the lake", meta: "Sheen Lake", text: "Monsoon channels feed five acres of water at the centre of the estate.", image: img.lake },
+  { id: "bloom", title: "Seasonal bloom calendar", meta: "Planting", text: "Species chosen so something is always flowering, month after month.", image: img.blooms },
+] as const;
+
+const REVENUE: readonly ShowcaseItem[] = [
+  { id: "own", title: "Own", meta: "Step 01", text: "Buy the plot and villa outright — freehold, registered, and yours to use whenever you wish.", image: img.villaLake },
+  { id: "operate", title: "Operate", meta: "Step 02", text: "Hand the keys to the resort team. Housekeeping, maintenance and guests are managed end to end.", image: img.suite },
+  { id: "earn", title: "Earn", meta: "Step 03", text: "Share in the room revenue your villa generates, with transparent statements each quarter.", image: img.resort },
+] as const;
+
+const PROXIMITY: readonly ShowcaseItem[] = [
+  { id: "airport", title: "International airport", meta: "55 min", text: "A clean expressway run — arrive from a flight without a second transfer.", image: img.expressway },
+  { id: "expressway", title: "Expressway entry", meta: "12 min", text: "The estate sits a short approach road from the main corridor.", image: img.arrival },
+  { id: "schools", title: "Schools", meta: "20 min", text: "Established day schools within an easy morning drive.", image: img.clubhouse },
+  { id: "hospitals", title: "Hospitals", meta: "18 min", text: "Multi-speciality care close enough for peace of mind.", image: img.build },
+] as const;
 
 const EXPERIENCES = [
   {
@@ -171,6 +192,18 @@ function Home() {
               text="A hundred acres that behave like one continuous garden."
               className="display mt-8 text-4xl md:text-6xl"
             />
+            <MaskedImage
+              src={img.canopy}
+              alt="Retained canopy over the Mandhara estate"
+              className="mt-10 h-[24rem] md:h-[28rem]"
+              parallax={40}
+            />
+            <Reveal delay={0.2}>
+              <p className="mt-5 flex items-center gap-3 text-[0.62rem] uppercase tracking-[0.28em] text-muted-foreground">
+                <span className="inline-block h-px w-8 bg-accent/60" />
+                Not a single mature tree was felled
+              </p>
+            </Reveal>
           </div>
           <Reveal delay={0.15} className="space-y-6 self-end text-base font-light leading-relaxed text-muted-foreground">
             <p>
@@ -210,11 +243,49 @@ function Home() {
             parallax={80}
           />
           <div className="absolute inset-0 bg-[oklch(0.17_0.012_60)]/35" />
-          <div className="absolute inset-0 grid place-items-center px-6 text-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
             <SplitText
               text="Design that defers to the land."
               className="display max-w-3xl text-4xl text-[oklch(0.97_0.01_84)] md:text-7xl"
             />
+            <Reveal delay={0.2}>
+              <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-relaxed text-white/70">
+                Five acres of water, eighteen garden valleys and an eight-kilometre
+                promenade — drawn from the contour survey, not over it.
+              </p>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
+                {[
+                  ["5 acres", "Sheen Lake"],
+                  ["18", "Garden valleys"],
+                  ["8 km", "Promenade"],
+                ].map(([n, l]) => (
+                  <div key={l} className="text-[oklch(0.97_0.01_84)]">
+                    <p className="display text-3xl text-accent md:text-4xl">{n}</p>
+                    <p className="mt-1 text-[0.58rem] uppercase tracking-[0.28em] text-white/60">
+                      {l}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+                <Magnetic>
+                  <Link
+                    to="/masterplan"
+                    className="inline-flex rounded-full bg-accent px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-accent-foreground transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
+                  >
+                    Explore the five zones
+                  </Link>
+                </Magnetic>
+                <Magnetic>
+                  <Link
+                    to="/gallery"
+                    className="inline-flex rounded-full border border-white/45 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-[oklch(0.97_0.01_84)] backdrop-blur-md transition-colors duration-500 hover:border-accent hover:text-accent"
+                  >
+                    See the gallery
+                  </Link>
+                </Magnetic>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -253,43 +324,25 @@ function Home() {
 
       {/* Nature philosophy */}
       <Section className="bg-muted/40">
-        <div className="grid items-center gap-16 md:grid-cols-2 md:gap-24">
-          <MaskedImage
-            src={img.garden}
-            alt="Garden trail at golden hour"
-            className="h-[34rem]"
-          />
-          <div>
-            <Eyebrow>Nature Philosophy</Eyebrow>
-            <SplitText
-              text="We built around the trees, not through them."
-              className="display mt-8 text-4xl md:text-6xl"
-            />
-            <Reveal delay={0.1}>
-              <p className="mt-8 max-w-md text-base font-light leading-relaxed text-muted-foreground">
+        <HoverShowcase
+          items={NATURE}
+          side="left"
+          height="h-[30rem] md:h-[36rem]"
+          columns="lg:grid-cols-[1fr_1fr]"
+          header={
+            <>
+              <Eyebrow>Nature Philosophy</Eyebrow>
+              <SplitText
+                text="We built around the trees, not through them."
+                className="display mb-6 mt-6 text-4xl md:text-6xl"
+              />
+              <p className="mb-4 max-w-md text-sm font-light leading-relaxed text-muted-foreground">
                 Every road follows an existing contour. Every valley remains a valley.
-                Rainwater returns to the lake. Native species line the walking trails,
-                and the canopy is left tall enough for birds to keep their routines.
+                Hover or tab a principle to watch the landscape answer.
               </p>
-              <ul className="mt-10 space-y-4">
-                {[
-                  "Zero-cut policy for mature trees",
-                  "Lake-fed landscape irrigation",
-                  "Continuous 4 km walking trail",
-                  "Native planting, seasonal blooms",
-                ].map((t) => (
-                  <li
-                    key={t}
-                    className="flex items-center gap-4 border-b border-border/70 pb-4 text-sm font-light"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-        </div>
+            </>
+          }
+        />
       </Section>
 
       {/* Arrival */}
@@ -396,42 +449,37 @@ function Home() {
 
       {/* Investment */}
       <Section>
-        <div className="grid gap-16 md:grid-cols-2 md:gap-24">
-          <div>
-            <Eyebrow>Revenue Sharing</Eyebrow>
-            <SplitText
-              text="Ownership that works while you rest."
-              className="display mt-8 text-4xl md:text-6xl"
-            />
-          </div>
-          <Reveal delay={0.1} className="space-y-8">
-            <p className="text-base font-light leading-relaxed text-muted-foreground">
-              Choose a villa for living, or place it into the managed hospitality pool
-              and share in resort revenue — with professional operations, upkeep and
-              transparent reporting.
-            </p>
-            <div className="grid grid-cols-3 gap-6">
-              {[
-                ["Own", "Title in your name"],
-                ["Operate", "Managed by Mandhara"],
-                ["Earn", "Shared revenue"],
-              ].map(([a, b]) => (
-                <div key={a} className="rounded-2xl bg-card p-5 soft-shadow">
-                  <p className="display text-2xl text-primary">{a}</p>
-                  <p className="mt-2 text-xs font-light text-muted-foreground">{b}</p>
-                </div>
-              ))}
+        <HoverShowcase
+          items={REVENUE}
+          side="left"
+          height="h-[28rem] md:h-[34rem]"
+          columns="lg:grid-cols-[1fr_1fr]"
+          header={
+            <>
+              <Eyebrow>Revenue Sharing</Eyebrow>
+              <SplitText
+                text="Ownership that works while you rest."
+                className="display mb-6 mt-6 text-4xl md:text-6xl"
+              />
+              <p className="mb-4 max-w-md text-sm font-light leading-relaxed text-muted-foreground">
+                Keep the villa private, or place it in the managed hospitality pool and
+                share in resort revenue. Hover each step to see it.
+              </p>
+            </>
+          }
+          footer={
+            <div className="mt-10">
+              <Magnetic>
+                <Link
+                  to="/revenue"
+                  className="inline-flex rounded-full border border-primary/50 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-primary transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
+                >
+                  See the model
+                </Link>
+              </Magnetic>
             </div>
-            <Magnetic>
-              <Link
-                to="/revenue"
-                className="inline-flex rounded-full border border-primary/50 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-primary transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
-              >
-                See the model
-              </Link>
-            </Magnetic>
-          </Reveal>
-        </div>
+          }
+        />
       </Section>
 
       {/* Gallery strip */}
@@ -493,36 +541,46 @@ function Home() {
 
       {/* Location */}
       <Section className="bg-secondary text-[oklch(0.96_0.01_84)]">
-        <div className="grid gap-16 md:grid-cols-2">
-          <div>
-            <p className="eyebrow text-accent">Location</p>
-            <SplitText text="Far enough. Close enough." className="display mt-6 text-4xl md:text-6xl" />
-            <Reveal delay={0.1}>
-              <p className="mt-8 max-w-md text-sm font-light leading-relaxed text-white/70">
+        <HoverShowcase
+          items={PROXIMITY}
+          side="right"
+          tone="dark"
+          height="h-[30rem] md:h-[34rem]"
+          columns="lg:grid-cols-[1fr_1fr]"
+          header={
+            <>
+              <p className="eyebrow text-accent">Location</p>
+              <SplitText text="Far enough. Close enough." className="display mb-6 mt-6 text-4xl md:text-6xl" />
+              <p className="mb-6 max-w-md text-sm font-light leading-relaxed text-white/70">
                 A drive that leaves the city behind without leaving it out of reach.
+                Hover a destination to see the road it takes.
               </p>
-            </Reveal>
-          </div>
-          <div className="grid grid-cols-2 gap-y-8">
-            {[
-              ["Airport", "55 min"],
-              ["Expressway", "12 min"],
-              ["Schools", "20 min"],
-              ["Hospitals", "18 min"],
-            ].map(([a, b], i) => (
-              <Reveal key={a} delay={i * 0.08}>
-                <p className="display text-4xl text-accent">{b}</p>
-                <p className="mt-1 text-[0.65rem] uppercase tracking-[0.25em] text-white/60">{a}</p>
-              </Reveal>
-            ))}
-            <Link
-              to="/location"
-              className="link-underline col-span-2 text-[0.66rem] uppercase tracking-[0.25em] text-accent"
-            >
-              Open the map
-            </Link>
-          </div>
-        </div>
+              <div className="mb-10 flex items-center gap-4">
+                <span className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full border border-accent/50">
+                  <span className="h-2 w-2 rounded-full bg-accent" />
+                  <motion.span
+                    className="absolute inset-0 rounded-full border border-accent/40"
+                    animate={{ scale: [1, 1.6], opacity: [0.7, 0] }}
+                    transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
+                  />
+                </span>
+                <p className="text-[0.6rem] uppercase tracking-[0.28em] text-white/55">
+                  Mandhara sits at the centre of every drive below
+                </p>
+              </div>
+            </>
+          }
+          footer={
+            <div className="mt-10">
+              <Link
+                to="/location"
+                className="link-underline text-[0.66rem] uppercase tracking-[0.25em] text-accent"
+              >
+                Open the full map
+              </Link>
+            </div>
+          }
+        />
       </Section>
 
       <Section className="text-center">
@@ -532,6 +590,28 @@ function Home() {
             text="Come see the light at five in the evening."
             className="display mt-10 max-w-3xl text-4xl md:text-6xl"
           />
+          <p className="mt-8 max-w-xl text-sm font-light leading-relaxed text-muted-foreground">
+            That is the hour the lake turns gold, the promenade fills and the lawns
+            begin to smell of woodsmoke and jasmine. Visits are private and unhurried.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Magnetic>
+              <Link
+                to="/contact"
+                className="inline-flex rounded-full bg-primary px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-primary-foreground transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
+              >
+                Book a private visit
+              </Link>
+            </Magnetic>
+            <Magnetic>
+              <Link
+                to="/gallery"
+                className="inline-flex rounded-full border border-border px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] transition-colors duration-500 hover:border-primary hover:text-primary"
+              >
+                See it in pictures
+              </Link>
+            </Magnetic>
+          </div>
         </Reveal>
       </Section>
 

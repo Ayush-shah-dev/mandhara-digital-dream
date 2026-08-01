@@ -303,43 +303,25 @@ function Home() {
 
       {/* Nature philosophy */}
       <Section className="bg-muted/40">
-        <div className="grid items-center gap-16 md:grid-cols-2 md:gap-24">
-          <MaskedImage
-            src={img.garden}
-            alt="Garden trail at golden hour"
-            className="h-[34rem]"
-          />
-          <div>
-            <Eyebrow>Nature Philosophy</Eyebrow>
-            <SplitText
-              text="We built around the trees, not through them."
-              className="display mt-8 text-4xl md:text-6xl"
-            />
-            <Reveal delay={0.1}>
-              <p className="mt-8 max-w-md text-base font-light leading-relaxed text-muted-foreground">
+        <HoverShowcase
+          items={NATURE}
+          side="left"
+          height="h-[30rem] md:h-[36rem]"
+          columns="lg:grid-cols-[1fr_1fr]"
+          header={
+            <>
+              <Eyebrow>Nature Philosophy</Eyebrow>
+              <SplitText
+                text="We built around the trees, not through them."
+                className="display mb-6 mt-6 text-4xl md:text-6xl"
+              />
+              <p className="mb-4 max-w-md text-sm font-light leading-relaxed text-muted-foreground">
                 Every road follows an existing contour. Every valley remains a valley.
-                Rainwater returns to the lake. Native species line the walking trails,
-                and the canopy is left tall enough for birds to keep their routines.
+                Hover or tab a principle to watch the landscape answer.
               </p>
-              <ul className="mt-10 space-y-4">
-                {[
-                  "Zero-cut policy for mature trees",
-                  "Lake-fed landscape irrigation",
-                  "Continuous 4 km walking trail",
-                  "Native planting, seasonal blooms",
-                ].map((t) => (
-                  <li
-                    key={t}
-                    className="flex items-center gap-4 border-b border-border/70 pb-4 text-sm font-light"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-        </div>
+            </>
+          }
+        />
       </Section>
 
       {/* Arrival */}
@@ -446,42 +428,37 @@ function Home() {
 
       {/* Investment */}
       <Section>
-        <div className="grid gap-16 md:grid-cols-2 md:gap-24">
-          <div>
-            <Eyebrow>Revenue Sharing</Eyebrow>
-            <SplitText
-              text="Ownership that works while you rest."
-              className="display mt-8 text-4xl md:text-6xl"
-            />
-          </div>
-          <Reveal delay={0.1} className="space-y-8">
-            <p className="text-base font-light leading-relaxed text-muted-foreground">
-              Choose a villa for living, or place it into the managed hospitality pool
-              and share in resort revenue — with professional operations, upkeep and
-              transparent reporting.
-            </p>
-            <div className="grid grid-cols-3 gap-6">
-              {[
-                ["Own", "Title in your name"],
-                ["Operate", "Managed by Mandhara"],
-                ["Earn", "Shared revenue"],
-              ].map(([a, b]) => (
-                <div key={a} className="rounded-2xl bg-card p-5 soft-shadow">
-                  <p className="display text-2xl text-primary">{a}</p>
-                  <p className="mt-2 text-xs font-light text-muted-foreground">{b}</p>
-                </div>
-              ))}
+        <HoverShowcase
+          items={REVENUE}
+          side="left"
+          height="h-[28rem] md:h-[34rem]"
+          columns="lg:grid-cols-[1fr_1fr]"
+          header={
+            <>
+              <Eyebrow>Revenue Sharing</Eyebrow>
+              <SplitText
+                text="Ownership that works while you rest."
+                className="display mb-6 mt-6 text-4xl md:text-6xl"
+              />
+              <p className="mb-4 max-w-md text-sm font-light leading-relaxed text-muted-foreground">
+                Keep the villa private, or place it in the managed hospitality pool and
+                share in resort revenue. Hover each step to see it.
+              </p>
+            </>
+          }
+          footer={
+            <div className="mt-10">
+              <Magnetic>
+                <Link
+                  to="/revenue"
+                  className="inline-flex rounded-full border border-primary/50 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-primary transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
+                >
+                  See the model
+                </Link>
+              </Magnetic>
             </div>
-            <Magnetic>
-              <Link
-                to="/revenue"
-                className="inline-flex rounded-full border border-primary/50 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-primary transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
-              >
-                See the model
-              </Link>
-            </Magnetic>
-          </Reveal>
-        </div>
+          }
+        />
       </Section>
 
       {/* Gallery strip */}

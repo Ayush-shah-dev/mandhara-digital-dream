@@ -333,7 +333,7 @@ function Masterplan() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   to={active.to}
-                  hash={active.hash || undefined}
+                  {...(active.hash ? { hash: active.hash } : {})}
                   className="inline-flex rounded-full bg-primary px-7 py-3.5 text-[0.62rem] uppercase tracking-[0.25em] text-primary-foreground transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
                 >
                   {active.linkLabel}

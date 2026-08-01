@@ -161,7 +161,7 @@ function Villas() {
         image={img.villa}
       />
 
-      <Section>
+      <Section id="enclave" className="scroll-mt-24">
         <HoverShowcase
           items={TYPES}
           side="left"
@@ -207,7 +207,7 @@ function Villas() {
         </Reveal>
       </Section>
 
-      <Section className="bg-secondary text-[oklch(0.96_0.01_84)]">
+      <Section id="construction" className="scroll-mt-24 bg-secondary text-[oklch(0.96_0.01_84)]">
         <HoverShowcase
           items={CONSTRUCTION}
           side="right"

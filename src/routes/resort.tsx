@@ -139,7 +139,7 @@ function Resort() {
         </div>
       </Section>
 
-      <Section>
+      <Section id="facilities" className="scroll-mt-24">
         <HoverShowcase
           items={FACILITIES}
           side="left"

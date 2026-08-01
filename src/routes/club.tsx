@@ -105,7 +105,7 @@ function Club() {
         image={img.club}
       />
 
-      <Section>
+      <Section id="venues" className="scroll-mt-24">
         <HoverShowcase
           items={VENUES}
           side="left"

@@ -1,14 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { CtaBand, PageHero } from "@/components/site/PageHero";
-import {
-  Eyebrow,
-  MaskedImage,
-  Reveal,
-  Section,
-  SplitText,
-  TiltCard,
-} from "@/components/site/primitives";
+import { HoverShowcase, type ShowcaseItem } from "@/components/site/HoverShowcase";
+import { Eyebrow, Reveal, Section, SplitText } from "@/components/site/primitives";
 import { img } from "@/lib/images";
 
 export const Route = createFileRoute("/villas")({
@@ -32,11 +26,94 @@ export const Route = createFileRoute("/villas")({
   component: Villas,
 });
 
-const TYPES = [
-  { name: "Valley Villa", plot: "2,400 sq ft", built: "2,850 sq ft", beds: "3 BHK + study" },
-  { name: "Garden Villa", plot: "3,600 sq ft", built: "4,100 sq ft", beds: "4 BHK + court" },
-  { name: "Lake Villa", plot: "5,400 sq ft", built: "6,200 sq ft", beds: "4 BHK + pool" },
-] as const;
+const TYPES: ShowcaseItem[] = [
+  {
+    id: "valley",
+    title: "Valley Villa",
+    meta: "3 BHK + study",
+    text: "The garden-valley plan: a single storey stepping down with the contour, front lawn and rear service court.",
+    image: img.villaValley,
+    details: [
+      ["Plot", "2,400 sq ft"],
+      ["Built-up", "2,850 sq ft"],
+      ["Layout", "3 BHK + study"],
+    ],
+  },
+  {
+    id: "garden",
+    title: "Garden Villa",
+    meta: "4 BHK + court",
+    text: "Rooms wrap a private courtyard with a water bowl, timber screens and a double-height living volume.",
+    image: img.villaGarden,
+    details: [
+      ["Plot", "3,600 sq ft"],
+      ["Built-up", "4,100 sq ft"],
+      ["Layout", "4 BHK + court"],
+    ],
+  },
+  {
+    id: "lake",
+    title: "Lake Villa",
+    meta: "4 BHK + pool",
+    text: "The waterfront plan: private pool deck, full-width glazing to Sheen Lake and an upper sunset terrace.",
+    image: img.villaLake,
+    details: [
+      ["Plot", "5,400 sq ft"],
+      ["Built-up", "6,200 sq ft"],
+      ["Layout", "4 BHK + pool"],
+    ],
+  },
+  {
+    id: "plan",
+    title: "Plot & Layout Logic",
+    meta: "How it fits",
+    text: "Every plot is drawn from the contour survey: parking absorbed on-plot, service lane behind, no two homes facing each other.",
+    image: img.planDrawing,
+    details: [
+      ["Setbacks", "3 m green edge"],
+      ["Parking", "2 cars on plot"],
+      ["Access", "Rear service lane"],
+    ],
+  },
+];
+
+const CONSTRUCTION: ShowcaseItem[] = [
+  {
+    id: "facade",
+    title: "Stone and lime facades",
+    meta: "Material",
+    text: "Load-bearing stone with lime plaster — surfaces that weather warmer with each monsoon instead of fading.",
+    image: img.facade,
+  },
+  {
+    id: "overhang",
+    title: "Deep overhangs",
+    meta: "Climate",
+    text: "Roof projections sized for monsoon rain and summer sun, so windows stay open through the year.",
+    image: img.build,
+  },
+  {
+    id: "ventilation",
+    title: "Cross-ventilated plans",
+    meta: "Comfort",
+    text: "Every habitable room has two openings; mechanical cooling is a fallback, not the default.",
+    image: img.villaGarden,
+  },
+  {
+    id: "water",
+    title: "Rain harvesting on every plot",
+    meta: "Water",
+    text: "Roof and surface runoff is recharged on plot, with the overflow channelled back to Sheen Lake.",
+    image: img.lake,
+  },
+  {
+    id: "future",
+    title: "Solar-ready, EV-ready",
+    meta: "Services",
+    text: "Roofs pre-conduited for panels and porches wired for chargers, so retrofits never break a wall.",
+    image: img.villaValley,
+  },
+];
 
 function Compare() {
   const [pos, setPos] = useState(55);
@@ -85,25 +162,30 @@ function Villas() {
       />
 
       <Section>
-        <div className="grid gap-16 md:grid-cols-[1fr_1.1fr] md:gap-24">
-          <div>
-            <Eyebrow>The Enclave</Eyebrow>
-            <SplitText
-              text="Privacy first, community second, traffic last."
-              className="display mt-8 text-4xl md:text-6xl"
-            />
-          </div>
-          <Reveal delay={0.1} className="space-y-6 text-base font-light leading-relaxed text-muted-foreground">
-            <p>
-              Roads follow the valleys, so no home looks directly into another. Parking
-              is absorbed into each plot, service lanes run behind, and the walking
-              trail links every cluster without crossing a road twice.
-            </p>
-            <div className="grid grid-cols-3 gap-6 pt-4">
+        <HoverShowcase
+          items={TYPES}
+          side="left"
+          height="h-[32rem] md:h-[40rem]"
+          columns="lg:grid-cols-[1fr_1.1fr]"
+          header={
+            <>
+              <Eyebrow>The Enclave</Eyebrow>
+              <SplitText
+                text="Three plans. Endless orientation."
+                className="display mb-6 mt-6 text-4xl md:text-6xl"
+              />
+              <p className="mb-4 max-w-lg text-sm font-light leading-relaxed text-muted-foreground">
+                Roads follow the valleys, so no home looks directly into another. Hover or
+                tab a villa type to see the plot, built-up area and layout come alive.
+              </p>
+            </>
+          }
+          footer={
+            <div className="mt-12 grid grid-cols-3 gap-6">
               {[
                 ["354", "Villas"],
                 ["2", "Clubhouses"],
-                ["4 km", "Trails"],
+                ["18", "Garden valleys"],
               ].map(([n, l]) => (
                 <div key={l}>
                   <p className="display text-4xl text-primary">{n}</p>
@@ -113,37 +195,11 @@ function Villas() {
                 </div>
               ))}
             </div>
-          </Reveal>
-        </div>
+          }
+        />
       </Section>
 
       <Section className="bg-muted/40">
-        <Eyebrow>Villa Types</Eyebrow>
-        <SplitText text="Three plans. Endless orientation." className="display mt-6 text-4xl md:text-6xl" />
-        <div className="mt-14 grid gap-8 md:grid-cols-3">
-          {TYPES.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.1}>
-              <TiltCard className="h-full rounded-3xl bg-card p-10 soft-shadow">
-                <h3 className="display text-3xl">{t.name}</h3>
-                <dl className="mt-8 space-y-4 text-sm font-light">
-                  {[
-                    ["Plot", t.plot],
-                    ["Built-up", t.built],
-                    ["Layout", t.beds],
-                  ].map(([k, v]) => (
-                    <div key={k} className="flex justify-between border-b border-border/70 pb-3">
-                      <dt className="text-muted-foreground">{k}</dt>
-                      <dd>{v}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </TiltCard>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      <Section>
         <Eyebrow>Day / Night</Eyebrow>
         <SplitText text="The same villa, twelve hours apart." className="display mb-12 mt-6 text-4xl md:text-6xl" />
         <Reveal>
@@ -152,38 +208,37 @@ function Villas() {
       </Section>
 
       <Section className="bg-secondary text-[oklch(0.96_0.01_84)]">
-        <div className="grid items-center gap-16 md:grid-cols-2 md:gap-24">
-          <div>
-            <p className="eyebrow text-accent">Construction Philosophy</p>
-            <SplitText
-              text="Built to weather, not to shine."
-              className="display mt-6 text-4xl md:text-6xl"
-            />
-            <Reveal delay={0.1}>
-              <ul className="mt-10 space-y-4">
-                {[
-                  "Load-bearing stone and lime plaster facades",
-                  "Deep overhangs for monsoon and summer sun",
-                  "Cross-ventilated plans, minimal mechanical cooling",
-                  "Rain harvesting on every plot",
-                  "Solar-ready roofs and EV-ready porches",
-                ].map((t) => (
-                  <li key={t} className="flex gap-4 border-b border-white/15 pb-4 text-sm font-light text-white/80">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-          <MaskedImage src={img.suite} alt="Villa interior" className="h-[34rem]" />
-        </div>
+        <HoverShowcase
+          items={CONSTRUCTION}
+          side="right"
+          tone="dark"
+          height="h-[32rem] md:h-[38rem]"
+          columns="lg:grid-cols-[1.05fr_1fr]"
+          header={
+            <>
+              <p className="eyebrow text-accent">Construction Philosophy</p>
+              <SplitText
+                text="Built to weather, not to shine."
+                className="display mb-6 mt-6 text-4xl md:text-6xl"
+              />
+              <p className="mb-4 text-xs uppercase tracking-[0.25em] text-white/50">
+                Hover or tab a principle to see it built
+              </p>
+            </>
+          }
+        />
       </Section>
 
       <CtaBand
         title="Choose your valley."
         text="Plot availability moves quickly across NICQE and RIME. We'll walk you through what's open."
         label="Request availability"
+        image={img.villaLake}
+        points={[
+          ["Valley Villa", "2,400 sq ft plot · 3 BHK + study"],
+          ["Garden Villa", "3,600 sq ft plot · 4 BHK + court"],
+          ["Lake Villa", "5,400 sq ft plot · 4 BHK + pool"],
+        ]}
       />
     </>
   );

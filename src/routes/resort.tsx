@@ -1,13 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CtaBand, PageHero } from "@/components/site/PageHero";
-import {
-  Eyebrow,
-  MaskedImage,
-  Reveal,
-  Section,
-  SplitText,
-  TiltCard,
-} from "@/components/site/primitives";
+import { HoverShowcase, type ShowcaseItem } from "@/components/site/HoverShowcase";
+import { Eyebrow, MaskedImage, Reveal, Section, SplitText } from "@/components/site/primitives";
 import { img } from "@/lib/images";
 
 export const Route = createFileRoute("/resort")({
@@ -44,14 +38,50 @@ const SUITES = [
   },
 ] as const;
 
-const FACILITIES = [
-  ["Spa", "Six treatment rooms, steam, and an outdoor cold plunge."],
-  ["Swimming Pool", "A 30-metre infinity edge facing the sunset."],
-  ["Gym", "Full strength and cardio floor, opening to a shaded terrace."],
-  ["Wellness", "Yoga deck, sound therapy and guided lake walks at dawn."],
-  ["Restaurant", "Wood-fire kitchen, produce from the estate orchard."],
-  ["Library Bar", "Quiet corners, long pours, and no television."],
-] as const;
+const FACILITIES: ShowcaseItem[] = [
+  {
+    id: "spa",
+    title: "Spa & Wellness",
+    meta: "Six rooms",
+    text: "Six treatment rooms, steam and sauna, and an outdoor cold plunge half a level below grade.",
+    image: img.spa,
+  },
+  {
+    id: "pool",
+    title: "Swimming Pool",
+    meta: "30 metres",
+    text: "A 30-metre infinity edge facing the sunset, with a shaded family shallow.",
+    image: img.pool,
+  },
+  {
+    id: "gym",
+    title: "Gymnasium",
+    meta: "Open 5 am",
+    text: "Full strength and cardio floor opening to a shaded terrace and yoga deck.",
+    image: img.gym,
+  },
+  {
+    id: "dining",
+    title: "Boutique Restaurant",
+    meta: "Wood fire",
+    text: "Wood-fire kitchen with produce from the estate orchard, and dinner served outdoors.",
+    image: img.dining,
+  },
+  {
+    id: "bar",
+    title: "Library Bar",
+    meta: "Quiet room",
+    text: "Quiet corners, long pours, and no television anywhere in the room.",
+    image: img.bar,
+  },
+  {
+    id: "lake",
+    title: "Lakeside & Trails",
+    meta: "8 km",
+    text: "Guided dawn lake walks, birding decks, a floating bar and the promenade loop.",
+    image: img.promenade,
+  },
+];
 
 function Resort() {
   return (
@@ -110,17 +140,24 @@ function Resort() {
       </Section>
 
       <Section>
-        <Eyebrow>Facilities</Eyebrow>
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {FACILITIES.map(([t, d], i) => (
-            <Reveal key={t} delay={i * 0.06}>
-              <TiltCard className="h-full rounded-3xl bg-card p-8 soft-shadow">
-                <h3 className="display text-2xl">{t}</h3>
-                <p className="mt-3 text-sm font-light leading-relaxed text-muted-foreground">{d}</p>
-              </TiltCard>
-            </Reveal>
-          ))}
-        </div>
+        <HoverShowcase
+          items={FACILITIES}
+          side="left"
+          height="h-[32rem] md:h-[38rem]"
+          columns="lg:grid-cols-[1fr_1.05fr]"
+          header={
+            <>
+              <Eyebrow>Facilities</Eyebrow>
+              <SplitText
+                text="Everything, within a walk."
+                className="display mb-6 mt-6 text-4xl md:text-6xl"
+              />
+              <p className="mb-4 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                Hover or tab a facility to preview it
+              </p>
+            </>
+          }
+        />
       </Section>
 
       <section className="relative h-[70vh] overflow-hidden">
@@ -138,6 +175,12 @@ function Resort() {
         title="Stay a night before you decide."
         text="Resort stays are open to prospective residents — arrive Friday, walk the estate Saturday."
         label="Enquire about a stay"
+        image={img.suite}
+        points={[
+          ["Suites", "Presidential, island-facing, pool and junior"],
+          ["Included", "Spa access, dawn lake walk, estate breakfast"],
+          ["Best months", "October to February, book early"],
+        ]}
       />
     </>
   );

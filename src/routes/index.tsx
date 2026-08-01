@@ -171,6 +171,18 @@ function Home() {
               text="A hundred acres that behave like one continuous garden."
               className="display mt-8 text-4xl md:text-6xl"
             />
+            <MaskedImage
+              src={img.canopy}
+              alt="Retained canopy over the Mandhara estate"
+              className="mt-10 h-[24rem] md:h-[28rem]"
+              parallax={40}
+            />
+            <Reveal delay={0.2}>
+              <p className="mt-5 flex items-center gap-3 text-[0.62rem] uppercase tracking-[0.28em] text-muted-foreground">
+                <span className="inline-block h-px w-8 bg-accent/60" />
+                Not a single mature tree was felled
+              </p>
+            </Reveal>
           </div>
           <Reveal delay={0.15} className="space-y-6 self-end text-base font-light leading-relaxed text-muted-foreground">
             <p>
@@ -210,11 +222,49 @@ function Home() {
             parallax={80}
           />
           <div className="absolute inset-0 bg-[oklch(0.17_0.012_60)]/35" />
-          <div className="absolute inset-0 grid place-items-center px-6 text-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
             <SplitText
               text="Design that defers to the land."
               className="display max-w-3xl text-4xl text-[oklch(0.97_0.01_84)] md:text-7xl"
             />
+            <Reveal delay={0.2}>
+              <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-relaxed text-white/70">
+                Five acres of water, eighteen garden valleys and an eight-kilometre
+                promenade — drawn from the contour survey, not over it.
+              </p>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
+                {[
+                  ["5 acres", "Sheen Lake"],
+                  ["18", "Garden valleys"],
+                  ["8 km", "Promenade"],
+                ].map(([n, l]) => (
+                  <div key={l} className="text-[oklch(0.97_0.01_84)]">
+                    <p className="display text-3xl text-accent md:text-4xl">{n}</p>
+                    <p className="mt-1 text-[0.58rem] uppercase tracking-[0.28em] text-white/60">
+                      {l}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+                <Magnetic>
+                  <Link
+                    to="/masterplan"
+                    className="inline-flex rounded-full bg-accent px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-accent-foreground transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
+                  >
+                    Explore the five zones
+                  </Link>
+                </Magnetic>
+                <Magnetic>
+                  <Link
+                    to="/gallery"
+                    className="inline-flex rounded-full border border-white/45 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-[oklch(0.97_0.01_84)] backdrop-blur-md transition-colors duration-500 hover:border-accent hover:text-accent"
+                  >
+                    See the gallery
+                  </Link>
+                </Magnetic>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>

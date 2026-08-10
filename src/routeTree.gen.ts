@@ -17,6 +17,7 @@ import { Route as ClubRouteImport } from './routes/club'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as LocationRouteImport } from './routes/location'
+import { Route as LogoRouteImport } from './routes/logo'
 import { Route as MasterplanRouteImport } from './routes/masterplan'
 import { Route as ResortRouteImport } from './routes/resort'
 import { Route as RevenueRouteImport } from './routes/revenue'
@@ -62,6 +63,11 @@ const LocationRoute = LocationRouteImport.update({
   path: '/location',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LogoRoute = LogoRouteImport.update({
+  id: '/logo',
+  path: '/logo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MasterplanRoute = MasterplanRouteImport.update({
   id: '/masterplan',
   path: '/masterplan',
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/location': typeof LocationRoute
+  '/logo': typeof LogoRoute
   '/masterplan': typeof MasterplanRoute
   '/resort': typeof ResortRoute
   '/revenue': typeof RevenueRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/location': typeof LocationRoute
+  '/logo': typeof LogoRoute
   '/masterplan': typeof MasterplanRoute
   '/resort': typeof ResortRoute
   '/revenue': typeof RevenueRoute
@@ -121,6 +129,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/location': typeof LocationRoute
+  '/logo': typeof LogoRoute
   '/masterplan': typeof MasterplanRoute
   '/resort': typeof ResortRoute
   '/revenue': typeof RevenueRoute
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/location'
+    | '/logo'
     | '/masterplan'
     | '/resort'
     | '/revenue'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/location'
+    | '/logo'
     | '/masterplan'
     | '/resort'
     | '/revenue'
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/location'
+    | '/logo'
     | '/masterplan'
     | '/resort'
     | '/revenue'
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   LocationRoute: typeof LocationRoute
+  LogoRoute: typeof LogoRoute
   MasterplanRoute: typeof MasterplanRoute
   ResortRoute: typeof ResortRoute
   RevenueRoute: typeof RevenueRoute
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/logo': {
+      id: '/logo'
+      path: '/logo'
+      fullPath: '/logo'
+      preLoaderRoute: typeof LogoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/masterplan': {
       id: '/masterplan'
       path: '/masterplan'
@@ -284,6 +304,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   LocationRoute: LocationRoute,
+  LogoRoute: LogoRoute,
   MasterplanRoute: MasterplanRoute,
   ResortRoute: ResortRoute,
   RevenueRoute: RevenueRoute,
@@ -292,3 +313,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

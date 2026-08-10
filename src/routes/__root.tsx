@@ -31,7 +31,7 @@ function NotFoundComponent() {
         <div className="mt-8">
           <Link
             to="/"
-            className="inline-flex rounded-full bg-primary px-7 py-3 text-[0.7rem] uppercase tracking-[0.25em] text-primary-foreground"
+            className="btn-pill btn-label bg-primary text-primary-foreground"
           >
             Return home
           </Link>
@@ -61,13 +61,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="rounded-full bg-primary px-6 py-3 text-[0.7rem] uppercase tracking-[0.25em] text-primary-foreground"
+            className="btn-pill btn-label bg-primary text-primary-foreground"
           >
             Try again
           </button>
           <a
             href="/"
-            className="rounded-full border border-border px-6 py-3 text-[0.7rem] uppercase tracking-[0.25em]"
+            className="btn-pill btn-label border border-border"
           >
             Go home
           </a>

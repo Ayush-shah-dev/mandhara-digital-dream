@@ -3,6 +3,7 @@ import { CtaBand, PageHero } from "@/components/site/PageHero";
 import { HoverShowcase, type ShowcaseItem } from "@/components/site/HoverShowcase";
 import { Eyebrow, MaskedImage, Reveal, Section, SplitText } from "@/components/site/primitives";
 import { img } from "@/lib/images";
+import { DEVELOPER, LAKE, NICQE, VILLAS } from "@/lib/project";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "How Mandhara began: a hundred acres of water and canopy shaped into villas, a resort and a celebration club.",
+          "How Mandhara began: water and canopy near Lothal, Gujarat, shaped into villas, a resort and a celebration club.",
       },
       { property: "og:title", content: "The Story of Mandhara" },
       {
@@ -30,7 +31,7 @@ const TIMELINE: ShowcaseItem[] = [
     id: "land",
     title: "The Land",
     meta: "01 — Before",
-    text: "A hundred acres of undulating ground, a natural depression that became Sheen Lake, and a canopy nobody wanted to lose.",
+    text: `Undulating ground near Lothal, a natural depression that became the ${LAKE.acres}-acre Sheen Lake, and a canopy nobody wanted to lose.`,
     image: img.canopy,
   },
   {
@@ -86,26 +87,29 @@ function About() {
               text="Luxury here is quiet, slow and outdoors."
               className="display mt-8 text-4xl md:text-6xl"
             />
-            <Reveal delay={0.1} className="mt-8 space-y-6 text-base font-light leading-relaxed text-muted-foreground">
-              <p>
+            <Reveal delay={0.1} className="mt-8">
+              <p className="body-copy text-muted-foreground">
                 We measured success in canopy retained, in metres of shaded walkway, in
-                the number of evenings a family chooses to eat outside. Architecture keeps
-                a low profile so the land stays the protagonist.
+                the number of evenings a family chooses to eat outside. Architecture
+                keeps a low profile so the land stays the protagonist.
               </p>
-              <p>
+              <p className="body-copy mt-6 text-muted-foreground">
                 Hospitality runs through everything — the resort team also cares for the
                 enclave's clubhouses, so residents live with service standards usually
                 reserved for holidays.
               </p>
-              <div className="grid grid-cols-3 gap-6 pt-4">
+              <p className="lead mt-14 max-w-lg text-foreground">
+                Mandhara is developed by {DEVELOPER}.
+              </p>
+              <div className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-10">
                 {[
-                  ["100+", "Acres"],
-                  ["18", "Garden valleys"],
-                  ["5 acres", "Lake"],
+                  [String(VILLAS.total), "Villas"],
+                  [String(NICQE.gardenValleys), "Garden valleys"],
+                  [`${LAKE.acres} acres`, "Sheen Lake"],
                 ].map(([n, l]) => (
                   <div key={l}>
-                    <p className="display text-3xl text-primary md:text-4xl">{n}</p>
-                    <p className="mt-2 text-[0.62rem] uppercase tracking-[0.25em]">{l}</p>
+                    <p className="display tabular text-5xl text-primary md:text-6xl">{n}</p>
+                    <p className="label mt-3 text-muted-foreground">{l}</p>
                   </div>
                 ))}
               </div>
@@ -127,7 +131,7 @@ function About() {
                 text="Five chapters, one estate."
                 className="display mb-6 mt-6 text-4xl md:text-6xl"
               />
-              <p className="mb-4 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+              <p className="mb-4 label text-muted-foreground">
                 Hover or tab through a chapter to see it
               </p>
             </>
@@ -142,8 +146,8 @@ function About() {
         image={img.promenade}
         points={[
           ["Chapter one", "Sheen Lake and the promenade at sunrise"],
-          ["Chapter two", "NICQE and RIME villa valleys on foot"],
-          ["Chapter three", "Resort lunch, spa walk-through, club lawns"],
+          ["Chapter two", "The Nicqe and Orion villa enclaves on foot"],
+          ["Chapter three", "Lunch at Rime, then the Gemini club lawns"],
         ]}
       />
     </>

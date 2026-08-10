@@ -5,6 +5,7 @@ import { CtaBand, PageHero } from "@/components/site/PageHero";
 import { ShowcasePanel } from "@/components/site/HoverShowcase";
 import { Eyebrow, Reveal, Section, SplitText } from "@/components/site/primitives";
 import { img } from "@/lib/images";
+import { CLUB, LAKE, NICQE, VILLAS } from "@/lib/project";
 
 export const Route = createFileRoute("/masterplan")({
   head: () => ({
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/masterplan")({
       {
         name: "description",
         content:
-          "Explore the Mandhara masterplan: NICQE, RIME, GEMINI, ORION and Sheen Lake across a hundred landscaped acres.",
+          "Explore the Mandhara masterplan: the Nicqe and Orion villa enclaves, the Rime resort, the Gemini club and event space, and Sheen Lake at the centre.",
       },
       { property: "og:title", content: "Mandhara Masterplan" },
       {
@@ -37,86 +38,132 @@ type Zone = {
   to: string;
   hash: string;
   linkLabel: string;
+  secondary?: { to: string; label: string };
   x: number;
   y: number;
 };
 
+const NICQE_FACTS = { ...NICQE, villas: VILLAS.nicqe };
+
+/**
+ * Zone roles come straight from the brochure masterplan (p.2). RIME is the
+ * resort and GEMINI is the club/event space — the reverse of what this page
+ * shipped with, which sent visitors looking for the wedding venue into resort
+ * suite content and vice versa. ORION is the revenue-sharing villa enclave, not
+ * an events venue.
+ *
+ * TODO(client): the x/y pin positions below follow the brochure's described
+ * layout — Sheen Lake north-west, Gemini centre-west, Nicqe and Orion sweeping
+ * east, Rime south — but have not been checked against the real aerial plate.
+ * Confirm against the brochure masterplan image before launch.
+ */
 const ZONES: Zone[] = [
-  {
-    id: "nicqe",
-    name: "NICQE",
-    purpose: "Villa Enclave North",
-    overview:
-      "The first residential valley: wide plots stepping down toward the water, with the primary clubhouse at its centre.",
-    features: ["Garden valley plots", "Clubhouse One", "Tree-lined avenue", "Children's green"],
-    image: img.villaValley,
-    to: "/villas",
-    hash: "enclave",
-    linkLabel: "Open the villa enclave",
-    x: 26,
-    y: 30,
-  },
-  {
-    id: "rime",
-    name: "RIME",
-    purpose: "Villa Enclave South",
-    overview:
-      "Quieter, deeper into the canopy — designed for larger homes with private courtyards and long garden edges.",
-    features: ["Courtyard villas", "Clubhouse Two", "Walking trail loop", "Orchard belt"],
-    image: img.villaGarden,
-    to: "/villas",
-    hash: "construction",
-    linkLabel: "See how they are built",
-    x: 30,
-    y: 68,
-  },
-  {
-    id: "gemini",
-    name: "GEMINI",
-    purpose: "The Resort",
-    overview:
-      "Suites, spa, pools and dining arranged along the lake's northern shoulder, catching the morning light.",
-    features: ["Presidential & Junior suites", "Spa and wellness", "Infinity pool", "Lakeside dining"],
-    image: img.pool,
-    to: "/resort",
-    hash: "facilities",
-    linkLabel: "Open resort facilities",
-    x: 72,
-    y: 32,
-  },
-  {
-    id: "orion",
-    name: "ORION",
-    purpose: "Club & Events",
-    overview:
-      "Banquet halls, an open event ground and lawns sized for weddings, with independent access and parking.",
-    features: ["Grand banquet", "Event ground", "Outdoor restaurant", "Bridal suites"],
-    image: img.banquet,
-    to: "/club",
-    hash: "venues",
-    linkLabel: "Open club venues",
-    x: 74,
-    y: 70,
-  },
   {
     id: "sheen",
     name: "SHEEN LAKE",
     purpose: "The Heart",
     overview:
-      "The still centre of Mandhara — five acres of water fed by monsoon channels, edged by an 8 km promenade.",
-    features: ["Lake promenade", "Jetty & pavilion", "Birding decks", "Sunset steps"],
+      "The still centre of Mandhara — six acres of water with five landscaped islands, held by a kilometre of promenade.",
+    features: [
+      `${LAKE.acres} acres of water`,
+      `${LAKE.islands} landscaped islands`,
+      `${LAKE.promenadeKm} km promenade`,
+      `${LAKE.aerators} water aerators`,
+    ],
     image: img.promenade,
     to: "/amenities",
     hash: "",
     linkLabel: "Walk the lakeside",
-    x: 50,
-    y: 50,
+    x: 24,
+    y: 26,
+  },
+  {
+    id: "gemini",
+    name: "GEMINI",
+    purpose: "Club & Event Space",
+    overview:
+      "The celebration side of the estate: the event ground, the banquet hall, the celebration lawns and the Pavilion Club, with their own access and parking.",
+    features: [
+      "Event Ground",
+      `Banquet Hall — ${CLUB.banquetSqFt}`,
+      "Outdoor Restaurant",
+      "Celebration Lawns",
+      "Pavilion Club — cricket ground, pool, wedding rooms, gym",
+    ],
+    image: img.banquet,
+    to: "/club",
+    hash: "venues",
+    linkLabel: "Open club venues",
+    x: 36,
+    y: 52,
+  },
+  {
+    id: "nicqe",
+    name: "NICQE",
+    purpose: "Villa Enclave",
+    overview:
+      "The main residential enclave — villas set along garden valleys, with two clubhouses of its own at the centre.",
+    features: [
+      `${NICQE_FACTS.villas} Villas`,
+      `${NICQE_FACTS.clubhouses} Clubhouses`,
+      `${NICQE_FACTS.gardenValleys} Garden Valleys`,
+    ],
+    image: img.villaValley,
+    to: "/villas",
+    hash: "nicqe",
+    linkLabel: "Open the villa enclave",
+    x: 70,
+    y: 34,
+  },
+  {
+    id: "orion",
+    name: "ORION",
+    purpose: "Villa Enclave — Revenue Sharing",
+    overview:
+      "The investment product: villas owned outright but operated by the resort team, with access to the club amenities rather than a clubhouse of their own.",
+    features: [
+      `${VILLAS.orion} Villas`,
+      "Access to Club Amenities",
+      "Managed by Resort",
+      "Revenue-sharing ownership",
+    ],
+    image: img.villaLake,
+    to: "/villas",
+    hash: "orion",
+    linkLabel: "Open the revenue-sharing villas",
+    secondary: { to: "/revenue", label: "See the revenue model" },
+    x: 78,
+    y: 58,
+  },
+  {
+    id: "rime",
+    name: "RIME",
+    purpose: "The Resort",
+    overview:
+      "The retreat: wellness, dining, pool and suites gathered on the estate's southern edge, open to guests and residents alike.",
+    features: [
+      "Retreat & Wellness Center",
+      "Gym & Indoor Games",
+      "Boutique + Specialty Restaurant",
+      "Swimming Pool",
+      "Outdoor Event Lawn",
+      "Presidential, Standard & Junior Suites",
+    ],
+    image: img.resort,
+    to: "/resort",
+    hash: "facilities",
+    linkLabel: "Open resort facilities",
+    x: 48,
+    y: 78,
   },
 ];
 
+/** Sheen Lake is the hub every other zone reads from on the map. */
+const HUB = ZONES[0]!;
+
 function Masterplan() {
   const router = useRouter();
-  const [index, setIndex] = useState(4);
+  const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState<string | null>(null);
   const active = ZONES[index]!;
 
@@ -191,14 +238,14 @@ function Masterplan() {
                 preserveAspectRatio="none"
                 className="pointer-events-none absolute inset-0 h-full w-full"
               >
-                {ZONES.slice(0, 4).map((z) => (
+                {ZONES.filter((z) => z.id !== HUB.id).map((z) => (
                   <motion.line
                     key={z.id}
                     x1={z.x}
                     y1={z.y}
-                    x2={50}
-                    y2={50}
-                    stroke="oklch(0.673 0.093 85)"
+                    x2={HUB.x}
+                    y2={HUB.y}
+                    stroke="var(--brand-glow)"
                     strokeWidth={0.15}
                     strokeDasharray="1 1.4"
                     initial={{ pathLength: 0, opacity: 0 }}
@@ -244,7 +291,7 @@ function Masterplan() {
                         <span className="h-2 w-2 rounded-full bg-white" />
                         <span className="shimmer absolute inset-0 rounded-full border border-accent/60" />
                       </span>
-                      <span className="mt-2 block whitespace-nowrap text-center text-[0.55rem] uppercase tracking-[0.25em] text-white">
+                      <span className="mt-2 block whitespace-nowrap text-center label text-white">
                         {z.name}
                       </span>
                     </button>
@@ -260,14 +307,14 @@ function Masterplan() {
                           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                           className="pointer-events-none absolute left-1/2 top-full z-20 mt-3 w-60 -translate-x-1/2 rounded-2xl border border-white/15 bg-[oklch(0.17_0.012_60)]/90 p-4 text-left backdrop-blur-xl"
                         >
-                          <p className="text-[0.55rem] uppercase tracking-[0.3em] text-accent">
+                          <p className="label text-accent">
                             {z.purpose}
                           </p>
                           <p className="display mt-1 text-xl text-[oklch(0.97_0.01_84)]">{z.name}</p>
                           <p className="mt-2 text-[0.7rem] font-light leading-relaxed text-white/65">
                             {z.overview}
                           </p>
-                          <p className="mt-3 text-[0.55rem] uppercase tracking-[0.25em] text-accent">
+                          <p className="mt-3 label text-accent">
                             {z.linkLabel} →
                           </p>
                         </motion.div>
@@ -283,7 +330,7 @@ function Masterplan() {
               <button
                 type="button"
                 onClick={() => markerRefs.current[index]?.focus()}
-                className="rounded-full border border-border px-6 py-3 text-[0.6rem] uppercase tracking-[0.25em] transition-colors duration-500 hover:border-primary hover:text-primary"
+                className="btn-pill btn-label border border-border transition-colors duration-500 hover:border-primary hover:text-primary"
               >
                 Focus the map
               </button>
@@ -292,11 +339,11 @@ function Masterplan() {
                 onClick={() =>
                   detailRef.current?.focus({ preventScroll: false })
                 }
-                className="rounded-full border border-border px-6 py-3 text-[0.6rem] uppercase tracking-[0.25em] transition-colors duration-500 hover:border-primary hover:text-primary"
+                className="btn-pill btn-label border border-border transition-colors duration-500 hover:border-primary hover:text-primary"
               >
                 Jump to zone detail
               </button>
-              <span className="text-[0.6rem] uppercase tracking-[0.25em] text-muted-foreground">
+              <span className="label text-muted-foreground">
                 ← → to move between zones
               </span>
             </div>
@@ -316,14 +363,14 @@ function Masterplan() {
             >
               <p className="eyebrow">{active.purpose}</p>
               <h2 className="display mt-4 text-5xl md:text-6xl">{active.name}</h2>
-              <p className="mt-6 text-base font-light leading-relaxed text-muted-foreground">
+              <p className="mt-6 body-copy text-muted-foreground">
                 {active.overview}
               </p>
               <ul className="mt-8 space-y-3">
                 {active.features.map((f) => (
                   <li
                     key={f}
-                    className="flex items-center gap-4 border-b border-border/70 pb-3 text-sm font-light"
+                    className="flex items-center gap-4 border-b border-border/70 pb-3 body-copy"
                   >
                     <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                     {f}
@@ -334,17 +381,25 @@ function Masterplan() {
                 <Link
                   to={active.to}
                   {...(active.hash ? { hash: active.hash } : {})}
-                  className="inline-flex rounded-full bg-primary px-7 py-3.5 text-[0.62rem] uppercase tracking-[0.25em] text-primary-foreground transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
+                  className="btn-pill btn-label bg-primary text-primary-foreground transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
                 >
                   {active.linkLabel}
                 </Link>
+                {active.secondary && (
+                  <Link
+                    to={active.secondary.to}
+                    className="btn-pill btn-label border border-primary/50 text-primary transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
+                  >
+                    {active.secondary.label}
+                  </Link>
+                )}
                 <button
                   type="button"
                   onClick={() => {
                     void router.invalidate;
                     markerRefs.current[index]?.focus();
                   }}
-                  className="inline-flex rounded-full border border-border px-7 py-3.5 text-[0.62rem] uppercase tracking-[0.25em] transition-colors duration-500 hover:border-primary hover:text-primary"
+                  className="btn-pill btn-label border border-border transition-colors duration-500 hover:border-primary hover:text-primary"
                 >
                   Return to the map
                 </button>
@@ -395,13 +450,13 @@ function Masterplan() {
                       }`}
                     >
                       <span
-                        className={`absolute left-0 top-0 h-px bg-accent transition-all duration-700 ${
+                        className={`absolute left-0 top-0 h-px bg-primary transition-all duration-700 ${
                           on ? "w-full" : "w-0"
                         }`}
                       />
                       <div className="flex items-baseline justify-between gap-4">
                         <div>
-                          <p className="text-[0.58rem] uppercase tracking-[0.3em] text-accent">
+                          <p className="label text-primary">
                             {z.purpose}
                           </p>
                           <h3
@@ -411,12 +466,12 @@ function Masterplan() {
                           >
                             {z.name}
                           </h3>
-                          <p className="mt-2 max-w-md text-sm font-light leading-relaxed text-muted-foreground">
+                          <p className="mt-2 max-w-md body-copy text-muted-foreground">
                             {z.overview}
                           </p>
                         </div>
                         <span
-                          className={`text-[0.6rem] uppercase tracking-[0.25em] transition-opacity duration-500 ${
+                          className={`label transition-opacity duration-500 ${
                             on ? "opacity-100 text-primary" : "opacity-0"
                           }`}
                         >
@@ -438,9 +493,15 @@ function Masterplan() {
         label="Book a masterplan tour"
         image={img.masterplan}
         points={[
-          ["NICQE & RIME", "354 villas, 2 clubhouses, 18 garden valleys"],
-          ["GEMINI & ORION", "Resort suites, spa, banquets and event ground"],
-          ["SHEEN LAKE", "5 acres of water, 8 km promenade, 5 islands"],
+          [
+            "NICQE & ORION",
+            `${VILLAS.total} villas — ${VILLAS.nicqe} in Nicqe with ${NICQE.clubhouses} clubhouses and ${NICQE.gardenValleys} garden valleys, ${VILLAS.orion} revenue-sharing in Orion`,
+          ],
+          ["RIME & GEMINI", "The resort, and the club and event space"],
+          [
+            "SHEEN LAKE",
+            `${LAKE.acres} acres of water, ${LAKE.islands} islands, ${LAKE.promenadeKm} km promenade`,
+          ],
         ]}
       />
     </>

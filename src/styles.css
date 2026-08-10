@@ -16,6 +16,55 @@
   --font-serif: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
 
+  /*
+   * Type scale. Every size is a role, not a measurement, so a page never picks
+   * a size ad hoc — the audit found nineteen different size/tracking pairs doing
+   * the job of one label style, and prose split between 14px and 16px.
+   *
+   * Sizes clamp between an explicit mobile floor and an explicit desktop
+   * ceiling rather than scaling proportionally: shrinking already-small type on
+   * a small screen is where legibility breaks down fastest, so labels hold at
+   * 13px everywhere and body copy never drops below 16px.
+   */
+
+  /* 13px flat — small-caps labels, eyebrows, stat labels, meta, nav. */
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.35;
+  --text-label--letter-spacing: 0.14em;
+  --text-label--font-weight: 500;
+
+  /* 13 → 14px — captions that carry a claim, not fine print. */
+  --text-caption: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
+  --text-caption--line-height: 1.45;
+  --text-caption--letter-spacing: 0.1em;
+  --text-caption--font-weight: 500;
+
+  /* 14 → 15px — nav links and button labels share one size. */
+  --text-nav: clamp(0.875rem, 0.845rem + 0.15vw, 0.9375rem);
+  --text-nav--line-height: 1.2;
+  --text-nav--letter-spacing: 0.08em;
+  --text-nav--font-weight: 500;
+
+  /* 15 → 16px, tighter leading — in-card copy must stay scannable. */
+  --text-card-copy: clamp(0.9375rem, 0.915rem + 0.11vw, 1rem);
+  --text-card-copy--line-height: 1.45;
+  --text-card-copy--font-weight: 300;
+
+  /* 16 → 18px — a card title is a label, not prose. */
+  --text-card-title: clamp(1rem, 0.955rem + 0.22vw, 1.125rem);
+  --text-card-title--line-height: 1.3;
+  --text-card-title--font-weight: 500;
+
+  /* 16 → 19px — the main body size across the site. */
+  --text-body: clamp(1rem, 0.93rem + 0.33vw, 1.1875rem);
+  --text-body--line-height: 1.65;
+  --text-body--font-weight: 300;
+
+  /* 20 → 24px — the missing middle step between body copy and stat numerals. */
+  --text-lead: clamp(1.25rem, 1.13rem + 0.55vw, 1.5rem);
+  --text-lead--line-height: 1.45;
+  --text-lead--font-weight: 300;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -37,17 +86,43 @@
   --color-ring: var(--ring);
   --color-ink: var(--ink);
   --color-sand: var(--sand);
-  --color-forest: var(--secondary);
-  --color-gold: var(--accent);
   --color-night: var(--night);
+
+  /* Brochure brand ramp — see the palette block in :root for provenance. */
+  --color-glow: var(--brand-glow);
+  --color-primary-mid: var(--brand-primary-mid);
+  --color-deep: var(--brand-deep);
+  --color-deepest: var(--brand-deepest);
+  --color-peach: var(--brand-peach);
+  --color-cream: var(--brand-cream);
 }
 
 :root {
   --radius: 1rem;
 
-  /* Warm Ivory */
+  /*
+   * One vertical rhythm value for every major section boundary: ~72px on
+   * mobile, ~120px on desktop. Eyeballing this per page is what makes a long
+   * scroll feel inconsistent rather than deliberate.
+   */
+  --space-section: clamp(4.5rem, 3.2rem + 4vw, 7.5rem);
+
+  /*
+   * Brand ramp sampled from the brochure cover, the section-divider panels and
+   * the NICQE Villa Enclave spread: a sunset/desert-clay gradient running from a
+   * sandy-amber glow point down to a deep burnt rust.
+   */
+  --brand-glow: #f4a460;
+  --brand-primary: #d9622b;
+  --brand-primary-mid: #c75b2b;
+  --brand-deep: #8b3a2b;
+  --brand-deepest: #7a2e1f;
+  --brand-cream: #ffffff;
+  --brand-peach: #f0c9a0;
+
+  /* Warm Ivory — retained: the brochure's interior pages are white/cream. */
   --background: oklch(0.966 0.008 84);
-  /* Charcoal */
+  /* Charcoal — body copy only; headlines take the brand orange or deep rust. */
   --foreground: oklch(0.294 0 0);
   --ink: oklch(0.294 0 0);
   --card: oklch(0.985 0.006 84);
@@ -55,42 +130,67 @@
   --popover: oklch(0.985 0.006 84);
   --popover-foreground: oklch(0.294 0 0);
 
-  /* Burnt Terracotta */
-  --primary: oklch(0.507 0.132 47);
-  --primary-foreground: oklch(0.98 0.008 84);
+  --primary: var(--brand-primary);
+  --primary-foreground: var(--brand-cream);
 
-  /* Forest Green */
-  --secondary: oklch(0.331 0.045 159);
-  --secondary-foreground: oklch(0.97 0.008 84);
+  /* Dark panel ground. The brochure has no green anywhere in its brand system,
+     so the former Forest Green is replaced by the darkest gradient corner. */
+  --secondary: var(--brand-deepest);
+  --secondary-foreground: oklch(0.97 0.012 70);
 
-  --muted: oklch(0.935 0.012 84);
-  --muted-foreground: oklch(0.52 0.015 70);
+  --muted: oklch(0.945 0.012 70);
+  --muted-foreground: oklch(0.52 0.018 55);
 
-  /* Antique Gold */
-  --accent: oklch(0.673 0.093 85);
-  --accent-foreground: oklch(0.24 0 0);
+  /* Soft peach-gold — the brochure's small-caps subhead colour, not a metallic gold. */
+  --accent: var(--brand-peach);
+  --accent-foreground: var(--brand-deepest);
 
-  --sand: oklch(0.915 0.018 78);
+  --sand: oklch(0.915 0.02 68);
   --night: oklch(0.17 0.012 60);
+
+  /* Semantic only — never a brand colour. Used for "available" plot status. */
+  --available: oklch(0.55 0.045 155);
 
   --destructive: oklch(0.55 0.19 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.885 0.014 80);
-  --input: oklch(0.885 0.014 80);
-  --ring: oklch(0.673 0.093 85);
+  --border: oklch(0.885 0.016 70);
+  --input: oklch(0.885 0.016 70);
+  --ring: var(--brand-primary);
 
   --shadow-soft: 0 30px 80px -40px color-mix(in oklab, var(--ink) 40%, transparent);
   --shadow-lift: 0 40px 120px -50px color-mix(in oklab, var(--primary) 45%, transparent);
+
+  /*
+   * The brochure's gradient panels light from the upper-left and fall away to
+   * the darkest tone at the lower-right edge — not a flat linear wash. Reserved
+   * for the hero, chapter dividers and the closing CTA band, exactly as the
+   * brochure reserves it for its cover, zone-title spreads and back cover.
+   */
+  --gradient-brand: radial-gradient(
+    circle at 15% 15%,
+    var(--brand-glow) 0%,
+    var(--brand-primary) 35%,
+    var(--brand-primary-mid) 60%,
+    var(--brand-deep) 85%,
+    var(--brand-deepest) 100%
+  );
+  /*
+   * Same light direction, but starting at the deep end of the ramp so small
+   * body copy stays legible. White on #D9622B is ~3.4:1 — fine for display
+   * type, short of AA for the link lists and sub-copy the footer and CTA band
+   * carry, which is why those panels use this variant.
+   */
+  --gradient-brand-deep: radial-gradient(
+    circle at 12% 8%,
+    var(--brand-deep) 0%,
+    color-mix(in oklab, var(--brand-deep) 70%, var(--brand-deepest)) 45%,
+    var(--brand-deepest) 100%
+  );
   --gradient-sunrise: linear-gradient(
     160deg,
-    color-mix(in oklab, var(--accent) 22%, transparent),
+    color-mix(in oklab, var(--brand-glow) 26%, transparent),
     color-mix(in oklab, var(--primary) 16%, transparent) 55%,
     transparent
-  );
-  --gradient-forest: linear-gradient(
-    180deg,
-    color-mix(in oklab, var(--secondary) 92%, black),
-    var(--secondary)
   );
 }
 
@@ -136,7 +236,7 @@
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--accent) 40%, transparent);
+    background: color-mix(in oklab, var(--brand-glow) 45%, transparent);
   }
 
   ::-webkit-scrollbar {
@@ -148,12 +248,114 @@
   }
 }
 
+/*
+ * Small-caps label. Replaces every ad-hoc `text-[0.6rem] uppercase
+ * tracking-[0.3em]` on the site. Medium weight and 0.14em tracking, not thin
+ * and 0.4em — very wide tracking at a tiny size destroys word shape and is what
+ * made these read washed-out rather than merely small.
+ */
+@utility label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 @utility eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.7rem;
-  letter-spacing: 0.4em;
+  font-size: var(--text-label);
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in oklab, var(--primary) 85%, var(--ink));
+  color: var(--primary);
+}
+
+/* A caption that states a claim — carries brand-tone contrast, not fine-print gray. */
+@utility caption {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-deep);
+}
+
+@utility body-copy {
+  font-size: var(--text-body);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* The intermediate step between body copy and the stat numerals. */
+@utility lead {
+  font-family: var(--font-serif);
+  font-size: var(--text-lead);
+  line-height: 1.45;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+@utility card-title {
+  font-size: var(--text-card-title);
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+@utility card-copy {
+  font-size: var(--text-card-copy);
+  line-height: 1.45;
+  font-weight: 300;
+}
+
+@utility nav-link {
+  font-family: var(--font-sans);
+  font-size: var(--text-nav);
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Pill CTAs share the nav size so the row reads as one type system. */
+@utility btn-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-nav);
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* Consistent pill padding — horizontal ~2x vertical. Varying this page to page
+   is what makes pill buttons read as sloppy fastest. */
+@utility btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding-block: 0.9rem;
+  padding-inline: 1.85rem;
+  transition:
+    background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Lining, fixed-width numerals — required for the 348-row Area Sheet so plot
+   numbers and sizes align in clean columns. */
+@utility tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* One section rhythm, used by the Section primitive and the gradient panels so
+   a full-bleed divider reads as a chapter break rather than a thin band. */
+@utility section-rhythm {
+  padding-block: var(--space-section);
 }
 
 @utility display {
@@ -171,6 +373,18 @@
 
 @utility soft-shadow {
   box-shadow: var(--shadow-soft);
+}
+
+/* Hero and chapter-divider panels carrying large display type only. */
+@utility brand-gradient {
+  background: var(--gradient-brand);
+  color: var(--brand-cream);
+}
+
+/* Panels that also carry small copy or link lists — footer, CTA band. */
+@utility brand-gradient-deep {
+  background: var(--gradient-brand-deep);
+  color: var(--brand-cream);
 }
 
 @utility noise {

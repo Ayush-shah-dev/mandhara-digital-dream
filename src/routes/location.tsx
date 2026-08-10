@@ -2,20 +2,22 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CtaBand, PageHero } from "@/components/site/PageHero";
 import { Eyebrow, Reveal, Section, SplitText } from "@/components/site/primitives";
 import { img } from "@/lib/images";
+import { LOCATION } from "@/lib/project";
 
 export const Route = createFileRoute("/location")({
   head: () => ({
     meta: [
-      { title: "Location — Getting to Mandhara" },
+      { title: "Location — Mandhara at Lothal, Gujarat" },
       {
         name: "description",
         content:
-          "Travel times to Mandhara from the airport, expressway, schools, hospitals and nearby attractions.",
+          "Mandhara sits on Javaraj Road near Gundi, Lothal, Gujarat — 14 km from NH 47, 16 km from the Ahmedabad–Dholera Expressway and about 10 km from the Lothal Archaeological Site Museum.",
       },
-      { property: "og:title", content: "Location — Getting to Mandhara" },
+      { property: "og:title", content: "Location — Mandhara at Lothal, Gujarat" },
       {
         property: "og:description",
-        content: "Far enough for quiet, close enough for everything else.",
+        content:
+          "Near Bagodara, off the Rajkot–Ahmedabad highway, beside the Lothal heritage site.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -24,34 +26,52 @@ export const Route = createFileRoute("/location")({
   component: Location,
 });
 
-const NEARBY = [
-  ["International Airport", "55 min", "Direct expressway run, no city crossing."],
-  ["Expressway Exit", "12 min", "A clean, signal-free approach to the gate."],
-  ["Schools", "20 min", "Three international curricula within a short drive."],
-  ["Hospitals", "18 min", "Multi-speciality care with 24/7 emergency."],
-  ["Heritage Town", "35 min", "Weekend markets, temples and old streets."],
-  ["Hill Viewpoint", "40 min", "Sunrise drives that are worth the alarm."],
-] as const;
+const { addressLines, nearestTown, map, nearby } = LOCATION;
+
+/*
+ * TODO(client): airport, hospital and school distances for the Lothal site are
+ * not in the brochure. The figures that used to sit on this page were written
+ * for a Bengaluru location and have been removed rather than re-guessed. Add
+ * them here once the client supplies real numbers. See CLIENT-QUERIES.md.
+ */
+
+const MAP_SRC =
+  `https://www.openstreetmap.org/export/embed.html?bbox=${map.bbox.join("%2C")}` +
+  `&layer=mapnik&marker=${map.lat}%2C${map.lon}`;
 
 function Location() {
   return (
     <>
       <PageHero
         eyebrow="Location"
-        title="Far enough for quiet. Close enough for everything."
-        intro="Mandhara sits off the expressway, with the airport under an hour away and the city out of earshot."
+        title="Beside Lothal, off the Ahmedabad road."
+        intro={`Javaraj Road, near Gundi — a short run from ${nearestTown}, the Rajkot–Ahmedabad highway and the Ahmedabad–Dholera Expressway.`}
         image={img.hero}
+        size="compact"
       />
 
       <Section>
         <div className="grid gap-16 md:grid-cols-[1fr_1.2fr] md:gap-24">
           <div>
             <Eyebrow>Nearby</Eyebrow>
-            <SplitText text="The map, in minutes." className="display mt-8 text-4xl md:text-6xl" />
+            <SplitText text="What is around it." className="display mt-8 text-4xl md:text-6xl" />
+            <Reveal delay={0.15}>
+              <address className="mt-10 not-italic body-copy text-muted-foreground">
+                {addressLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </address>
+              <p className="mt-6 max-w-xs body-copy text-muted-foreground">
+                The Lothal dockyard — one of the principal excavated cities of the Indus Valley
+                Civilisation — is the estate&rsquo;s nearest landmark, roughly ten kilometres away.
+              </p>
+            </Reveal>
           </div>
           <Reveal delay={0.1}>
             <div>
-              {NEARBY.map(([n, t, d]) => (
+              {nearby.map(([n, t, d]) => (
                 <div
                   key={n}
                   className="group grid gap-2 border-t border-border py-7 transition-colors duration-500 hover:border-primary md:grid-cols-[1fr_auto]"
@@ -60,9 +80,9 @@ function Location() {
                     <h3 className="display text-2xl transition-colors duration-500 group-hover:text-primary">
                       {n}
                     </h3>
-                    <p className="mt-1 text-sm font-light text-muted-foreground">{d}</p>
+                    <p className="mt-1 max-w-md body-copy text-muted-foreground">{d}</p>
                   </div>
-                  <p className="text-[0.68rem] uppercase tracking-[0.25em] text-accent md:self-center">
+                  <p className="label text-primary md:self-center">
                     {t}
                   </p>
                 </div>
@@ -74,21 +94,26 @@ function Location() {
 
       <Section className="bg-muted/40">
         <Reveal>
-          <div className="overflow-hidden rounded-4xl soft-shadow">
-            <iframe
-              title="Mandhara location map"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=77.30%2C12.75%2C77.80%2C13.15&layer=mapnik"
-              className="h-[32rem] w-full border-0"
-              loading="lazy"
-            />
-          </div>
+          <figure>
+            <div className="overflow-hidden rounded-4xl soft-shadow">
+              <iframe
+                title="Map of Mandhara near Lothal, Gujarat"
+                src={MAP_SRC}
+                className="h-[32rem] w-full border-0"
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="mt-5 body-copy text-muted-foreground">
+              {addressLines.join(", ")} — near {nearestTown}, off the Bagodara–Vataman Road.
+            </figcaption>
+          </figure>
         </Reveal>
       </Section>
 
       <CtaBand
-        title="We'll send a car."
-        text="Site visits include pickup from the airport or the city, by arrangement."
-        label="Arrange pickup"
+        title="Come and find it."
+        text="Send us the day you are travelling and we will share directions from Ahmedabad or Rajkot, and meet you at the gate."
+        label="Plan the drive"
       />
     </>
   );

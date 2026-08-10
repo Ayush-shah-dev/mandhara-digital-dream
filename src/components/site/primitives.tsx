@@ -41,16 +41,20 @@ export function SplitText({
   as?: "h1" | "h2" | "h3" | "p";
 }) {
   const words = text.split(" ");
+  // Headings start at opacity 0 and are revealed by JS. Without this guard a
+  // reduced-motion visitor gets a permanently blank heading, since the CSS
+  // reduced-motion rule cannot reach framer-motion's inline styles.
+  const reduced = useReducedMotion();
   return (
     <Tag className={className}>
       {words.map((w, i) => (
         <span key={`${w}-${i}`} className="inline-block overflow-hidden align-bottom">
           <motion.span
             className="inline-block"
-            initial={{ y: "110%", opacity: 0 }}
+            initial={reduced ? false : { y: "110%", opacity: 0 }}
             whileInView={{ y: "0%", opacity: 1 }}
             viewport={{ once: true, margin: "-10% 0px" }}
-            transition={{ duration: 1, delay: delay + i * 0.05, ease }}
+            transition={reduced ? { duration: 0 } : { duration: 1, delay: delay + i * 0.05, ease }}
           >
             {w}
             {i < words.length - 1 ? "\u00A0" : ""}
@@ -178,7 +182,7 @@ export function Eyebrow({ children }: { children: ReactNode }) {
   return (
     <Reveal>
       <p className="eyebrow flex items-center gap-3">
-        <span className="inline-block h-px w-10 bg-primary/50" />
+        <span className="inline-block h-px w-10 bg-primary/70" />
         {children}
       </p>
     </Reveal>
@@ -195,7 +199,10 @@ export function Section({
   id?: string;
 }) {
   return (
-    <section id={id} className={`relative px-6 py-28 md:px-12 md:py-40 ${className ?? ""}`}>
+    <section
+      id={id}
+      className={`section-rhythm relative px-6 md:px-12 ${className ?? ""}`}
+    >
       <div className="mx-auto w-full max-w-7xl">{children}</div>
     </section>
   );

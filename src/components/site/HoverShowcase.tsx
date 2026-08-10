@@ -68,7 +68,7 @@ export function ShowcasePanel({
             exit={{ opacity: 0, y: -14 }}
             transition={{ duration: 0.6, ease }}
           >
-            <p className="text-[0.6rem] uppercase tracking-[0.3em] text-accent">
+            <p className="label text-accent">
               {item.meta ?? item.caption ?? "Mandhara"}
             </p>
             <p className="display mt-2 text-3xl text-[oklch(0.97_0.01_84)]">{item.title}</p>
@@ -140,14 +140,18 @@ export function HoverShowcase({
                 } ${on ? (dark ? "border-accent/70" : "border-primary/60") : ""}`}
               >
                 <span
-                  className={`absolute left-0 top-0 h-px bg-accent transition-all duration-700 ${
-                    on ? "w-full" : "w-0"
-                  }`}
+                  className={`absolute left-0 top-0 h-px transition-all duration-700 ${
+                    dark ? "bg-accent" : "bg-primary"
+                  } ${on ? "w-full" : "w-0"}`}
                 />
                 <div className="flex items-start gap-5">
                   <span
                     className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-500 ${
-                      on ? "scale-150 bg-accent" : dark ? "bg-white/30" : "bg-muted-foreground/40"
+                      on
+                        ? `scale-150 ${dark ? "bg-accent" : "bg-primary"}`
+                        : dark
+                          ? "bg-white/30"
+                          : "bg-muted-foreground/40"
                     }`}
                   />
                   <div className="flex-1">
@@ -160,14 +164,18 @@ export function HoverShowcase({
                         {it.title}
                       </h3>
                       {it.meta && (
-                        <span className="text-[0.62rem] uppercase tracking-[0.25em] text-accent">
+                        <span
+                          className={`label ${
+                            dark ? "text-accent" : "text-primary"
+                          }`}
+                        >
                           {it.meta}
                         </span>
                       )}
                     </div>
                     {it.text && (
                       <p
-                        className={`mt-2 max-w-lg text-sm font-light leading-relaxed ${
+                        className={`mt-2 max-w-lg body-copy ${
                           dark ? "text-white/70" : "text-muted-foreground"
                         }`}
                       >
@@ -183,13 +191,13 @@ export function HoverShowcase({
                         {it.details.map(([k, v]) => (
                           <div key={k}>
                             <dt
-                              className={`text-[0.55rem] uppercase tracking-[0.25em] ${
+                              className={`label ${
                                 dark ? "text-white/45" : "text-muted-foreground"
                               }`}
                             >
                               {k}
                             </dt>
-                            <dd className="mt-1 text-sm font-light">{v}</dd>
+                            <dd className="mt-1 body-copy">{v}</dd>
                           </div>
                         ))}
                       </motion.dl>

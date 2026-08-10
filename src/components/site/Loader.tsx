@@ -93,7 +93,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
             animate={{
               opacity: dawn ? 1 : 0,
               background: dawn
-                ? "radial-gradient(90% 70% at 50% 75%, oklch(0.62 0.14 55) 0%, oklch(0.36 0.08 45) 45%, oklch(0.17 0.012 60) 100%)"
+                ? "radial-gradient(90% 70% at 50% 75%, var(--brand-glow) 0%, var(--brand-primary) 30%, var(--brand-deep) 60%, var(--brand-deepest) 100%)"
                 : "transparent",
             }}
             transition={{ duration: 1.6, ease: "easeInOut" }}
@@ -102,7 +102,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
 
           <div className="relative flex flex-col items-center gap-10 px-6 text-center">
             <div className="relative grid h-56 w-56 place-items-center">
-              <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full text-accent">
+              <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full text-glow">
                 <circle
                   cx="100"
                   cy="100"

@@ -15,6 +15,7 @@ import {
 import { CtaBand } from "@/components/site/PageHero";
 import { HoverShowcase, type ShowcaseItem } from "@/components/site/HoverShowcase";
 import { img } from "@/lib/images";
+import { LAKE, LOCATION, NICQE, VILLAS } from "@/lib/project";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,13 +24,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Mandhara is a 100-acre luxury destination: 354 villas, a wellness resort and a celebration club, woven around Sheen Lake, gardens and golden light.",
+          `Mandhara is a luxury destination near Lothal, Gujarat: ${VILLAS.total} villas, a wellness resort and a celebration club, woven around Sheen Lake, gardens and golden light.`,
       },
       { property: "og:title", content: "Mandhara — Three Experiences. One Destination." },
       {
         property: "og:description",
         content:
-          "Villas, resort and club set within 100 acres of water, trees and warm light. Experience Mandhara.",
+          "Villas, resort and club set around water, trees and warm light. Experience Mandhara.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -39,9 +40,9 @@ export const Route = createFileRoute("/")({
 });
 
 const NATURE: readonly ShowcaseItem[] = [
-  { id: "canopy", title: "Every mature tree stays", meta: "Canopy", text: "Roads bend around old rain trees; the survey mapped each trunk before a single line was drawn.", image: img.canopy },
-  { id: "valleys", title: "Eighteen garden valleys", meta: "Landform", text: "The natural undulation became gardens rather than being levelled into plots.", image: img.garden },
-  { id: "water", title: "Water returned to the lake", meta: "Sheen Lake", text: "Monsoon channels feed five acres of water at the centre of the estate.", image: img.lake },
+  { id: "canopy", title: "Built around the canopy", meta: "Canopy", text: "Roads bend around old rain trees; the survey mapped each trunk before a single line was drawn.", image: img.canopy },
+  { id: "valleys", title: `${NICQE.gardenValleys} garden valleys`, meta: "Landform", text: "The natural undulation became gardens rather than being levelled into plots.", image: img.garden },
+  { id: "water", title: "Water returned to the lake", meta: "Sheen Lake", text: `Monsoon channels feed ${LAKE.acres} acres of water, with ${LAKE.aerators} aerators keeping it moving.`, image: img.lake },
   { id: "bloom", title: "Seasonal bloom calendar", meta: "Planting", text: "Species chosen so something is always flowering, month after month.", image: img.blooms },
 ] as const;
 
@@ -51,18 +52,20 @@ const REVENUE: readonly ShowcaseItem[] = [
   { id: "earn", title: "Earn", meta: "Step 03", text: "Share in the room revenue your villa generates, with transparent statements each quarter.", image: img.resort },
 ] as const;
 
+/** Only landmarks the brochure actually gives a distance for. Airport, school
+ *  and hospital times are unknown for the Lothal site — see CLIENT-QUERIES.md. */
 const PROXIMITY: readonly ShowcaseItem[] = [
-  { id: "airport", title: "International airport", meta: "55 min", text: "A clean expressway run — arrive from a flight without a second transfer.", image: img.expressway },
-  { id: "expressway", title: "Expressway entry", meta: "12 min", text: "The estate sits a short approach road from the main corridor.", image: img.arrival },
-  { id: "schools", title: "Schools", meta: "20 min", text: "Established day schools within an easy morning drive.", image: img.clubhouse },
-  { id: "hospitals", title: "Hospitals", meta: "18 min", text: "Multi-speciality care close enough for peace of mind.", image: img.build },
+  { id: "lothal", title: "Archaeological Site Museum, Lothal", meta: LOCATION.nearby[0][1], text: LOCATION.nearby[0][2], image: img.arrival },
+  { id: "nh47", title: "NH 47 — Rajkot–Ahmedabad Highway", meta: LOCATION.nearby[1][1], text: LOCATION.nearby[1][2], image: img.expressway },
+  { id: "expressway", title: "Ahmedabad–Dholera Expressway", meta: LOCATION.nearby[2][1], text: LOCATION.nearby[2][2], image: img.build },
+  { id: "temple", title: "Ganapatipura Ganpati Mandir", meta: LOCATION.nearby[3][1], text: LOCATION.nearby[3][2], image: img.clubhouse },
 ] as const;
 
 const EXPERIENCES = [
   {
     n: "01",
     title: "Villa Enclave",
-    text: "354 private villas along garden valleys and tree-lined roads, with two clubhouses at their heart.",
+    text: `${VILLAS.total} private villas across two enclaves — ${VILLAS.nicqe} in Nicqe around two clubhouses, and ${VILLAS.orion} revenue-sharing homes in Orion.`,
     image: img.villa,
     to: "/villas",
   },
@@ -104,14 +107,24 @@ function Hero() {
         style={{ opacity: fade }}
         className="relative flex h-full flex-col items-center justify-center px-6 text-center text-[oklch(0.97_0.01_84)]"
       >
-        <motion.img
-          src={logoUrl}
-          alt="Mandhara"
-          initial={{ scale: 0.18, opacity: 0, filter: "blur(10px)" }}
-          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-          transition={{ duration: 2.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-10 w-44 md:w-56"
-        />
+        <div className="relative z-10 mb-10 grid translate-y-16 place-items-center isolate md:translate-y-20">
+          <div
+            className="pointer-events-none absolute h-[118%] w-[118%] rounded-full"
+            style={{
+              background: "radial-gradient(ellipse, rgba(255,255,255,.26) 0%, rgba(248,245,240,.14) 42%, transparent 70%)",
+              filter: "blur(9px)",
+            }}
+            aria-hidden="true"
+          />
+          <motion.img
+            src={logoUrl}
+            alt="Mandhara"
+            initial={{ scale: 0.18, opacity: 0, filter: "blur(10px)" }}
+            animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: 2.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 w-44 brightness-0 invert drop-shadow-[0_3px_10px_rgba(0,0,0,.55)] md:w-56"
+          />
+        </div>
         <SplitText
           as="h1"
           text="Three Experiences."
@@ -135,7 +148,7 @@ function Hero() {
           <Magnetic>
             <Link
               to="/about"
-              className="inline-flex rounded-full bg-primary px-8 py-4 text-[0.68rem] uppercase tracking-[0.25em] text-primary-foreground transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
+              className="btn-pill btn-label bg-primary text-primary-foreground transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
             >
               Explore Mandhara
             </Link>
@@ -143,7 +156,7 @@ function Hero() {
           <Magnetic>
             <Link
               to="/masterplan"
-              className="inline-flex rounded-full border border-white/40 px-8 py-4 text-[0.68rem] uppercase tracking-[0.25em] backdrop-blur-md transition-colors duration-500 hover:border-accent hover:text-accent"
+              className="btn-pill btn-label border border-white/40 backdrop-blur-md transition-colors duration-500 hover:border-accent hover:text-accent"
             >
               View Masterplan
             </Link>
@@ -151,7 +164,7 @@ function Hero() {
           <Magnetic>
             <Link
               to="/contact"
-              className="inline-flex rounded-full border border-white/40 px-8 py-4 text-[0.68rem] uppercase tracking-[0.25em] backdrop-blur-md transition-colors duration-500 hover:border-accent hover:text-accent"
+              className="btn-pill btn-label border border-white/40 backdrop-blur-md transition-colors duration-500 hover:border-accent hover:text-accent"
             >
               Book Experience
             </Link>
@@ -165,7 +178,7 @@ function Hero() {
         transition={{ delay: 2.2, duration: 1 }}
         className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[oklch(0.95_0.01_84)]"
       >
-        <span className="text-[0.6rem] uppercase tracking-[0.35em] text-white/60">Scroll</span>
+        <span className="label text-white/60">Scroll</span>
         <span className="relative h-14 w-px overflow-hidden bg-white/25">
           <motion.span
             className="absolute inset-x-0 top-0 h-6 bg-accent"
@@ -189,7 +202,7 @@ function Home() {
           <div>
             <Eyebrow>The Destination</Eyebrow>
             <SplitText
-              text="A hundred acres that behave like one continuous garden."
+              text="An estate that behaves like one continuous garden."
               className="display mt-8 text-4xl md:text-6xl"
             />
             <MaskedImage
@@ -198,34 +211,38 @@ function Home() {
               className="mt-10 h-[24rem] md:h-[28rem]"
               parallax={40}
             />
+            {/* A "not a single mature tree was felled" claim sat here. It is not in
+                the brochure, and an unverifiable environmental zero carries real
+                exposure, so it is removed pending confirmation. */}
+            {/* Tight to the image on purpose — the pairing is structural. The
+                caption carries a claim, so it takes brand-tone contrast rather
+                than the fine-print gray it had. */}
             <Reveal delay={0.2}>
-              <p className="mt-5 flex items-center gap-3 text-[0.62rem] uppercase tracking-[0.28em] text-muted-foreground">
-                <span className="inline-block h-px w-8 bg-accent/60" />
-                Not a single mature tree was felled
+              <p className="caption mt-5 flex items-center gap-3">
+                <span className="inline-block h-px w-8 bg-primary/70" />
+                Sheen Lake, {LAKE.acres} acres, at the centre of it
               </p>
             </Reveal>
           </div>
-          <Reveal delay={0.15} className="space-y-6 self-end text-base font-light leading-relaxed text-muted-foreground">
-            <p>
-              Mandhara is not a project you visit once. It is a landscape you return
-              to — a lake that changes colour by the hour, roads that curve because
-              the trees were here first, and architecture that keeps its voice low.
+          <Reveal delay={0.15} className="self-center">
+            <p className="body-copy text-muted-foreground">
+              Mandhara is not a project you visit once. It is a landscape you return to
+              — a lake that changes colour by the hour, roads that curve because the
+              trees were here first, and architecture that keeps its voice low.
             </p>
-            <p>
+            <p className="lead mt-14 max-w-lg text-foreground">
               Three worlds share one address: a villa enclave to live in, a resort to
               retreat into, and a club where celebrations become family history.
             </p>
-            <div className="grid grid-cols-3 gap-6 pt-6">
+            <div className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-10">
               {[
-                ["100+", "Acres"],
-                ["354", "Villas"],
+                [String(VILLAS.total), "Villas"],
+                [`${LAKE.acres} acres`, "Sheen Lake"],
                 ["3", "Experiences"],
               ].map(([n, l]) => (
                 <div key={l}>
-                  <p className="display text-4xl text-primary md:text-5xl">{n}</p>
-                  <p className="mt-2 text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">
-                    {l}
-                  </p>
+                  <p className="display tabular text-5xl text-primary md:text-6xl">{n}</p>
+                  <p className="label mt-3 text-muted-foreground">{l}</p>
                 </div>
               ))}
             </div>
@@ -249,19 +266,19 @@ function Home() {
               className="display max-w-3xl text-4xl text-[oklch(0.97_0.01_84)] md:text-7xl"
             />
             <Reveal delay={0.2}>
-              <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-relaxed text-white/70">
-                Five acres of water, eighteen garden valleys and an eight-kilometre
+              <p className="mx-auto mt-6 max-w-xl body-copy text-white/70">
+                Six acres of water, five landscaped islands and a kilometre of
                 promenade — drawn from the contour survey, not over it.
               </p>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
                 {[
-                  ["5 acres", "Sheen Lake"],
-                  ["18", "Garden valleys"],
-                  ["8 km", "Promenade"],
+                  [`${LAKE.acres} acres`, "Sheen Lake"],
+                  [String(LAKE.islands), "Landscaped islands"],
+                  [`${LAKE.promenadeKm} km`, "Promenade"],
                 ].map(([n, l]) => (
                   <div key={l} className="text-[oklch(0.97_0.01_84)]">
                     <p className="display text-3xl text-accent md:text-4xl">{n}</p>
-                    <p className="mt-1 text-[0.58rem] uppercase tracking-[0.28em] text-white/60">
+                    <p className="mt-1 label text-white/60">
                       {l}
                     </p>
                   </div>
@@ -271,7 +288,7 @@ function Home() {
                 <Magnetic>
                   <Link
                     to="/masterplan"
-                    className="inline-flex rounded-full bg-accent px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-accent-foreground transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
+                    className="btn-pill btn-label bg-accent text-accent-foreground transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
                   >
                     Explore the five zones
                   </Link>
@@ -279,7 +296,7 @@ function Home() {
                 <Magnetic>
                   <Link
                     to="/gallery"
-                    className="inline-flex rounded-full border border-white/45 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-[oklch(0.97_0.01_84)] backdrop-blur-md transition-colors duration-500 hover:border-accent hover:text-accent"
+                    className="btn-pill btn-label border border-white/45 text-[oklch(0.97_0.01_84)] backdrop-blur-md transition-colors duration-500 hover:border-accent hover:text-accent"
                   >
                     See the gallery
                   </Link>
@@ -297,7 +314,7 @@ function Home() {
           text="Live. Retreat. Celebrate."
           className="display mt-8 max-w-3xl text-5xl md:text-7xl"
         />
-        <div className="mt-20 grid gap-8 md:grid-cols-3">
+        <div className="mt-20 grid gap-8 md:grid-cols-3 lg:gap-10">
           {EXPERIENCES.map((e, i) => (
             <Reveal key={e.title} delay={i * 0.12}>
               <TiltCard>
@@ -310,11 +327,9 @@ function Home() {
                       className="h-[26rem] w-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-110"
                     />
                   </div>
-                  <p className="mt-6 text-[0.62rem] uppercase tracking-[0.3em] text-accent">{e.n}</p>
-                  <h3 className="display mt-2 text-3xl">{e.title}</h3>
-                  <p className="mt-3 max-w-xs text-sm font-light leading-relaxed text-muted-foreground">
-                    {e.text}
-                  </p>
+                  <p className="label mt-6 text-primary">{e.n}</p>
+                  <h3 className="display mt-3 text-3xl">{e.title}</h3>
+                  <p className="card-copy mt-3 max-w-xs text-muted-foreground">{e.text}</p>
                 </Link>
               </TiltCard>
             </Reveal>
@@ -336,7 +351,7 @@ function Home() {
                 text="We built around the trees, not through them."
                 className="display mb-6 mt-6 text-4xl md:text-6xl"
               />
-              <p className="mb-4 max-w-md text-sm font-light leading-relaxed text-muted-foreground">
+              <p className="mb-4 max-w-md body-copy text-muted-foreground">
                 Every road follows an existing contour. Every valley remains a valley.
                 Hover or tab a principle to watch the landscape answer.
               </p>
@@ -357,14 +372,14 @@ function Home() {
               className="display mt-6 max-w-2xl text-4xl md:text-7xl"
             />
             <Reveal delay={0.2}>
-              <p className="mt-6 max-w-md text-sm font-light leading-relaxed text-white/70">
+              <p className="mt-6 max-w-md body-copy text-white/70">
                 Fountains, illuminated sculptures and a tree-lined drive that slows you
                 down on purpose. Arrival at Mandhara is a sequence, not a gate.
               </p>
               <Magnetic>
                 <Link
                   to="/arrival"
-                  className="mt-8 inline-flex rounded-full border border-accent/70 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-accent transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
+                  className="mt-8 btn-pill btn-label border border-accent/70 text-accent transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
                 >
                   Take the drive
                 </Link>
@@ -381,14 +396,14 @@ function Home() {
             <Eyebrow>Masterplan</Eyebrow>
             <SplitText text="Five zones. One rhythm." className="display mt-8 text-4xl md:text-6xl" />
             <Reveal delay={0.1}>
-              <p className="mt-8 text-base font-light leading-relaxed text-muted-foreground">
-                NICQE, RIME, GEMINI, ORION and Sheen Lake — each zone carries its own
-                purpose, yet reads as one landscape from the air.
+              <p className="mt-8 body-copy text-muted-foreground">
+                Nicqe and Orion for the villas, Rime for the resort, Gemini for the
+                club and events, and Sheen Lake at the centre of all of it.
               </p>
               <Magnetic>
                 <Link
                   to="/masterplan"
-                  className="mt-8 inline-flex rounded-full bg-secondary px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-secondary-foreground transition-colors duration-500 hover:bg-primary"
+                  className="mt-8 btn-pill btn-label bg-secondary text-secondary-foreground transition-colors duration-500 hover:bg-primary"
                 >
                   Explore the masterplan
                 </Link>
@@ -400,7 +415,7 @@ function Home() {
       </Section>
 
       {/* Amenities preview marquee */}
-      <section className="overflow-hidden bg-secondary py-24 text-[oklch(0.96_0.01_84)]">
+      <section className="brand-gradient overflow-hidden py-24">
         <div className="mx-auto mb-12 w-full max-w-7xl px-6 md:px-12">
           <p className="eyebrow text-accent">Amenities</p>
           <SplitText text="Fourteen worlds within one." className="display mt-6 text-4xl md:text-6xl" />
@@ -422,7 +437,7 @@ function Home() {
                 "Club",
                 "Walking Trail",
                 "Kids Area",
-                "Outdoor Lawn",
+                "Celebration Lawns",
                 "Banquet",
                 "Wellness",
                 "Meditation",
@@ -439,7 +454,7 @@ function Home() {
           <Magnetic>
             <Link
               to="/amenities"
-              className="inline-flex rounded-full bg-accent px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-accent-foreground transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
+              className="btn-pill btn-label bg-accent text-accent-foreground transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
             >
               Enter the amenities journey
             </Link>
@@ -461,7 +476,7 @@ function Home() {
                 text="Ownership that works while you rest."
                 className="display mb-6 mt-6 text-4xl md:text-6xl"
               />
-              <p className="mb-4 max-w-md text-sm font-light leading-relaxed text-muted-foreground">
+              <p className="mb-4 max-w-md body-copy text-muted-foreground">
                 Keep the villa private, or place it in the managed hospitality pool and
                 share in resort revenue. Hover each step to see it.
               </p>
@@ -472,7 +487,7 @@ function Home() {
               <Magnetic>
                 <Link
                   to="/revenue"
-                  className="inline-flex rounded-full border border-primary/50 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-primary transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
+                  className="btn-pill btn-label border border-primary/50 text-primary transition-colors duration-500 hover:bg-primary hover:text-primary-foreground"
                 >
                   See the model
                 </Link>
@@ -491,7 +506,7 @@ function Home() {
           </div>
           <Link
             to="/gallery"
-            className="link-underline text-[0.66rem] uppercase tracking-[0.25em] text-primary"
+            className="link-underline label text-primary"
           >
             View all
           </Link>
@@ -512,32 +527,12 @@ function Home() {
         </div>
       </Section>
 
-      {/* Testimonials */}
-      <Section>
-        <div className="grid gap-16 md:grid-cols-3">
-          {[
-            [
-              "We came for a site visit and stayed for lunch by the lake. That decided it.",
-              "Villa owner, Enclave 2",
-            ],
-            [
-              "Our wedding lawn faced the water at sunset. Guests still talk about the light.",
-              "Celebration at the Club",
-            ],
-            [
-              "The revenue model was explained in one page. No surprises since.",
-              "Investor, Resort pool",
-            ],
-          ].map(([q, a], i) => (
-            <Reveal key={a} delay={i * 0.1}>
-              <p className="display text-2xl leading-snug md:text-3xl">“{q}”</p>
-              <p className="mt-6 text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">
-                {a}
-              </p>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      {/*
+        Three anonymous testimonials sat here ("Villa owner, Enclave 2" and
+        similar). Unattributed quotes read as invented social proof, so they are
+        removed. Restore this section with real, named, permissioned quotes.
+        See CLIENT-QUERIES.md.
+      */}
 
       {/* Location */}
       <Section className="bg-secondary text-[oklch(0.96_0.01_84)]">
@@ -551,7 +546,7 @@ function Home() {
             <>
               <p className="eyebrow text-accent">Location</p>
               <SplitText text="Far enough. Close enough." className="display mb-6 mt-6 text-4xl md:text-6xl" />
-              <p className="mb-6 max-w-md text-sm font-light leading-relaxed text-white/70">
+              <p className="mb-6 max-w-md body-copy text-white/70">
                 A drive that leaves the city behind without leaving it out of reach.
                 Hover a destination to see the road it takes.
               </p>
@@ -564,8 +559,8 @@ function Home() {
                     transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
                   />
                 </span>
-                <p className="text-[0.6rem] uppercase tracking-[0.28em] text-white/55">
-                  Mandhara sits at the centre of every drive below
+                <p className="label text-white/55">
+                  {LOCATION.addressLines.join(" · ")}
                 </p>
               </div>
             </>
@@ -574,7 +569,7 @@ function Home() {
             <div className="mt-10">
               <Link
                 to="/location"
-                className="link-underline text-[0.66rem] uppercase tracking-[0.25em] text-accent"
+                className="link-underline label text-accent"
               >
                 Open the full map
               </Link>
@@ -585,12 +580,12 @@ function Home() {
 
       <Section className="text-center">
         <Reveal className="flex flex-col items-center">
-          <Emblem size={150} />
+          <Emblem size={300} />
           <SplitText
             text="Come see the light at five in the evening."
-            className="display mt-10 max-w-3xl text-4xl md:text-6xl"
+            className="display mt-0 max-w-3xl text-4xl md:text-6xl"
           />
-          <p className="mt-8 max-w-xl text-sm font-light leading-relaxed text-muted-foreground">
+          <p className="mt-4 max-w-xl body-copy text-muted-foreground">
             That is the hour the lake turns gold, the promenade fills and the lawns
             begin to smell of woodsmoke and jasmine. Visits are private and unhurried.
           </p>
@@ -598,7 +593,7 @@ function Home() {
             <Magnetic>
               <Link
                 to="/contact"
-                className="inline-flex rounded-full bg-primary px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-primary-foreground transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
+                className="btn-pill btn-label bg-primary text-primary-foreground transition-colors duration-500 hover:bg-accent hover:text-accent-foreground"
               >
                 Book a private visit
               </Link>
@@ -606,7 +601,7 @@ function Home() {
             <Magnetic>
               <Link
                 to="/gallery"
-                className="inline-flex rounded-full border border-border px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] transition-colors duration-500 hover:border-primary hover:text-primary"
+                className="btn-pill btn-label border border-border transition-colors duration-500 hover:border-primary hover:text-primary"
               >
                 See it in pictures
               </Link>

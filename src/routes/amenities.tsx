@@ -5,6 +5,7 @@ import { Atmosphere } from "@/components/site/Atmosphere";
 import { CtaBand } from "@/components/site/PageHero";
 import { Magnetic, SplitText } from "@/components/site/primitives";
 import { img } from "@/lib/images";
+import { CLUB, LAKE, NICQE } from "@/lib/project";
 
 export const Route = createFileRoute("/amenities")({
   head: () => ({
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/amenities")({
       {
         name: "description",
         content:
-          "Spa, restaurant, pool, lake, sports, gardens, club, trails, kids area, lawns, banquet, wellness, meditation and God's Garden — an immersive scroll through Mandhara's amenities.",
+          "Spa, restaurant, pool, Sheen Lake, sports, gardens, club, promenade, kids area, celebration lawns, banquet, wellness, meditation and God's Garden — an immersive scroll through Mandhara's amenities.",
       },
       { property: "og:title", content: "Amenities at Mandhara" },
       {
@@ -31,7 +32,7 @@ type Amenity = {
   name: string;
   line: string;
   text: string;
-  stat: [string, string];
+  stat?: [string, string];
   image: string;
   tint: string;
   leaf?: boolean;
@@ -41,8 +42,7 @@ const AMENITIES: Amenity[] = [
   {
     name: "Spa",
     line: "Half a level below the world.",
-    text: "Six treatment rooms opening onto a water channel, with steam, cold plunge and a silent lounge.",
-    stat: ["6", "Treatment rooms"],
+    text: "Treatment rooms opening onto a water channel, with steam, cold plunge and a silent lounge.",
     image: img.spa,
     tint: "oklch(0.42 0.09 45)",
   },
@@ -50,7 +50,6 @@ const AMENITIES: Amenity[] = [
     name: "Restaurant",
     line: "Wood fire, long tables, late evenings.",
     text: "Estate produce cooked over open flame, served under rain trees strung with lanterns.",
-    stat: ["180", "Covers"],
     image: img.dining,
     tint: "oklch(0.36 0.07 55)",
   },
@@ -58,15 +57,14 @@ const AMENITIES: Amenity[] = [
     name: "Swimming Pool",
     line: "Thirty metres facing the sunset.",
     text: "An infinity edge that drops toward the canopy, with a shaded shallow deck for afternoons.",
-    stat: ["30 m", "Infinity edge"],
     image: img.resort,
     tint: "oklch(0.42 0.06 220)",
   },
   {
     name: "Sheen Lake",
     line: "The still centre.",
-    text: "A promenade, a jetty and a pavilion — plus birding decks that fill up before sunrise.",
-    stat: ["11", "Acres of water"],
+    text: `${LAKE.islands} landscaped islands, a kilometre of promenade and ${LAKE.aerators} aerators keeping the water moving.`,
+    stat: [String(LAKE.acres), "Acres of water"],
     image: img.lake,
     tint: "oklch(0.40 0.08 70)",
     leaf: true,
@@ -74,8 +72,7 @@ const AMENITIES: Amenity[] = [
   {
     name: "Sports",
     line: "Play, then swim, then eat.",
-    text: "Tennis, badminton, a half-court and a cricket net, all under floodlights.",
-    stat: ["5", "Courts"],
+    text: "The estate's destination for sport, recreation and community wellbeing.",
     image: img.garden,
     tint: "oklch(0.34 0.07 150)",
   },
@@ -83,7 +80,7 @@ const AMENITIES: Amenity[] = [
     name: "Garden",
     line: "Seasonal, deliberate, native.",
     text: "Planting keyed to bloom in sequence, so something is always in flower somewhere.",
-    stat: ["70+", "Native species"],
+    stat: [String(NICQE.gardenValleys), "Garden valleys in Nicqe"],
     image: img.garden,
     tint: "oklch(0.33 0.07 145)",
     leaf: true,
@@ -91,16 +88,16 @@ const AMENITIES: Amenity[] = [
   {
     name: "Club",
     line: "Two houses, one enclave.",
-    text: "Lounges, a reading room, indoor games and a café that opens onto the pool deck.",
-    stat: ["2", "Clubhouses"],
+    text: "Lounges, indoor games and a café on the pool deck. Both clubhouses belong to Nicqe; Orion villas have access to the club amenities instead.",
+    stat: [String(NICQE.clubhouses), "Clubhouses in Nicqe"],
     image: img.villa,
     tint: "oklch(0.32 0.05 60)",
   },
   {
     name: "Walking Trail",
-    line: "Four kilometres without a road crossing.",
-    text: "A continuous loop through valleys, orchard and lakefront, lit low for evening walks.",
-    stat: ["4 km", "Loop"],
+    line: "A kilometre around the water.",
+    text: "The lakeside promenade, lit low for evening walks and busiest at sunrise.",
+    stat: [`${LAKE.promenadeKm} km`, "Promenade"],
     image: img.garden,
     tint: "oklch(0.36 0.06 140)",
     leaf: true,
@@ -109,23 +106,21 @@ const AMENITIES: Amenity[] = [
     name: "Kids Area",
     line: "Built for scraped knees.",
     text: "Natural play — timber structures, sand, water channels and a shaded parents' deck.",
-    stat: ["1.2", "Acres"],
     image: img.garden,
     tint: "oklch(0.44 0.09 85)",
   },
   {
-    name: "Outdoor Lawn",
+    name: "Celebration Lawns",
     line: "Where the estate gathers.",
-    text: "Open green for concerts, festivals, film nights and Sunday markets.",
-    stat: ["600", "Guests"],
+    text: "Open green beside the event ground, for weddings, concerts, festivals and film nights.",
     image: img.club,
     tint: "oklch(0.38 0.08 50)",
   },
   {
     name: "Banquet",
-    line: "Column-free, nine metres tall.",
-    text: "A hall that takes a full wedding without a single sightline compromised.",
-    stat: ["900", "Guests"],
+    line: "Ten thousand square feet under one roof.",
+    text: "The Grand Banquet & Event Facility, with a pre-function lounge and a bridal suite.",
+    stat: [CLUB.banquetSqFt, "Banquet facility"],
     image: img.club,
     tint: "oklch(0.34 0.08 40)",
   },
@@ -184,21 +179,23 @@ function Panel({ a, index }: { a: Amenity; index: number }) {
       >
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 text-[oklch(0.97_0.01_84)] md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <p className="flex items-center gap-4 text-[0.62rem] uppercase tracking-[0.4em] text-accent">
+            <p className="flex items-center gap-4 label text-accent">
               <span className="inline-block h-px w-10 bg-accent/60" />
               {String(index + 1).padStart(2, "0")} · {a.name}
             </p>
             <SplitText text={a.line} className="display mt-8 text-5xl md:text-8xl" />
-            <p className="mt-8 max-w-md text-base font-light leading-relaxed text-white/75">
+            <p className="mt-8 max-w-md body-copy text-white/75">
               {a.text}
             </p>
           </div>
-          <div className="shrink-0 rounded-3xl glass px-8 py-6 text-center">
-            <p className="display text-5xl text-accent">{a.stat[0]}</p>
-            <p className="mt-2 text-[0.6rem] uppercase tracking-[0.25em] text-white/70">
-              {a.stat[1]}
-            </p>
-          </div>
+          {a.stat && (
+            <div className="shrink-0 rounded-3xl glass px-8 py-6 text-center">
+              <p className="display text-4xl text-accent md:text-5xl">{a.stat[0]}</p>
+              <p className="mt-2 label text-white/70">
+                {a.stat[1]}
+              </p>
+            </div>
+          )}
         </div>
       </motion.div>
     </section>
@@ -225,14 +222,14 @@ function Amenities() {
             text="Fourteen worlds. Keep scrolling."
             className="display mt-8 text-5xl md:text-8xl"
           />
-          <p className="mx-auto mt-8 max-w-md text-sm font-light leading-relaxed text-white/60">
+          <p className="mx-auto mt-8 max-w-md body-copy text-white/60">
             Each amenity arrives with its own light, its own air and its own pace.
             Let the page take you through them.
           </p>
           <Magnetic>
             <a
               href="#spa"
-              className="mt-10 inline-flex rounded-full border border-accent/60 px-8 py-4 text-[0.66rem] uppercase tracking-[0.25em] text-accent"
+              className="mt-10 btn-pill btn-label border border-accent/60 text-accent"
             >
               Begin the journey
             </a>

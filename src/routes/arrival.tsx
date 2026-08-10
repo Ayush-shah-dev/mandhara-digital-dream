@@ -79,7 +79,7 @@ function Arrival() {
                   </svg>
                 </motion.div>
               </div>
-              <p className="mt-4 text-center text-[0.6rem] uppercase tracking-[0.35em] text-white/50">
+              <p className="mt-4 text-center label text-white/50">
                 Scroll to drive
               </p>
             </div>
@@ -91,11 +91,11 @@ function Arrival() {
             <div key={t} className="grid h-[80svh] place-items-center px-6">
               <Reveal>
                 <div className="max-w-xl rounded-4xl glass px-10 py-12 text-center">
-                  <p className="text-[0.6rem] uppercase tracking-[0.35em] text-accent">
+                  <p className="label text-accent">
                     0{i + 1}
                   </p>
                   <h2 className="display mt-4 text-4xl md:text-5xl">{t}</h2>
-                  <p className="mt-4 text-sm font-light leading-relaxed text-foreground/70">{d}</p>
+                  <p className="mt-4 body-copy text-foreground/70">{d}</p>
                 </div>
               </Reveal>
             </div>

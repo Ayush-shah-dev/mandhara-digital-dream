@@ -64,12 +64,12 @@ function Revenue() {
             <ol className="space-y-0">
               {STEPS.map(([t, d], i) => (
                 <li key={t} className="grid gap-3 border-t border-border py-8 md:grid-cols-[4rem_1fr]">
-                  <span className="text-[0.65rem] uppercase tracking-[0.3em] text-accent">
+                  <span className="label text-primary">
                     0{i + 1}
                   </span>
                   <div>
                     <h3 className="display text-3xl">{t}</h3>
-                    <p className="mt-2 text-sm font-light leading-relaxed text-muted-foreground">
+                    <p className="mt-2 body-copy text-muted-foreground">
                       {d}
                     </p>
                   </div>
@@ -96,7 +96,7 @@ function Revenue() {
                 transition={{ duration: 1.4, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
                 className="w-full rounded-t-2xl bg-gradient-to-t from-accent/40 to-accent"
               />
-              <span className="text-[0.6rem] uppercase tracking-[0.25em] text-white/60">
+              <span className="label text-white/60">
                 {label}
               </span>
               <span className="display text-2xl text-accent">{v}%</span>
@@ -110,7 +110,7 @@ function Revenue() {
       </Section>
 
       <Section>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-3">
           {[
             ["Professional upkeep", "Housekeeping, maintenance and landscaping handled by the resort team."],
             ["Transparent reporting", "Quarterly statements with occupancy, rate and share breakdown."],
@@ -118,8 +118,8 @@ function Revenue() {
           ].map(([t, d], i) => (
             <Reveal key={t} delay={i * 0.08}>
               <div className="h-full rounded-3xl bg-card p-8 soft-shadow">
-                <h3 className="display text-2xl">{t}</h3>
-                <p className="mt-3 text-sm font-light leading-relaxed text-muted-foreground">{d}</p>
+                <h3 className="card-title display text-2xl">{t}</h3>
+                <p className="card-copy mt-3 text-muted-foreground">{d}</p>
               </div>
             </Reveal>
           ))}

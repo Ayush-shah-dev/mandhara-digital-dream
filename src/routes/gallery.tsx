@@ -17,7 +17,7 @@ export const Route = createFileRoute("/gallery")({
       { property: "og:title", content: "Mandhara Gallery" },
       {
         property: "og:description",
-        content: "Villas, resort, lake, gardens and celebrations across a hundred acres.",
+        content: "Villas, resort, lake, gardens and celebrations across the Mandhara estate.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -64,7 +64,7 @@ function Gallery() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`rounded-full border px-6 py-3 text-[0.62rem] uppercase tracking-[0.25em] transition-all duration-500 ${
+              className={`btn-pill btn-label border transition-all duration-500 ${
                 filter === f
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-border hover:border-primary/60 hover:text-primary"
@@ -91,7 +91,7 @@ function Gallery() {
                   }`}
                 />
                 <span className="absolute inset-0 bg-gradient-to-t from-[oklch(0.17_0.012_60)]/70 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-                <span className="absolute bottom-6 left-6 translate-y-4 text-left text-[0.62rem] uppercase tracking-[0.25em] text-white opacity-0 transition-all duration-700 group-hover:translate-y-0 group-hover:opacity-100">
+                <span className="absolute bottom-6 left-6 translate-y-4 text-left label text-white opacity-0 transition-all duration-700 group-hover:translate-y-0 group-hover:opacity-100">
                   {item.label}
                 </span>
               </button>

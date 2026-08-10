@@ -50,7 +50,7 @@ export function Cursor() {
       <div
         ref={ring}
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[90] h-10 w-10 rounded-full border border-accent/60 mix-blend-multiply"
+        className="pointer-events-none fixed left-0 top-0 z-[90] h-10 w-10 rounded-full border border-primary/60 mix-blend-multiply"
       />
       <div
         ref={dot}

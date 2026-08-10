@@ -3,20 +3,21 @@ import { CtaBand, PageHero } from "@/components/site/PageHero";
 import { HoverShowcase, type ShowcaseItem } from "@/components/site/HoverShowcase";
 import { Eyebrow, MaskedImage, Reveal, Section, SplitText } from "@/components/site/primitives";
 import { img } from "@/lib/images";
+import { RESORT } from "@/lib/project";
 
 export const Route = createFileRoute("/resort")({
   head: () => ({
     meta: [
-      { title: "The Resort at Mandhara — Suites, Spa and Lakeside Wellness" },
+      { title: "Rime — The Resort at Mandhara" },
       {
         name: "description",
         content:
-          "Presidential and junior suites, spa, pools, gym and lakeside dining at the Mandhara resort.",
+          `${RESORT.suites} suites across Presidential, Standard and Junior categories, with spa, pool, gym and dining at Rime, the Mandhara resort.`,
       },
       { property: "og:title", content: "The Resort at Mandhara" },
       {
         property: "og:description",
-        content: "Suites, spa, pools and lakeside dining, held inside a hundred green acres.",
+        content: "Suites, spa, pool and dining at Rime, the resort zone of Mandhara.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -25,16 +26,27 @@ export const Route = createFileRoute("/resort")({
   component: Resort,
 });
 
+/**
+ * The brochure names three suite categories (p.2) and the p.14 key-map shows
+ * three outlooks alongside the lawn-facing villas. Room-level descriptions —
+ * plunge pools, soaking tubs, bedroom counts — were invented and are not
+ * published. TODO(client): supply real suite copy. See CLIENT-QUERIES.md.
+ */
 const SUITES = [
   {
     name: "Presidential Suite",
-    text: "Two bedrooms, private plunge pool and a wraparound deck over the water.",
+    text: "The largest of the three categories at Rime.",
     image: img.suite,
   },
   {
-    name: "Junior Suite",
-    text: "A single volume opening entirely to the canopy, with a stone soaking tub.",
+    name: "Standard Suite",
+    text: "The core of the sixty-key inventory.",
     image: img.villa,
+  },
+  {
+    name: "Junior Suite",
+    text: "The compact category, in the same architecture and finish.",
+    image: img.pool,
   },
 ] as const;
 
@@ -76,9 +88,9 @@ const FACILITIES: ShowcaseItem[] = [
   },
   {
     id: "lake",
-    title: "Lakeside & Trails",
-    meta: "8 km",
-    text: "Guided dawn lake walks, birding decks, a floating bar and the promenade loop.",
+    title: "Lakeside & Promenade",
+    meta: "1 km",
+    text: "Guided dawn lake walks and birding decks along the kilometre of promenade that rings Sheen Lake.",
     image: img.promenade,
   },
 ];
@@ -88,8 +100,8 @@ function Resort() {
     <>
       <PageHero
         eyebrow="The Resort"
-        title="A retreat that happens to be next door."
-        intro="Wellness, dining and suites arranged along the lake's northern shoulder — open to guests, and to residents who never have to travel for it."
+        title="Rime — a retreat that happens to be next door."
+        intro={`Wellness, dining and ${RESORT.suites} suites gathered in the Rime zone — open to guests, and to residents who never have to travel for it.`}
         image={img.resort}
       />
 
@@ -103,7 +115,7 @@ function Resort() {
               className="display mt-8 text-4xl md:text-6xl"
             />
             <Reveal delay={0.1}>
-              <p className="mt-8 max-w-md text-base font-light leading-relaxed text-muted-foreground">
+              <p className="mt-8 max-w-md body-copy text-muted-foreground">
                 The spa is built half a level below grade, so the treatment rooms open
                 onto a water channel and the noise of the day disappears at the door.
               </p>
@@ -114,8 +126,15 @@ function Resort() {
 
       <Section className="bg-muted/40">
         <Eyebrow>Suites</Eyebrow>
-        <SplitText text="Rooms with an unhurried view." className="display mt-6 text-4xl md:text-6xl" />
-        <div className="mt-14 grid gap-8 md:grid-cols-2">
+        <SplitText
+          text={`${RESORT.suites} suites, three categories.`}
+          className="display mt-6 text-4xl md:text-6xl"
+        />
+        <p className="mt-6 max-w-xl body-copy text-muted-foreground">
+          {RESORT.suites} suites across {RESORT.categories.join(", ")} categories,
+          including {RESORT.outlooks.join(", ")} suite options.
+        </p>
+        <div className="mt-14 grid gap-8 md:grid-cols-3">
           {SUITES.map((s, i) => (
             <Reveal key={s.name} delay={i * 0.12}>
               <div className="group overflow-hidden rounded-4xl bg-card soft-shadow">
@@ -127,9 +146,9 @@ function Resort() {
                     className="h-[26rem] w-full object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-110"
                   />
                 </div>
-                <div className="p-10">
-                  <h3 className="display text-3xl">{s.name}</h3>
-                  <p className="mt-3 text-sm font-light leading-relaxed text-muted-foreground">
+                <div className="p-8 md:p-10">
+                  <h3 className="card-title display text-3xl">{s.name}</h3>
+                  <p className="card-copy mt-3 text-muted-foreground">
                     {s.text}
                   </p>
                 </div>
@@ -152,7 +171,7 @@ function Resort() {
                 text="Everything, within a walk."
                 className="display mb-6 mt-6 text-4xl md:text-6xl"
               />
-              <p className="mb-4 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+              <p className="mb-4 label text-muted-foreground">
                 Hover or tab a facility to preview it
               </p>
             </>
@@ -177,7 +196,10 @@ function Resort() {
         label="Enquire about a stay"
         image={img.suite}
         points={[
-          ["Suites", "Presidential, island-facing, pool and junior"],
+          [
+            "Suites",
+            `${RESORT.suites} across ${RESORT.categories.join(", ")} categories, with ${RESORT.outlooks.join(", ")} options`,
+          ],
           ["Included", "Spa access, dawn lake walk, estate breakfast"],
           ["Best months", "October to February, book early"],
         ]}

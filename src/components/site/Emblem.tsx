@@ -1,4 +1,4 @@
-import logo from "@/assets/mandhara-logo.png.asset.json";
+import logo from "@/assets/herolog.png";
 
 /** Animated golden emblem ring that draws itself, wrapping the Mandhara mark. */
 export function Emblem({
@@ -17,7 +17,7 @@ export function Emblem({
     >
       <svg
         viewBox="0 0 200 200"
-        className="spin-slow absolute inset-0 h-full w-full text-accent"
+        className="spin-slow absolute inset-0 h-full w-full text-glow"
         aria-hidden="true"
       >
         <circle
@@ -42,11 +42,19 @@ export function Emblem({
           style={{ animation: "draw 2.6s cubic-bezier(.16,1,.3,1) forwards" }}
         />
       </svg>
+      <div
+        className="pointer-events-none absolute h-[76%] w-[76%] rounded-full"
+        style={{
+          background: "radial-gradient(ellipse, rgba(248,245,240,.34) 0%, rgba(184,145,70,.18) 38%, transparent 72%)",
+          filter: "blur(12px)",
+        }}
+        aria-hidden="true"
+      />
       {mark && (
         <img
-          src={logo.url}
+          src={logo}
           alt="Mandhara emblem"
-          className="relative h-[64%] w-[64%] object-contain"
+          className="relative z-10 h-[128%] w-[128%] object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,.2)]"
           loading="lazy"
         />
       )}
@@ -54,4 +62,4 @@ export function Emblem({
   );
 }
 
-export const logoUrl = logo.url;
+export const logoUrl = logo;

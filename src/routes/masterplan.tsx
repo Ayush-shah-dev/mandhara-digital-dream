@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CtaBand, PageHero } from "@/components/site/PageHero";
@@ -39,8 +39,11 @@ type Zone = {
   hash: string;
   linkLabel: string;
   secondary?: { to: string; label: string };
+  /** Centroid of `shape`, in percent — tooltip/marker anchor and hub-line endpoint. */
   x: number;
   y: number;
+  /** Zone boundary as [x%, y%] pairs against the masterplan image, clockwise. */
+  shape: [number, number][];
 };
 
 const NICQE_FACTS = { ...NICQE, villas: VILLAS.nicqe };
@@ -52,10 +55,14 @@ const NICQE_FACTS = { ...NICQE, villas: VILLAS.nicqe };
  * suite content and vice versa. ORION is the revenue-sharing villa enclave, not
  * an events venue.
  *
- * TODO(client): the x/y pin positions below follow the brochure's described
- * layout — Sheen Lake north-west, Gemini centre-west, Nicqe and Orion sweeping
- * east, Rime south — but have not been checked against the real aerial plate.
- * Confirm against the brochure masterplan image before launch.
+ * The x/y/shape values below are traced from the client's annotated aerial
+ * (brochure masterplan with the five zone outlines drawn on it), registered
+ * against this page's own masterplan image via shared landmarks — the lake,
+ * the cricket ground, the clubhouse/pool cluster, and the spine road. That
+ * source draws one boundary for the whole Nicqe+Orion villa sweep with no
+ * line between them (Orion's 54 villas vs. Nicqe's 294 — see VILLAS), so the
+ * split here is an estimate along the internal loop road, not a traced edge;
+ * nudge `orion`/`nicqe` if it reads wrong against the real plot lines.
  */
 const ZONES: Zone[] = [
   {
@@ -74,8 +81,39 @@ const ZONES: Zone[] = [
     to: "/amenities",
     hash: "",
     linkLabel: "Walk the lakeside",
-    x: 24,
-    y: 26,
+    x: 32.01,
+    y: 18.46,
+    shape: [
+      [22.21, 0.2],
+      [28.3, 0.2],
+      [31.34, 4.53],
+      [33.37, 9.93],
+      [36.41, 5.55],
+      [43, 7.45],
+      [46.04, 11.82],
+      [50.61, 5.99],
+      [56.19, 9.64],
+      [60.24, 16.93],
+      [62.78, 21.61],
+      [60.75, 27.88],
+      [55.68, 29.78],
+      [49.59, 28.91],
+      [44.02, 27.15],
+      [38.95, 28.91],
+      [34.38, 26.42],
+      [29.82, 35.91],
+      [24.75, 38.83],
+      [19.17, 38.54],
+      [14.6, 37.08],
+      [10.55, 34.16],
+      [7.51, 29.34],
+      [6.29, 22.04],
+      [7.3, 16.2],
+      [9.03, 11.09],
+      [11.56, 6.42],
+      [15.11, 2.63],
+      [18.66, 0.2],
+    ],
   },
   {
     id: "gemini",
@@ -94,8 +132,28 @@ const ZONES: Zone[] = [
     to: "/club",
     hash: "venues",
     linkLabel: "Open club venues",
-    x: 36,
-    y: 52,
+    x: 30.12,
+    y: 37.54,
+    shape: [
+      [38.95, 24.96],
+      [42.49, 27.88],
+      [43.2, 32.99],
+      [42.8, 38.83],
+      [40.97, 43.94],
+      [38.44, 48.32],
+      [35.7, 52.7],
+      [32.35, 53.43],
+      [28.8, 52.26],
+      [25.25, 49.34],
+      [21.91, 45.4],
+      [19.17, 40.29],
+      [17.44, 35.18],
+      [16.43, 30.07],
+      [17.44, 26.42],
+      [21.2, 24.96],
+      [26.77, 24.53],
+      [32.86, 24.23],
+    ],
   },
   {
     id: "nicqe",
@@ -112,8 +170,39 @@ const ZONES: Zone[] = [
     to: "/villas",
     hash: "nicqe",
     linkLabel: "Open the villa enclave",
-    x: 70,
-    y: 34,
+    x: 67.98,
+    y: 37.6,
+    shape: [
+      [43, 43.21],
+      [43, 37.37],
+      [43.2, 32.99],
+      [43, 28.61],
+      [40.97, 25.69],
+      [38.95, 24.96],
+      [43, 25.69],
+      [48.07, 24.96],
+      [53.14, 19.85],
+      [57.71, 15.47],
+      [63.29, 11.82],
+      [70.39, 14.01],
+      [77.48, 18.39],
+      [83.57, 22.77],
+      [89.66, 27.88],
+      [94.73, 32.99],
+      [97.26, 36.64],
+      [98.28, 40.29],
+      [97.26, 46.13],
+      [95.74, 51.97],
+      [95.74, 56.35],
+      [92.7, 62.92],
+      [87.63, 68.76],
+      [81.54, 63.65],
+      [74.44, 60],
+      [66.33, 55.62],
+      [58.22, 51.24],
+      [50.1, 46.86],
+      [43, 43.21],
+    ],
   },
   {
     id: "orion",
@@ -132,8 +221,27 @@ const ZONES: Zone[] = [
     hash: "orion",
     linkLabel: "Open the revenue-sharing villas",
     secondary: { to: "/revenue", label: "See the revenue model" },
-    x: 78,
-    y: 58,
+    x: 62.33,
+    y: 62.22,
+    shape: [
+      [43, 43.21],
+      [50.1, 46.86],
+      [58.22, 51.24],
+      [66.33, 55.62],
+      [74.44, 60],
+      [81.54, 63.65],
+      [87.63, 68.76],
+      [80.53, 74.6],
+      [73.43, 79.71],
+      [66.33, 84.09],
+      [61.76, 87.01],
+      [63.29, 68.76],
+      [60.24, 62.92],
+      [55.68, 58.54],
+      [50.1, 55.62],
+      [44.02, 53.87],
+      [43, 43.21],
+    ],
   },
   {
     id: "rime",
@@ -153,16 +261,52 @@ const ZONES: Zone[] = [
     to: "/resort",
     hash: "facilities",
     linkLabel: "Open resort facilities",
-    x: 48,
-    y: 78,
+    x: 31.77,
+    y: 71.54,
+    shape: [
+      [21.91, 45.4],
+      [16.63, 54.16],
+      [13.59, 57.08],
+      [11.05, 61.46],
+      [9.33, 66.57],
+      [8.32, 71.68],
+      [8.01, 76.79],
+      [8.32, 81.9],
+      [9.33, 86.28],
+      [11.05, 90.66],
+      [13.59, 94.01],
+      [17.14, 96.06],
+      [21.7, 97.52],
+      [27.79, 97.96],
+      [33.87, 97.66],
+      [39.96, 96.06],
+      [45.54, 92.85],
+      [50.61, 88.47],
+      [54.67, 84.09],
+      [58.22, 78.98],
+      [61.26, 73.87],
+      [63.29, 68.76],
+      [60.24, 62.92],
+      [55.68, 58.54],
+      [50.1, 55.62],
+      [44.02, 53.87],
+      [40.97, 43.94],
+      [38.44, 48.32],
+      [35.7, 52.7],
+      [32.35, 53.43],
+      [28.8, 52.26],
+      [25.25, 49.34],
+    ],
   },
 ];
 
-/** Sheen Lake is the hub every other zone reads from on the map. */
-const HUB = ZONES[0]!;
+/**
+ * Sits inside the Nicqe/Orion sweep with no boundary of its own in the source
+ * reference — shown as a static label to match, not a clickable zone.
+ */
+const LAGOON_LABEL = { name: "LAGOON", purpose: "Club Area", x: 61.76, y: 47.88 };
 
 function Masterplan() {
-  const router = useRouter();
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState<string | null>(null);
   const active = ZONES[index]!;
@@ -177,15 +321,12 @@ function Masterplan() {
     if (i >= 0) setIndex(i);
   }, []);
 
-  const select = useCallback(
-    (i: number, focusMarker = false) => {
-      setIndex(i);
-      const next = `${window.location.pathname}#zone-${ZONES[i]!.id}`;
-      window.history.replaceState(null, "", next);
-      if (focusMarker) markerRefs.current[i]?.focus();
-    },
-    [],
-  );
+  const select = useCallback((i: number, focusMarker = false) => {
+    setIndex(i);
+    const next = `${window.location.pathname}#zone-${ZONES[i]!.id}`;
+    window.history.replaceState(null, "", next);
+    if (focusMarker) markerRefs.current[i]?.focus();
+  }, []);
 
   const onMapKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
@@ -210,7 +351,7 @@ function Masterplan() {
       <PageHero
         eyebrow="Masterplan"
         title="Five zones. One continuous landscape."
-        intro="Hover a marker for its tooltip, select it to read the detail, or use the arrow keys to move between zones. Every road, valley and shoreline was drawn from the existing contour."
+        intro="Hover any zone for its tooltip, click it to read the detail, or use the arrow keys to move between zones. Every road, valley and shoreline was drawn from the existing contour."
         image={img.masterplan}
       />
 
@@ -223,42 +364,63 @@ function Masterplan() {
               onKeyDown={onMapKeyDown}
               className="group relative overflow-hidden rounded-4xl soft-shadow outline-none"
             >
+              {/*
+                aspect-[] pinned to the photo's own ratio (1425x1024), not a fixed
+                height + object-cover — the zone shapes below are traced in the
+                photo's own percent space, and object-cover would crop the image
+                to fill an arbitrary box while the SVG overlay stretches to fill
+                that same box uncropped, drifting the two apart whenever the
+                container's ratio doesn't match the photo's.
+              */}
               <img
                 src={img.masterplan}
                 alt="Mandhara masterplan aerial"
                 loading="lazy"
-                className="h-[36rem] w-full object-cover transition-transform duration-[2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-110"
+                className="aspect-[1425/1024] w-full object-cover transition-transform duration-[2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-110"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[oklch(0.17_0.012_60)]/55 to-transparent" />
 
-              {/* connecting lines to the lake */}
+              {/* zone hotspots — the traced plot boundary is the hit area, not just the marker */}
               <svg
                 aria-hidden="true"
                 viewBox="0 0 100 100"
                 preserveAspectRatio="none"
-                className="pointer-events-none absolute inset-0 h-full w-full"
+                className="absolute inset-0 h-full w-full"
               >
-                {ZONES.filter((z) => z.id !== HUB.id).map((z) => (
-                  <motion.line
-                    key={z.id}
-                    x1={z.x}
-                    y1={z.y}
-                    x2={HUB.x}
-                    y2={HUB.y}
-                    stroke="var(--brand-glow)"
-                    strokeWidth={0.15}
-                    strokeDasharray="1 1.4"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    whileInView={{ pathLength: 1, opacity: 0.55 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-                  />
-                ))}
+                {ZONES.map((z, i) => {
+                  // Hover/focus only — the map shouldn't keep the initial or
+                  // last-clicked zone permanently lit; that's the detail panel's job.
+                  const show = hovered === z.id;
+                  return (
+                    <polygon
+                      key={z.id}
+                      points={z.shape.map(([px, py]) => `${px},${py}`).join(" ")}
+                      onClick={() => select(i)}
+                      onMouseEnter={() => setHovered(z.id)}
+                      onMouseLeave={() => setHovered(null)}
+                      style={{
+                        pointerEvents: "all",
+                        cursor: "pointer",
+                        fill: "var(--brand-glow)",
+                        fillOpacity: show ? 0.18 : 0,
+                        stroke: "var(--brand-glow)",
+                        strokeOpacity: show ? 0.7 : 0,
+                        strokeWidth: 0.3,
+                        vectorEffect: "non-scaling-stroke",
+                        transition: "fill-opacity 500ms ease, stroke-opacity 500ms ease",
+                      }}
+                    />
+                  );
+                })}
               </svg>
 
               {ZONES.map((z, i) => {
+                // `on` only governs which marker is the roving tabindex target and
+                // which one screen readers hear as current — not what's visually lit.
+                // The visible highlight is hover/focus only (`show`), so the map never
+                // looks permanently "stuck" on the zone the detail panel happens to show.
                 const on = active.id === z.id;
-                const show = on || hovered === z.id;
+                const show = hovered === z.id;
                 return (
                   <div
                     key={z.id}
@@ -279,19 +441,13 @@ function Masterplan() {
                       aria-label={`${z.name} — ${z.purpose}`}
                       aria-current={on ? "true" : undefined}
                       aria-describedby={show ? `tip-${z.id}` : undefined}
-                      className="block outline-none"
+                      className={`block whitespace-nowrap rounded-full border px-3 py-1 outline-none backdrop-blur-md transition-colors duration-500 ${
+                        show
+                          ? "border-accent/60 bg-[oklch(0.17_0.012_60)]/85"
+                          : "border-white/15 bg-[oklch(0.17_0.012_60)]/70 hover:border-white/30"
+                      }`}
                     >
-                      <span
-                        className={`relative mx-auto grid h-12 w-12 place-items-center rounded-full border transition-all duration-500 ${
-                          on
-                            ? "scale-125 border-accent bg-accent/90"
-                            : "border-white/60 bg-white/15 backdrop-blur-md hover:scale-110"
-                        }`}
-                      >
-                        <span className="h-2 w-2 rounded-full bg-white" />
-                        <span className="shimmer absolute inset-0 rounded-full border border-accent/60" />
-                      </span>
-                      <span className="mt-2 block whitespace-nowrap text-center label text-white">
+                      <span className={`label ${show ? "text-accent" : "text-white"}`}>
                         {z.name}
                       </span>
                     </button>
@@ -307,45 +463,44 @@ function Masterplan() {
                           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                           className="pointer-events-none absolute left-1/2 top-full z-20 mt-3 w-60 -translate-x-1/2 rounded-2xl border border-white/15 bg-[oklch(0.17_0.012_60)]/90 p-4 text-left backdrop-blur-xl"
                         >
-                          <p className="label text-accent">
-                            {z.purpose}
+                          <p className="label text-accent">{z.purpose}</p>
+                          <p className="display mt-1 text-xl text-[oklch(0.97_0.01_84)]">
+                            {z.name}
                           </p>
-                          <p className="display mt-1 text-xl text-[oklch(0.97_0.01_84)]">{z.name}</p>
                           <p className="mt-2 text-[0.7rem] font-light leading-relaxed text-white/65">
                             {z.overview}
                           </p>
-                          <p className="mt-3 label text-accent">
-                            {z.linkLabel} →
-                          </p>
+                          <p className="mt-3 label text-accent">{z.linkLabel} →</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
                 );
               })}
+
+              {/* Lagoon Club Area sits inside the Nicqe/Orion sweep with no boundary
+                  of its own in the source reference, so it's a static label, not a zone. */}
+              <div
+                aria-hidden="true"
+                style={{ left: `${LAGOON_LABEL.x}%`, top: `${LAGOON_LABEL.y}%` }}
+                className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-white/15 bg-[oklch(0.17_0.012_60)]/70 px-3 py-1 backdrop-blur-md"
+              >
+                <span className="label text-accent">{LAGOON_LABEL.name}</span>
+                <span className="label ml-1.5 text-white/70">{LAGOON_LABEL.purpose}</span>
+              </div>
             </div>
 
-            {/* Keyboard focus / return controls */}
+            {/* Jump to zone detail only does anything once the map and detail panel
+                are no longer side by side — hidden at lg, where they already are. */}
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <button
                 type="button"
-                onClick={() => markerRefs.current[index]?.focus()}
-                className="btn-pill btn-label border border-border transition-colors duration-500 hover:border-primary hover:text-primary"
-              >
-                Focus the map
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  detailRef.current?.focus({ preventScroll: false })
-                }
-                className="btn-pill btn-label border border-border transition-colors duration-500 hover:border-primary hover:text-primary"
+                onClick={() => detailRef.current?.focus({ preventScroll: false })}
+                className="btn-pill btn-label border border-border transition-colors duration-500 hover:border-primary hover:text-primary lg:hidden"
               >
                 Jump to zone detail
               </button>
-              <span className="label text-muted-foreground">
-                ← → to move between zones
-              </span>
+              <span className="label text-muted-foreground">← → to move between zones</span>
             </div>
           </Reveal>
 
@@ -363,9 +518,7 @@ function Masterplan() {
             >
               <p className="eyebrow">{active.purpose}</p>
               <h2 className="display mt-4 text-5xl md:text-6xl">{active.name}</h2>
-              <p className="mt-6 body-copy text-muted-foreground">
-                {active.overview}
-              </p>
+              <p className="mt-6 body-copy text-muted-foreground">{active.overview}</p>
               <ul className="mt-8 space-y-3">
                 {active.features.map((f) => (
                   <li
@@ -395,10 +548,7 @@ function Masterplan() {
                 )}
                 <button
                   type="button"
-                  onClick={() => {
-                    void router.invalidate;
-                    markerRefs.current[index]?.focus();
-                  }}
+                  onClick={() => markerRefs.current[index]?.focus()}
                   className="btn-pill btn-label border border-border transition-colors duration-500 hover:border-primary hover:text-primary"
                 >
                   Return to the map
@@ -429,7 +579,10 @@ function Masterplan() {
 
           <div>
             <Eyebrow>Zone Index</Eyebrow>
-            <SplitText text="Every zone, at a glance." className="display mb-8 mt-6 text-4xl md:text-6xl" />
+            <SplitText
+              text="Every zone, at a glance."
+              className="display mb-8 mt-6 text-4xl md:text-6xl"
+            />
             <ul>
               {ZONES.map((z, i) => {
                 const on = preview.id === z.id;
@@ -456,9 +609,7 @@ function Masterplan() {
                       />
                       <div className="flex items-baseline justify-between gap-4">
                         <div>
-                          <p className="label text-primary">
-                            {z.purpose}
-                          </p>
+                          <p className="label text-primary">{z.purpose}</p>
                           <h3
                             className={`display mt-2 text-3xl transition-all duration-500 ${
                               on ? "translate-x-1 text-primary" : ""

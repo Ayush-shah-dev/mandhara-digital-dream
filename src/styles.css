@@ -452,28 +452,12 @@
   }
 }
 
-@keyframes shimmer {
-  0% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 0.25;
-  }
-}
-
 @utility float-slow {
   animation: float-slow 9s ease-in-out infinite;
 }
 
 @utility spin-slow {
   animation: spin-slow 40s linear infinite;
-}
-
-@utility shimmer {
-  animation: shimmer 5s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

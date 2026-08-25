@@ -51,7 +51,10 @@ export const CLUB = {
 
 /** Site address and verified distances — brochure back cover and location spread. */
 export const LOCATION = {
-  addressLines: ["Javaraj Road, Near Gundi", "Lothal, Gujarat"],
+  addressLines: [
+    "Lothal Greens, Bhurkhi, Lothal. 382230",
+    "Javaraj, Road, Gundi, Lothal, Gujarat 382230",
+  ],
   nearestTown: "Bagodara",
   /** Approximate centre of the Lothal / Bagodara area, for the embedded map. */
   map: {

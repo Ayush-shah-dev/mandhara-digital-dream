@@ -16,15 +16,15 @@ export function Loader({ onDone }: { onDone: () => void }) {
 
   useEffect(() => {
     const t: number[] = [];
-    t.push(window.setTimeout(() => setLine(1), 1500));
-    t.push(window.setTimeout(() => setLine(2), 2700));
-    t.push(window.setTimeout(() => setLine(3), 3900));
-    t.push(window.setTimeout(() => setDawn(true), 3400));
+    t.push(window.setTimeout(() => setLine(1), 1800));
+    t.push(window.setTimeout(() => setLine(2), 3600));
+    t.push(window.setTimeout(() => setLine(3), 5400));
+    t.push(window.setTimeout(() => setDawn(true), 4700));
     t.push(
       window.setTimeout(() => {
         setGone(true);
         onDone();
-      }, 5200),
+      }, 7000),
     );
     return () => t.forEach(clearTimeout);
   }, [onDone]);
@@ -133,7 +133,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
                     initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
                     className="display text-2xl text-[oklch(0.95_0.02_84)] md:text-4xl"
                   >
                     {LINES[line - 1]}

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/location")({
       {
         name: "description",
         content:
-          "Mandhara sits on Javaraj Road near Gundi, Lothal, Gujarat — 14 km from NH 47, 16 km from the Ahmedabad–Dholera Expressway and about 10 km from the Lothal Archaeological Site Museum.",
+          "Mandhara is at Lothal Greens, Bhurkhi, Lothal. 382230, Javaraj, Road, Gundi, Lothal, Gujarat 382230 — 14 km from NH 47, 16 km from the Ahmedabad–Dholera Expressway and about 10 km from the Lothal Archaeological Site Museum.",
       },
       { property: "og:title", content: "Location — Mandhara at Lothal, Gujarat" },
       {
@@ -45,7 +45,7 @@ function Location() {
       <PageHero
         eyebrow="Location"
         title="Beside Lothal, off the Ahmedabad road."
-        intro={`Javaraj Road, near Gundi — a short run from ${nearestTown}, the Rajkot–Ahmedabad highway and the Ahmedabad–Dholera Expressway.`}
+        intro={`Lothal Greens, Bhurkhi, Lothal. 382230, Javaraj, Road, Gundi, Lothal, Gujarat 382230 — a short run from ${nearestTown}, the Rajkot–Ahmedabad highway and the Ahmedabad–Dholera Expressway.`}
         image={img.hero}
         size="compact"
       />

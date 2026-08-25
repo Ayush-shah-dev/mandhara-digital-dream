@@ -122,9 +122,9 @@ function Hero() {
             initial={{ scale: 0.18, opacity: 0, filter: "brightness(0) invert(1) blur(10px)" }}
             animate={{ scale: 2, opacity: 1, filter: "brightness(0) invert(1) blur(0px)" }}
             transition={{ duration: 2.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 w-44 brightness-0 invert drop-shadow-[0_3px_10px_rgba(0,0,0,.55)] md:w-56"
+            className="relative z-10 mt-24 w-44 brightness-0 invert drop-shadow-[0_3px_10px_rgba(0,0,0,.55)] md:w-56"
           />
-          <p className="relative z-10 mt-5 flex flex-wrap items-center justify-center gap-x-3 text-center font-serif text-sm tracking-[0.12em] text-white uppercase md:text-base">
+          <p className="relative z-10 mt-14 flex flex-wrap items-center justify-center gap-x-4 text-center font-serif text-[24px] tracking-[0.12em] text-white uppercase md:text-[28px]">
             <span>Resort</span>
             <span className="text-accent" aria-hidden="true">|</span>
             <span>Club &amp; Event Space</span>
@@ -150,7 +150,7 @@ function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 1.2 }}
-          className="mt-12 flex flex-wrap items-center justify-center gap-4"
+          className="mt-4 flex flex-wrap items-center justify-center gap-4"
         >
           <Magnetic>
             <Link

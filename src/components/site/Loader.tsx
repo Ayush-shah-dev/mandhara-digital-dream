@@ -2,23 +2,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { logoUrl } from "./Emblem";
 
-const LINES = ["Three Experiences.", "One Destination.", "Welcome to Mandhara."];
-
 /**
  * Cinematic entry: particles coalesce into the Mandhara mark, the golden
  * emblem draws itself, then dawn light floods the screen and dissolves.
  */
 export function Loader({ onDone }: { onDone: () => void }) {
-  const [line, setLine] = useState(0);
   const [dawn, setDawn] = useState(false);
   const [gone, setGone] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const t: number[] = [];
-    t.push(window.setTimeout(() => setLine(1), 1800));
-    t.push(window.setTimeout(() => setLine(2), 3600));
-    t.push(window.setTimeout(() => setLine(3), 5400));
     t.push(window.setTimeout(() => setDawn(true), 4700));
     t.push(
       window.setTimeout(() => {
@@ -100,9 +94,9 @@ export function Loader({ onDone }: { onDone: () => void }) {
           />
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden="true" />
 
-          <div className="relative flex flex-col items-center gap-10 px-6 text-center">
-            <div className="relative grid h-56 w-56 place-items-center">
-              <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full text-glow">
+          <div className="relative grid h-56 w-56 place-items-center px-6 text-center">
+            <div className="relative grid h-full w-full place-items-center">
+              <svg viewBox="0 0 200 200" className="pointer-events-none absolute inset-0 h-full w-full text-glow">
                 <circle
                   cx="100"
                   cy="100"
@@ -121,25 +115,8 @@ export function Loader({ onDone }: { onDone: () => void }) {
                 initial={{ opacity: 0, scale: 0.6, rotate: -14 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-40 drop-shadow-[0_0_45px_rgba(184,145,70,0.55)] invert-0 brightness-125"
+                className="relative z-10 w-40 brightness-0 invert drop-shadow-[0_0_45px_rgba(184,145,70,0.55)]"
               />
-            </div>
-
-            <div className="h-10">
-              <AnimatePresence mode="wait">
-                {line > 0 && line <= LINES.length && (
-                  <motion.p
-                    key={line}
-                    initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
-                    transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-                    className="display text-2xl text-[oklch(0.95_0.02_84)] md:text-4xl"
-                  >
-                    {LINES[line - 1]}
-                  </motion.p>
-                )}
-              </AnimatePresence>
             </div>
           </div>
         </motion.div>

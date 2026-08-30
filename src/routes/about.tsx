@@ -53,14 +53,14 @@ const TIMELINE: ShowcaseItem[] = [
     title: "The Build",
     meta: "04 — Making",
     text: "Low-rise, stone, timber and lime. Materials that weather instead of fade.",
-    image: img.build,
+    image: img.villa,
   },
   {
     id: "life",
     title: "The Life",
     meta: "05 — Today",
     text: "Mornings on the trail, afternoons at the spa, evenings on the lawn. The estate has a daily rhythm now.",
-    image: img.promenade,
+    image: img.evening,
   },
 ];
 
@@ -71,7 +71,7 @@ function About() {
         eyebrow="About Mandhara"
         title="A destination written by its own landscape."
         intro="Mandhara began with a decision to build less and preserve more — and to let hospitality, not density, define value."
-        image={img.lake}
+        image={img.masterplan}
       />
 
       <Section>
@@ -83,10 +83,6 @@ function About() {
           />
           <div>
             <Eyebrow>Philosophy</Eyebrow>
-            <SplitText
-              text="Luxury here is quiet, slow and outdoors."
-              className="display mt-8 text-4xl md:text-6xl"
-            />
             <Reveal delay={0.1} className="mt-8">
               <p className="body-copy text-muted-foreground">
                 We measured success in canopy retained, in metres of shaded walkway, in
@@ -121,17 +117,14 @@ function About() {
       <Section className="bg-muted/40">
         <HoverShowcase
           items={TIMELINE}
+          square={false}
           side="left"
           height="h-[32rem] md:h-[38rem]"
           columns="lg:grid-cols-[1fr_1.05fr]"
           header={
             <>
               <Eyebrow>Timeline</Eyebrow>
-              <SplitText
-                text="Five chapters, one estate."
-                className="display mb-6 mt-6 text-4xl md:text-6xl"
-              />
-              <p className="mb-4 label text-muted-foreground">
+              <p className="mb-4 label text-muted-foreground mt-4">
                 Hover or tab through a chapter to see it
               </p>
             </>
@@ -139,7 +132,7 @@ function About() {
         />
       </Section>
 
-      <CtaBand
+      {/* <CtaBand
         title="Walk the story in person."
         text="A guided visit takes about two hours — the lake, the enclave, the resort and the lawns."
         label="Arrange a visit"
@@ -149,7 +142,7 @@ function About() {
           ["Chapter two", "The Nicqe and Orion villa enclaves on foot"],
           ["Chapter three", "Lunch at Rime, then the Gemini club lawns"],
         ]}
-      />
+      /> */}
     </>
   );
 }

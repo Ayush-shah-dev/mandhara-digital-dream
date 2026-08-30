@@ -110,11 +110,6 @@ function Location() {
         </Reveal>
       </Section>
 
-      <CtaBand
-        title="Come and find it."
-        text="Send us the day you are travelling and we will share directions from Ahmedabad or Rajkot, and meet you at the gate."
-        label="Plan the drive"
-      />
     </>
   );
 }

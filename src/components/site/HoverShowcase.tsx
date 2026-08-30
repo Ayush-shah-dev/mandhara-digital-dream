@@ -20,19 +20,23 @@ export type ShowcaseItem = {
 export function ShowcasePanel({
   item,
   height = "h-[34rem]",
+  width = "w-[34rem]",
   className,
   index,
   total,
+  square = true,
 }: {
   item: ShowcaseItem;
   height?: string;
+  width?: string;
   className?: string;
   index?: number;
   total?: number;
+  square?: boolean;
 }) {
   return (
     <div
-      className={`relative overflow-hidden rounded-4xl soft-shadow ${height} ${className ?? ""}`}
+      className={`relative overflow-hidden rounded-4xl soft-shadow ${square ? "aspect-square h-auto" : height} ${width} ${className ?? ""}`}
       aria-live="polite"
     >
       <AnimatePresence initial={false}>
@@ -100,6 +104,7 @@ export function HoverShowcase({
   header,
   footer,
   columns = "md:grid-cols-2",
+  square = true,
 }: {
   items: readonly ShowcaseItem[];
   side?: "left" | "right";
@@ -108,6 +113,7 @@ export function HoverShowcase({
   header?: ReactNode;
   footer?: ReactNode;
   columns?: string;
+  square?: boolean;
 }) {
   const [index, setIndex] = useState(0);
   const active = items[index] ?? items[0]!;
@@ -116,7 +122,7 @@ export function HoverShowcase({
   const panel = (
     <div className={side === "right" ? "md:order-2" : ""}>
       <div className="md:sticky md:top-28">
-        <ShowcasePanel item={active} height={height} index={index} total={items.length} />
+        <ShowcasePanel item={active} height={height} square={square} index={index} total={items.length} />
       </div>
     </div>
   );

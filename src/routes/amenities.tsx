@@ -243,11 +243,11 @@ function Amenities() {
         ))}
       </div>
 
-      <CtaBand
+      {/* <CtaBand
         title="Experience them in one afternoon."
         text="Spa at three, lake at five, dinner under the trees. We'll set the sequence."
         label="Plan the afternoon"
-      />
+      /> */}
     </>
   );
 }

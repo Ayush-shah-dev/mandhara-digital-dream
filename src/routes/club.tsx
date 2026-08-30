@@ -112,22 +112,24 @@ function Club() {
         title="Where celebrations become family history."
         intro="Five venues, one landscape, and a hospitality team that has already thought about the things you haven't."
         image={img.club}
+        imageScale={[1, 1.52]}
       />
 
       <Section id="venues" className="scroll-mt-24">
         <HoverShowcase
           items={VENUES}
+          square={false}
           side="left"
           height="h-[32rem] md:h-[40rem]"
           columns="lg:grid-cols-[1fr_1.05fr]"
           header={
             <>
               <Eyebrow>Venues</Eyebrow>
-              <SplitText
+              {/* <SplitText
                 text="Five venues, one landscape."
                 className="display mb-6 mt-6 text-4xl md:text-6xl"
-              />
-              <p className="mb-4 label text-muted-foreground">
+              /> */}
+              <p className="mb-4 mt-4 label text-muted-foreground">
                 Hover or tab a venue to see it set
               </p>
             </>
@@ -140,10 +142,10 @@ function Club() {
           <MaskedImage src={img.lawn} alt="Wedding lawn at dusk" className="h-[36rem]" />
           <div>
             <Eyebrow>Wedding Stories</Eyebrow>
-            <SplitText
+            {/* <SplitText
               text="Three days, one estate, zero logistics."
               className="display mt-8 text-4xl md:text-6xl"
-            />
+            /> */}
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-md body-copy text-muted-foreground">
                 Guests stay at the resort, ceremonies move between lawn and lake, and
@@ -168,7 +170,7 @@ function Club() {
 
       <Section>
         <Eyebrow>Calendar</Eyebrow>
-        <SplitText text="The estate through the year." className="display mt-6 text-4xl md:text-6xl" />
+        {/* <SplitText text="The estate through the year." className="display mt-6 text-4xl md:text-6xl" /> */}
         <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {CALENDAR.map((c, i) => (
             <Reveal key={c.id} delay={i * 0.08}>
@@ -204,7 +206,7 @@ function Club() {
         </div>
       </Section>
 
-      <CtaBand
+      {/* <CtaBand
         title="Hold a date at Mandhara."
         text="Send us the season and the guest count — we'll come back with venues, layouts and a walkthrough slot."
         label="Check availability"
@@ -214,7 +216,7 @@ function Club() {
           ["Stay", `${RESORT.suites} resort suites at Rime`],
           ["Services", "Planners, catering, décor, valet, AV"],
         ]}
-      />
+      /> */}
     </>
   );
 }

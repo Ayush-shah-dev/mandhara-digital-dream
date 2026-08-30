@@ -100,12 +100,8 @@
 :root {
   --radius: 1rem;
 
-  /*
-   * One vertical rhythm value for every major section boundary: ~72px on
-   * mobile, ~120px on desktop. Eyeballing this per page is what makes a long
-   * scroll feel inconsistent rather than deliberate.
-   */
-  --space-section: clamp(4.5rem, 3.2rem + 4vw, 7.5rem);
+  /* Half the original section rhythm: compact, but still breathable. */
+  --space-section: clamp(2.25rem, 1.6rem + 2vw, 3.75rem);
 
   /*
    * Brand ramp sampled from the brochure cover, the section-divider panels and

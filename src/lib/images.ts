@@ -2,9 +2,11 @@ import hero from "@/assets/hero-aerial.jpg";
 import villa from "@/assets/villa.jpg";
 import resort from "@/assets/resort.jpg";
 import club from "@/assets/club.jpg";
+import quinox from "@/assets/quinox.jpg";
 import masterplan from "@/assets/masterplan.jpg";
 import spa from "@/assets/spa.jpg";
 import lake from "@/assets/lake.jpg";
+import evening from "@/assets/evening.jpg";
 import arrival from "@/assets/arrival.jpg";
 import garden from "@/assets/garden.jpg";
 import dining from "@/assets/dining.jpg";
@@ -26,12 +28,18 @@ import promenade from "@/assets/promenade.jpg";
 import eventGround from "@/assets/event-ground.jpg";
 import build from "@/assets/build.jpg";
 import expressway from "@/assets/expressway.jpg";
+import arch from "@/assets/arch.jpg";
+import mandir from "@/assets/mandir.jpg";
 
 export const img = {
   hero,
+  evening,
+  arch,
+  mandir,
   villa,
   resort,
   club,
+  quinox,
   masterplan,
   spa,
   lake,

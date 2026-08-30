@@ -103,11 +103,11 @@ function Arrival() {
         </div>
       </div>
 
-      <CtaBand
+      {/* <CtaBand
         title="Do the drive at dusk."
         text="The gate lighting comes on at 6:20. Arrive a few minutes before."
         label="Book the drive"
-      />
+      /> */}
     </>
   );
 }

@@ -167,12 +167,12 @@ function Revenue() {
           ))}
         </div>
       </Section>
-
+{/* 
       <CtaBand
         title="Ask for the numbers."
         text="We'll share the full model, term sheet and current inventory over a call or on site."
         label="Request the model"
-      />
+      /> */}
     </>
   );
 }

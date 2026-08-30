@@ -122,11 +122,11 @@ function Gallery() {
         )}
       </AnimatePresence>
 
-      <CtaBand
+      {/* <CtaBand
         title="Photographs undersell the light."
         text="Come at five in the evening and see the lake do what a camera can't hold."
         label="Book a visit"
-      />
+      /> */}
     </>
   );
 }

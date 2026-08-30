@@ -41,7 +41,7 @@ const TYPES: ShowcaseItem[] = [
     title: "Quinox",
     meta: "1 BHK",
     text: "The entry configuration in the enclave, on a four-hundred-square-yard plot.",
-    image: img.villaValley,
+    image: img.quinox,
     details: [
       ["Configuration", "1 BHK"],
       ["Plot", "400 sq. yd"],
@@ -155,12 +155,12 @@ function Villas() {
           columns="lg:grid-cols-[1fr_1.1fr]"
           header={
             <>
-              <Eyebrow>Nicqe — The Enclave</Eyebrow>
-              <SplitText
+              <Eyebrow>Nicqe: The Enclave</Eyebrow>
+              {/* <SplitText
                 text="Five configurations. One landscape."
                 className="display mb-6 mt-6 text-4xl md:text-6xl"
-              />
-              <p className="mb-4 max-w-lg body-copy text-muted-foreground">
+              /> */}
+              <p className="mb-4 mt-8 max-w-lg body-copy text-muted-foreground">
                 Homes run from a single-bedroom Quinox on four hundred square yards to a
                 four-bedroom Equinox on eight hundred. Hover or tab a configuration to see its plot
                 and layout.
@@ -194,11 +194,11 @@ function Villas() {
       <Section id="orion" className="scroll-mt-24 bg-muted/40">
         <div className="grid gap-16 md:grid-cols-[1fr_1.1fr] md:gap-24">
           <div>
-            <Eyebrow>Orion — Revenue Sharing</Eyebrow>
-            <SplitText
+            <Eyebrow>Orion : Revenue Sharing</Eyebrow>
+            {/* <SplitText
               text="Fifty-four villas that work while you are away."
               className="display mt-8 text-4xl md:text-6xl"
-            />
+            /> */}
           </div>
           <Reveal delay={0.1} className="space-y-8">
             <p className="body-copy text-muted-foreground">
@@ -240,10 +240,10 @@ function Villas() {
 
       <Section>
         <Eyebrow>Day / Night</Eyebrow>
-        <SplitText
+        {/* <SplitText
           text="The same villa, twelve hours apart."
           className="display mb-12 mt-6 text-4xl md:text-6xl"
-        />
+        /> */}
         <Reveal>
           <Compare />
         </Reveal>
@@ -258,7 +258,7 @@ function Villas() {
         Restore it only against a document the client confirms. See CLIENT-QUERIES.md.
       */}
 
-      <CtaBand
+      {/* <CtaBand
         title="Choose your configuration."
         text={`Availability moves across both enclaves. Tell us the configuration and we'll come back with what is open on the ${VILLAS.total}-plot Area Sheet.`}
         label="Request availability"
@@ -268,7 +268,7 @@ function Villas() {
           ["Equinox", "3 BHK on 600 sq. yd · 4 BHK on 800 sq. yd"],
           ["Revenue Sharing", "2 BHK · 400 sq. yd · private pool, deck, courtyard"],
         ]}
-      />
+      /> */}
     </>
   );
 }

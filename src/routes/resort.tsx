@@ -11,8 +11,7 @@ export const Route = createFileRoute("/resort")({
       { title: "Rime — The Resort at Mandhara" },
       {
         name: "description",
-        content:
-          `${RESORT.suites} suites across Presidential, Standard and Junior categories, with spa, pool, gym and dining at Rime, the Mandhara resort.`,
+        content: `${RESORT.suites} suites across Presidential, Standard and Junior categories, with spa, pool, gym and dining at Rime, the Mandhara resort.`,
       },
       { property: "og:title", content: "The Resort at Mandhara" },
       {
@@ -91,7 +90,7 @@ const FACILITIES: ShowcaseItem[] = [
     title: "Lakeside & Promenade",
     meta: "1 km",
     text: "Guided dawn lake walks and birding decks along the kilometre of promenade that rings Sheen Lake.",
-    image: img.promenade,
+    image: img.evening,
   },
 ];
 
@@ -110,14 +109,14 @@ function Resort() {
           <MaskedImage src={img.spa} alt="Resort spa" className="h-[34rem]" />
           <div>
             <Eyebrow>Wellness</Eyebrow>
-            <SplitText
+            {/* <SplitText
               text="Water, heat, silence, repeat."
               className="display mt-8 text-4xl md:text-6xl"
-            />
+            /> */}
             <Reveal delay={0.1}>
-              <p className="mt-8 max-w-md body-copy text-muted-foreground">
-                The spa is built half a level below grade, so the treatment rooms open
-                onto a water channel and the noise of the day disappears at the door.
+              <p className="mt-8 mt-4 max-w-md body-copy text-muted-foreground">
+                The spa is built half a level below grade, so the treatment rooms open onto a water
+                channel and the noise of the day disappears at the door.
               </p>
             </Reveal>
           </div>
@@ -126,13 +125,13 @@ function Resort() {
 
       <Section className="bg-muted/40">
         <Eyebrow>Suites</Eyebrow>
-        <SplitText
+        {/* <SplitText
           text={`${RESORT.suites} suites, three categories.`}
           className="display mt-6 text-4xl md:text-6xl"
-        />
+        /> */}
         <p className="mt-6 max-w-xl body-copy text-muted-foreground">
-          {RESORT.suites} suites across {RESORT.categories.join(", ")} categories,
-          including {RESORT.outlooks.join(", ")} suite options.
+          {RESORT.suites} suites across {RESORT.categories.join(", ")} categories, including{" "}
+          {RESORT.outlooks.join(", ")} suite options.
         </p>
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {SUITES.map((s, i) => (
@@ -148,9 +147,7 @@ function Resort() {
                 </div>
                 <div className="p-8 md:p-10">
                   <h3 className="card-title display text-3xl">{s.name}</h3>
-                  <p className="card-copy mt-3 text-muted-foreground">
-                    {s.text}
-                  </p>
+                  <p className="card-copy mt-3 text-muted-foreground">{s.text}</p>
                 </div>
               </div>
             </Reveal>
@@ -160,6 +157,7 @@ function Resort() {
 
       <Section id="facilities" className="scroll-mt-24">
         <HoverShowcase
+          square={false}
           items={FACILITIES}
           side="left"
           height="h-[32rem] md:h-[38rem]"
@@ -167,11 +165,11 @@ function Resort() {
           header={
             <>
               <Eyebrow>Facilities</Eyebrow>
-              <SplitText
-                text="Everything, within a walk."
-                className="display mb-6 mt-6 text-4xl md:text-6xl"
-              />
-              <p className="mb-4 label text-muted-foreground">
+              {/* <SplitText
+                  text="Everything, within a walk."
+                  className="display mb-6 mt-6 text-4xl md:text-6xl"
+                /> */}
+              <p className="mb-4 mt-4 label text-muted-foreground">
                 Hover or tab a facility to preview it
               </p>
             </>
@@ -183,14 +181,14 @@ function Resort() {
         <MaskedImage src={img.dining} alt="Lakeside dining" className="h-full rounded-none" />
         <div className="absolute inset-0 bg-[oklch(0.17_0.012_60)]/45" />
         <div className="absolute inset-0 grid place-items-center px-6 text-center">
-          <SplitText
+          {/* <SplitText
             text="Dinner outdoors, nine months of the year."
             className="display max-w-3xl text-4xl text-[oklch(0.97_0.01_84)] md:text-6xl"
-          />
+          /> */}
         </div>
       </section>
 
-      <CtaBand
+      {/* <CtaBand
         title="Stay a night before you decide."
         text="Resort stays are open to prospective residents — arrive Friday, walk the estate Saturday."
         label="Enquire about a stay"
@@ -203,7 +201,7 @@ function Resort() {
           ["Included", "Spa access, dawn lake walk, estate breakfast"],
           ["Best months", "October to February, book early"],
         ]}
-      />
+      /> */}
     </>
   );
 }

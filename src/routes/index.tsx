@@ -23,8 +23,7 @@ export const Route = createFileRoute("/")({
       { title: "Mandhara — Three Experiences. One Destination." },
       {
         name: "description",
-        content:
-          `Mandhara is a luxury destination near Lothal, Gujarat: ${VILLAS.total} villas, a wellness resort and a celebration club, woven around Sheen Lake, gardens and golden light.`,
+        content: `Mandhara is a luxury destination near Lothal, Gujarat: ${VILLAS.total} villas, a wellness resort and a celebration club, woven around Sheen Lake, gardens and golden light.`,
       },
       { property: "og:title", content: "Mandhara — Three Experiences. One Destination." },
       {
@@ -40,25 +39,91 @@ export const Route = createFileRoute("/")({
 });
 
 const NATURE: readonly ShowcaseItem[] = [
-  { id: "canopy", title: "Built around the canopy", meta: "Canopy", text: "Roads bend around old rain trees; the survey mapped each trunk before a single line was drawn.", image: img.canopy },
-  { id: "valleys", title: `${NICQE.gardenValleys} garden valleys`, meta: "Landform", text: "The natural undulation became gardens rather than being levelled into plots.", image: img.garden },
-  { id: "water", title: "Water returned to the lake", meta: "Sheen Lake", text: `Monsoon channels feed ${LAKE.acres} acres of water, with ${LAKE.aerators} aerators keeping it moving.`, image: img.lake },
-  { id: "bloom", title: "Seasonal bloom calendar", meta: "Planting", text: "Species chosen so something is always flowering, month after month.", image: img.blooms },
+  {
+    id: "canopy",
+    title: "Built around the canopy",
+    meta: "Canopy",
+    text: "Roads bend around old rain trees; the survey mapped each trunk before a single line was drawn.",
+    image: img.canopy,
+  },
+  {
+    id: "valleys",
+    title: `${NICQE.gardenValleys} garden valleys`,
+    meta: "Landform",
+    text: "The natural undulation became gardens rather than being levelled into plots.",
+    image: img.garden,
+  },
+  {
+    id: "water",
+    title: "Water returned to the lake",
+    meta: "Sheen Lake",
+    text: `Monsoon channels feed ${LAKE.acres} acres of water, with ${LAKE.aerators} aerators keeping it moving.`,
+    image: img.lake,
+  },
+  {
+    id: "bloom",
+    title: "Seasonal bloom calendar",
+    meta: "Planting",
+    text: "Species chosen so something is always flowering, month after month.",
+    image: img.blooms,
+  },
 ] as const;
 
 const REVENUE: readonly ShowcaseItem[] = [
-  { id: "own", title: "Own", meta: "Step 01", text: "Buy the plot and villa outright — freehold, registered, and yours to use whenever you wish.", image: img.villaLake },
-  { id: "operate", title: "Operate", meta: "Step 02", text: "Hand the keys to the resort team. Housekeeping, maintenance and guests are managed end to end.", image: img.suite },
-  { id: "earn", title: "Earn", meta: "Step 03", text: "Share in the room revenue your villa generates, with transparent statements each quarter.", image: img.resort },
+  {
+    id: "own",
+    title: "Own",
+    meta: "Step 01",
+    text: "Buy the plot and villa outright — freehold, registered, and yours to use whenever you wish.",
+    image: img.villaLake,
+  },
+  {
+    id: "operate",
+    title: "Operate",
+    meta: "Step 02",
+    text: "Hand the keys to the resort team. Housekeeping, maintenance and guests are managed end to end.",
+    image: img.suite,
+  },
+  {
+    id: "earn",
+    title: "Earn",
+    meta: "Step 03",
+    text: "Share in the room revenue your villa generates, with transparent statements each quarter.",
+    image: img.resort,
+  },
 ] as const;
 
 /** Only landmarks the brochure actually gives a distance for. Airport, school
  *  and hospital times are unknown for the Lothal site — see CLIENT-QUERIES.md. */
 const PROXIMITY: readonly ShowcaseItem[] = [
-  { id: "lothal", title: "Archaeological Site Museum, Lothal", meta: LOCATION.nearby[0][1], text: LOCATION.nearby[0][2], image: img.arrival },
-  { id: "nh47", title: "NH 47 — Rajkot–Ahmedabad Highway", meta: LOCATION.nearby[1][1], text: LOCATION.nearby[1][2], image: img.expressway },
-  { id: "expressway", title: "Ahmedabad–Dholera Expressway", meta: LOCATION.nearby[2][1], text: LOCATION.nearby[2][2], image: img.build },
-  { id: "temple", title: "Ganapatipura Ganpati Mandir", meta: LOCATION.nearby[3][1], text: LOCATION.nearby[3][2], image: img.clubhouse },
+  {
+    id: "lothal",
+    title: "Archaeological Site Museum, Lothal",
+    meta: LOCATION.nearby[0][1],
+    text: LOCATION.nearby[0][2],
+    image: img.arch,
+  },
+  {
+    id: "nh47",
+    title: "NH 47 — Rajkot–Ahmedabad Highway",
+    meta: LOCATION.nearby[1][1],
+    text: LOCATION.nearby[1][2],
+    image: img.expressway,
+  },
+  {
+    id: "expressway",
+    title: "Ahmedabad–Dholera Expressway",
+    meta: LOCATION.nearby[2][1],
+    text: LOCATION.nearby[2][2],
+    image: img.build,
+  },
+  {
+    id: "temple",
+    title: "Ganapatipura Ganpati Mandir",
+    meta: LOCATION.nearby[3][1],
+    text: LOCATION.nearby[3][2],
+    image: img.mandir,
+  },
 ] as const;
 
 const EXPERIENCES = [
@@ -111,7 +176,8 @@ function Hero() {
           <div
             className="pointer-events-none absolute h-[118%] w-[118%] rounded-full"
             style={{
-              background: "radial-gradient(ellipse, rgba(255,255,255,.26) 0%, rgba(248,245,240,.14) 42%, transparent 70%)",
+              background:
+                "radial-gradient(ellipse, rgba(255,255,255,.26) 0%, rgba(248,245,240,.14) 42%, transparent 70%)",
               filter: "blur(9px)",
             }}
             aria-hidden="true"
@@ -126,9 +192,13 @@ function Hero() {
           />
           <p className="relative z-10 mt-14 flex flex-wrap items-center justify-center gap-x-4 text-center font-serif text-[24px] tracking-[0.12em] text-white uppercase md:text-[28px]">
             <span>Resort</span>
-            <span className="text-accent" aria-hidden="true">|</span>
+            <span className="text-accent" aria-hidden="true">
+              |
+            </span>
             <span>Club &amp; Event Space</span>
-            <span className="text-accent" aria-hidden="true">|</span>
+            <span className="text-accent" aria-hidden="true">
+              |
+            </span>
             <span>Villa Enclave</span>
           </p>
         </div>
@@ -204,18 +274,14 @@ function Home() {
       <Hero />
 
       {/* Introduction */}
-      <Section className="bg-background">
+      <Section className="bg-background !pt-8 md:!pt-12">
         <div className="grid gap-16 md:grid-cols-[1fr_1.1fr] md:gap-24">
           <div>
             <Eyebrow>The Destination</Eyebrow>
-            <SplitText
-              text="An estate that behaves like one continuous garden."
-              className="display mt-8 text-4xl md:text-6xl"
-            />
             <MaskedImage
               src={img.canopy}
               alt="Retained canopy over the Mandhara estate"
-              className="mt-10 h-[24rem] md:h-[28rem]"
+              className="mt-6 h-[24rem] md:h-[28rem]"
               parallax={40}
             />
             {/* A "not a single mature tree was felled" claim sat here. It is not in
@@ -233,13 +299,13 @@ function Home() {
           </div>
           <Reveal delay={0.15} className="self-center">
             <p className="body-copy text-muted-foreground">
-              Mandhara is not a project you visit once. It is a landscape you return to
-              — a lake that changes colour by the hour, roads that curve because the
-              trees were here first, and architecture that keeps its voice low.
+              Mandhara is not a project you visit once. It is a landscape you return to — a lake
+              that changes colour by the hour, roads that curve because the trees were here first,
+              and architecture that keeps its voice low.
             </p>
             <p className="lead mt-14 max-w-lg text-foreground">
-              Three worlds share one address: a villa enclave to live in, a resort to
-              retreat into, and a club where celebrations become family history.
+              Three worlds share one address: a villa enclave to live in, a resort to retreat into,
+              and a club where celebrations become family history.
             </p>
             <div className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-10">
               {[
@@ -274,8 +340,8 @@ function Home() {
             />
             <Reveal delay={0.2}>
               <p className="mx-auto mt-6 max-w-xl body-copy text-white/70">
-                Six acres of water, five landscaped islands and a kilometre of
-                promenade — drawn from the contour survey, not over it.
+                Six acres of water, five landscaped islands and a kilometre of promenade — drawn
+                from the contour survey, not over it.
               </p>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
                 {[
@@ -285,9 +351,7 @@ function Home() {
                 ].map(([n, l]) => (
                   <div key={l} className="text-[oklch(0.97_0.01_84)]">
                     <p className="display text-3xl text-accent md:text-4xl">{n}</p>
-                    <p className="mt-1 label text-white/60">
-                      {l}
-                    </p>
+                    <p className="mt-1 label text-white/60">{l}</p>
                   </div>
                 ))}
               </div>
@@ -315,28 +379,28 @@ function Home() {
       </section>
 
       {/* Three experiences */}
-      <Section>
+      <Section className="!pt-12">
         <Eyebrow>Three Experiences</Eyebrow>
-        <SplitText
-          text="Live. Retreat. Celebrate."
-          className="display mt-8 max-w-3xl text-5xl md:text-7xl"
-        />
-        <div className="mt-20 grid gap-8 md:grid-cols-3 lg:gap-10">
+        <div className="mt-6 grid gap-8 md:grid-cols-3 lg:gap-10">
           {EXPERIENCES.map((e, i) => (
             <Reveal key={e.title} delay={i * 0.12}>
-              <TiltCard>
-                <Link to={e.to} className="group block">
-                  <div className="overflow-hidden rounded-3xl">
-                    <img
-                      src={e.image}
-                      alt={e.title}
-                      loading="lazy"
-                      className="h-[26rem] w-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-110"
-                    />
+              <TiltCard className="rounded-3xl">
+                <Link to={e.to} className="group relative block overflow-hidden rounded-3xl">
+                  <img
+                    src={e.image}
+                    alt={e.title}
+                    loading="lazy"
+                    className="h-[30rem] w-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.12_0.02_60)]/90 via-[oklch(0.12_0.02_60)]/20 to-transparent transition-opacity duration-700 group-hover:from-[oklch(0.12_0.02_60)]/95" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 text-white transition-transform duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:-translate-y-2 md:p-8">
+                    <p className="label text-accent">{e.n}</p>
+                    <h3 className="display mt-3 text-3xl">{e.title}</h3>
+                    <p className="card-copy mt-3 max-w-xs text-white/75">{e.text}</p>
+                    <span className="mt-5 inline-block label text-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                      Explore <span aria-hidden="true">↗</span>
+                    </span>
                   </div>
-                  <p className="label mt-6 text-primary">{e.n}</p>
-                  <h3 className="display mt-3 text-3xl">{e.title}</h3>
-                  <p className="card-copy mt-3 max-w-xs text-muted-foreground">{e.text}</p>
                 </Link>
               </TiltCard>
             </Reveal>
@@ -347,6 +411,7 @@ function Home() {
       {/* Nature philosophy */}
       <Section className="bg-muted/40">
         <HoverShowcase
+          square={false}
           items={NATURE}
           side="left"
           height="h-[30rem] md:h-[36rem]"
@@ -356,11 +421,11 @@ function Home() {
               <Eyebrow>Nature Philosophy</Eyebrow>
               <SplitText
                 text="We built around the trees, not through them."
-                className="display mb-6 mt-6 text-4xl md:text-6xl"
+                className="display mb-6 mt-6 text-4xl "
               />
               <p className="mb-4 max-w-md body-copy text-muted-foreground">
-                Every road follows an existing contour. Every valley remains a valley.
-                Hover or tab a principle to watch the landscape answer.
+                Every road follows an existing contour. Every valley remains a valley. Hover or tab
+                a principle to watch the landscape answer.
               </p>
             </>
           }
@@ -380,8 +445,8 @@ function Home() {
             />
             <Reveal delay={0.2}>
               <p className="mt-6 max-w-md body-copy text-white/70">
-                Fountains, illuminated sculptures and a tree-lined drive that slows you
-                down on purpose. Arrival at Mandhara is a sequence, not a gate.
+                Fountains, illuminated sculptures and a tree-lined drive that slows you down on
+                purpose. Arrival at Mandhara is a sequence, not a gate.
               </p>
               <Magnetic>
                 <Link
@@ -401,11 +466,14 @@ function Home() {
         <div className="grid items-center gap-16 md:grid-cols-[1fr_1.2fr] md:gap-24">
           <div>
             <Eyebrow>Masterplan</Eyebrow>
-            <SplitText text="Five zones. One rhythm." className="display mt-8 text-4xl md:text-6xl" />
+            <SplitText
+              text="Five zones. One rhythm."
+              className="display mt-8 text-4xl md:text-6xl"
+            />
             <Reveal delay={0.1}>
               <p className="mt-8 body-copy text-muted-foreground">
-                Nicqe and Orion for the villas, Rime for the resort, Gemini for the
-                club and events, and Sheen Lake at the centre of all of it.
+                Nicqe and Orion for the villas, Rime for the resort, Gemini for the club and events,
+                and Sheen Lake at the centre of all of it.
               </p>
               <Magnetic>
                 <Link
@@ -425,7 +493,10 @@ function Home() {
       <section className="brand-gradient overflow-hidden py-24">
         <div className="mx-auto mb-12 w-full max-w-7xl px-6 md:px-12">
           <p className="eyebrow text-accent">Amenities</p>
-          <SplitText text="Fourteen worlds within one." className="display mt-6 text-4xl md:text-6xl" />
+          <SplitText
+            text="Fourteen worlds within one."
+            className="display mt-6 text-4xl md:text-6xl"
+          />
         </div>
         <motion.div
           className="flex gap-16 whitespace-nowrap"
@@ -472,6 +543,7 @@ function Home() {
       {/* Investment */}
       <Section>
         <HoverShowcase
+          square={false}
           items={REVENUE}
           side="left"
           height="h-[28rem] md:h-[34rem]"
@@ -484,8 +556,8 @@ function Home() {
                 className="display mb-6 mt-6 text-4xl md:text-6xl"
               />
               <p className="mb-4 max-w-md body-copy text-muted-foreground">
-                Keep the villa private, or place it in the managed hospitality pool and
-                share in resort revenue. Hover each step to see it.
+                Keep the villa private, or place it in the managed hospitality pool and share in
+                resort revenue. Hover each step to see it.
               </p>
             </>
           }
@@ -511,10 +583,7 @@ function Home() {
             <Eyebrow>Gallery</Eyebrow>
             <SplitText text="Chapters in light." className="display mt-6 text-4xl md:text-6xl" />
           </div>
-          <Link
-            to="/gallery"
-            className="link-underline label text-primary"
-          >
+          <Link to="/gallery" className="link-underline label text-primary">
             View all
           </Link>
         </div>
@@ -542,42 +611,37 @@ function Home() {
       */}
 
       {/* Location */}
-      <Section className="bg-secondary text-[oklch(0.96_0.01_84)]">
+      <Section className="!py-12 bg-secondary text-[oklch(0.96_0.01_84)]">
         <HoverShowcase
           items={PROXIMITY}
           side="right"
+          square={false}
           tone="dark"
           height="h-[30rem] md:h-[34rem]"
           columns="lg:grid-cols-[1fr_1fr]"
           header={
             <>
-              <p className="eyebrow text-accent">Location</p>
-              <SplitText text="Far enough. Close enough." className="display mb-6 mt-6 text-4xl md:text-6xl" />
-              <p className="mb-6 max-w-md body-copy text-white/70">
-                A drive that leaves the city behind without leaving it out of reach.
-                Hover a destination to see the road it takes.
+              <p className="eyebrow text-accent ">Location</p>
+              <p className=" mb-2 mt-6 max-w-md body-copy text-white/70">
+                A drive that leaves the city behind without leaving it out of reach. Hover a
+                destination to see the road it takes.
               </p>
-              <div className="mb-10 flex items-center gap-4">
+              <div className="mb-4 flex items-center gap-4">
                 <span className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full border border-accent/50">
                   <span className="h-2 w-2 rounded-full bg-accent" />
                   <motion.span
                     className="absolute inset-0 rounded-full border border-accent/40"
-                    animate={{ scale: [1, 1.6], opacity: [0.7, 0] }}
+                    animate={{ scale: [1, 1.1], opacity: [0.7, 0] }}
                     transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
                   />
                 </span>
-                <p className="label text-white/55">
-                  {LOCATION.addressLines.join(" · ")}
-                </p>
+                <p className="label text-white/55">{LOCATION.addressLines.join(" · ")}</p>
               </div>
             </>
           }
           footer={
             <div className="mt-10">
-              <Link
-                to="/location"
-                className="link-underline label text-accent"
-              >
+              <Link to="/location" className="link-underline label text-accent">
                 Open the full map
               </Link>
             </div>
@@ -593,8 +657,8 @@ function Home() {
             className="display mt-0 max-w-3xl text-4xl md:text-6xl"
           />
           <p className="mt-4 max-w-xl body-copy text-muted-foreground">
-            That is the hour the lake turns gold, the promenade fills and the lawns
-            begin to smell of woodsmoke and jasmine. Visits are private and unhurried.
+            That is the hour the lake turns gold, the promenade fills and the lawns begin to smell
+            of woodsmoke and jasmine. Visits are private and unhurried.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Magnetic>
@@ -616,12 +680,6 @@ function Home() {
           </div>
         </Reveal>
       </Section>
-
-      <CtaBand
-        title="Plan your visit to Mandhara."
-        text="Private tours across the enclave, resort and club — mornings for the lake, evenings for the lawns."
-        label="Book a site visit"
-      />
     </>
   );
 }

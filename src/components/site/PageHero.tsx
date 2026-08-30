@@ -13,6 +13,7 @@ export function PageHero({
   image,
   children,
   size = "full",
+  imageScale = [1.08, 1.28],
 }: {
   eyebrow: string;
   title: string;
@@ -26,11 +27,13 @@ export function PageHero({
    * hero is just scroll the visitor has to get past.
    */
   size?: "full" | "compact";
+  /** Image scale at the start and end of the hero scroll animation. */
+  imageScale?: readonly [number, number];
 }) {
   const compact = size === "compact";
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const scale = useTransform(scrollYProgress, [0, 1], [1.08, 1.28]);
+  const scale = useTransform(scrollYProgress, [0, 1], imageScale);
   const y = useTransform(scrollYProgress, [0, 1], [0, 140]);
   const fade = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
@@ -176,4 +179,3 @@ export function CtaBand({
     </section>
   );
 }
-

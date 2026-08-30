@@ -89,12 +89,13 @@ export const LOCATION = {
  * www.mandhara.com — see CLIENT-QUERIES.md.
  */
 export const CONTACT = {
-  phoneDisplay: "+91 89503 60990",
-  phoneHref: "tel:+918950360990",
-  whatsapp: "https://wa.me/918950360990",
-  email: "experience@mandhara.in",
-  emailHref: "mailto:experience@mandhara.in",
+  phoneDisplay: "+91 78780 05555",
+  phoneHref: "tel:+91 7878005555",
+  whatsapp: "https://wa.me/917878005555",
+  email: "hello@mandhara.in",
+  emailHref: "mailto:hello@mandhara.in",
 } as const;
 
 /** Legal entity named in the brochure. */
 export const DEVELOPER = "Vaani Global Infra";
+  

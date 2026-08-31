@@ -51,8 +51,8 @@ const TYPES: ShowcaseItem[] = [
     id: "orion-villa",
     title: "Orion",
     meta: "2 BHK",
-    text: "A two-bedroom plan on the same four-hundred-square-yard plot. This is the villa model — the Orion enclave elsewhere on this page is a different thing that shares the name.",
-    image: img.villaGarden,
+    text: "A two-bedroom plan on the same four-hundred-square-yard plot. This is the villa model: the Orion enclave elsewhere on this page is a different thing that shares the name.",
+    image: img.orion,
     details: [
       ["Configuration", "2 BHK"],
       ["Plot", "400 sq. yd"],
@@ -63,7 +63,7 @@ const TYPES: ShowcaseItem[] = [
     title: "Revenue Sharing Villa",
     meta: "2 BHK · investment",
     text: "The hospitality-managed product: a two-bedroom villa with a private swimming pool, deck and courtyard, run by the resort team when you are away.",
-    image: img.villaLake,
+    image: img.rshare,
     details: [
       ["Configuration", "2 BHK"],
       ["Plot", "400 sq. yd"],
@@ -75,7 +75,7 @@ const TYPES: ShowcaseItem[] = [
     title: "Equinox",
     meta: "3 BHK",
     text: "The three-bedroom plan, on a six-hundred-square-yard plot.",
-    image: img.villa,
+    image: img.equinox,
     details: [
       ["Configuration", "3 BHK"],
       ["Plot", "600 sq. yd"],
@@ -86,7 +86,7 @@ const TYPES: ShowcaseItem[] = [
     title: "Equinox",
     meta: "4 BHK",
     text: "The largest plot in the enclave, at eight hundred square yards, drawn in two distinct four-bedroom layouts.",
-    image: img.suite,
+    image: img.equinox2,
     details: [
       ["Configuration", "4 BHK"],
       ["Plot", "800 sq. yd"],
@@ -100,14 +100,14 @@ function Compare() {
   return (
     <div className="relative overflow-hidden rounded-4xl soft-shadow">
       <img
-        src={img.villa}
+        src={img.blacknigga}
         alt="Villa at night"
         loading="lazy"
         className="h-[34rem] w-full object-cover"
       />
       <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
         <img
-          src={img.garden}
+          src={img.whitenigga}
           alt="Villa gardens by day"
           loading="lazy"
           className="h-[34rem] w-[100vw] max-w-none object-cover"

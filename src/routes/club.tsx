@@ -79,28 +79,28 @@ const CALENDAR = [
     months: "Nov – Feb",
     title: "Wedding season",
     text: "Cool evenings, clear skies, peak demand across both banquets and the lakeside lawn.",
-    image: img.lawn,
+    image: img.clubhouse,
   },
   {
     id: "spring",
     months: "Mar – May",
     title: "Corporate & offsites",
     text: "Early-morning programmes, shaded lawns and resort keys for the whole delegation.",
-    image: img.clubhouse,
+    image: img.banquet,
   },
   {
     id: "monsoon",
     months: "Jun – Sep",
     title: "Monsoon celebrations",
     text: "Covered banquet halls and dramatic light over the lake for indoor-outdoor events.",
-    image: img.banquet,
+    image: img.eventGround,
   },
   {
     id: "festival",
     months: "Oct",
     title: "Festival calendar",
     text: "Estate-wide lighting, live concerts and Garba nights on the event ground.",
-    image: img.eventGround,
+    image: img.lawn,
   },
 ] as const;
 

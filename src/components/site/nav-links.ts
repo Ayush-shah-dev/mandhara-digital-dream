@@ -4,6 +4,7 @@ export const NAV_LINKS = [
   { to: "/villas", label: "Villa Enclave" },
   { to: "/resort", label: "Resort" },
   { to: "/club", label: "Club & Events" },
+  { to: "/plot-viewer", label: "Plot Viewer" },
   { to: "/amenities", label: "Amenities" },
   { to: "/arrival", label: "Arrival" },
   { to: "/revenue", label: "Revenue Sharing" },

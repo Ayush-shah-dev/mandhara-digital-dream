@@ -19,6 +19,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as LocationRouteImport } from './routes/location'
 import { Route as LogoRouteImport } from './routes/logo'
 import { Route as MasterplanRouteImport } from './routes/masterplan'
+import { Route as PlotViewerRouteImport } from './routes/plot-viewer'
 import { Route as ResortRouteImport } from './routes/resort'
 import { Route as RevenueRouteImport } from './routes/revenue'
 import { Route as VillasRouteImport } from './routes/villas'
@@ -73,6 +74,11 @@ const MasterplanRoute = MasterplanRouteImport.update({
   path: '/masterplan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlotViewerRoute = PlotViewerRouteImport.update({
+  id: '/plot-viewer',
+  path: '/plot-viewer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResortRoute = ResortRouteImport.update({
   id: '/resort',
   path: '/resort',
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/location': typeof LocationRoute
   '/logo': typeof LogoRoute
   '/masterplan': typeof MasterplanRoute
+  '/plot-viewer': typeof PlotViewerRoute
   '/resort': typeof ResortRoute
   '/revenue': typeof RevenueRoute
   '/villas': typeof VillasRoute
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/location': typeof LocationRoute
   '/logo': typeof LogoRoute
   '/masterplan': typeof MasterplanRoute
+  '/plot-viewer': typeof PlotViewerRoute
   '/resort': typeof ResortRoute
   '/revenue': typeof RevenueRoute
   '/villas': typeof VillasRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/location': typeof LocationRoute
   '/logo': typeof LogoRoute
   '/masterplan': typeof MasterplanRoute
+  '/plot-viewer': typeof PlotViewerRoute
   '/resort': typeof ResortRoute
   '/revenue': typeof RevenueRoute
   '/villas': typeof VillasRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | '/location'
     | '/logo'
     | '/masterplan'
+    | '/plot-viewer'
     | '/resort'
     | '/revenue'
     | '/villas'
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/location'
     | '/logo'
     | '/masterplan'
+    | '/plot-viewer'
     | '/resort'
     | '/revenue'
     | '/villas'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/location'
     | '/logo'
     | '/masterplan'
+    | '/plot-viewer'
     | '/resort'
     | '/revenue'
     | '/villas'
@@ -194,6 +206,7 @@ export interface RootRouteChildren {
   LocationRoute: typeof LocationRoute
   LogoRoute: typeof LogoRoute
   MasterplanRoute: typeof MasterplanRoute
+  PlotViewerRoute: typeof PlotViewerRoute
   ResortRoute: typeof ResortRoute
   RevenueRoute: typeof RevenueRoute
   VillasRoute: typeof VillasRoute
@@ -271,6 +284,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MasterplanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plot-viewer': {
+      id: '/plot-viewer'
+      path: '/plot-viewer'
+      fullPath: '/plot-viewer'
+      preLoaderRoute: typeof PlotViewerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resort': {
       id: '/resort'
       path: '/resort'
@@ -306,6 +326,7 @@ const rootRouteChildren: RootRouteChildren = {
   LocationRoute: LocationRoute,
   LogoRoute: LogoRoute,
   MasterplanRoute: MasterplanRoute,
+  PlotViewerRoute: PlotViewerRoute,
   ResortRoute: ResortRoute,
   RevenueRoute: RevenueRoute,
   VillasRoute: VillasRoute,

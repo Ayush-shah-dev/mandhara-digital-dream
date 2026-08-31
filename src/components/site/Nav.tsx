@@ -37,17 +37,17 @@ export function Nav() {
           solid ? "glass py-3 shadow-[0_10px_40px_-30px_rgba(0,0,0,.5)]" : "py-6"
         }`}
       >
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 md:px-12">
+        <div className="flex w-full items-center justify-between px-2 md:px-16">
           <Link to="/" className="flex items-center gap-3">
             <img
               src={logoUrl}
               alt="Mandhara"
-              className={`origin-left scale-150 brightness-0 invert transition-all duration-700 ${solid ? "h-9" : "h-12"} w-auto object-contain drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]`}
+              className={`origin-left scale-150 brightness-0 invert transition-all duration-700 ${solid ? "h-11" : "h-16"} w-auto object-contain drop-shadow-[0_1px_2px_rgba(0,0,0,.7)]`}
             />
           </Link>
 
           <nav className="hidden items-center gap-10 lg:flex xl:gap-12">
-            {NAV_LINKS.slice(0, 5).map((l) => {
+            {NAV_LINKS.slice(0, 6).map((l) => {
               const current = pathname === l.to;
               return (
                 <Link

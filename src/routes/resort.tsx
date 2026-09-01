@@ -45,7 +45,7 @@ const SUITES = [
   {
     name: "Junior Suite",
     text: "The compact category, in the same architecture and finish.",
-    image: img.pool,
+    image: img.jsuite,
   },
 ] as const;
 

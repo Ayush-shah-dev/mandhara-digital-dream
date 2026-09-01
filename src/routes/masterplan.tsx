@@ -467,7 +467,6 @@ const ZONES: Zone[] = [
  * Sits inside the Nicqe/Orion sweep with no boundary of its own in the source
  * reference — shown as a static label to match, not a clickable zone.
  */
-const LAGOON_LABEL = { name: "LAGOON", purpose: "Club Area", x: 61.76, y: 47.88 };
 
 function Masterplan() {
   const [index, setIndex] = useState(0);
@@ -699,7 +698,6 @@ function Masterplan() {
                       onBlur={() => setHovered(null)}
                       aria-label={`${z.name} — ${z.purpose}`}
                       aria-current={on ? "true" : undefined}
-                      aria-describedby={show ? `tip-${z.id}` : undefined}
                       className={`block whitespace-nowrap rounded-full border px-3 py-1 outline-none backdrop-blur-md transition-all duration-300 ${
                         dialogZone && dialogZone !== z.id ? "pointer-events-none opacity-0" : ""
                       } ${
@@ -713,8 +711,8 @@ function Masterplan() {
                       </span>
                     </button>
 
-                    <AnimatePresence>
-                      {show && (
+                    {/* Hover detail is shown in the panel below; keep the map free of hover boxes. */}
+                    {false && (
                         <motion.div
                           id={`tip-${z.id}`}
                           role="tooltip"
@@ -734,23 +732,10 @@ function Masterplan() {
                           <p className="mt-3 label text-accent">{z.linkLabel} →</p>
                         </motion.div>
                       )}
-                    </AnimatePresence>
                   </div>
                 );
               })}
 
-              {/* Lagoon Club Area sits inside the Nicqe/Orion sweep with no boundary
-                  of its own in the source reference, so it's a static label, not a zone. */}
-              <div
-                aria-hidden="true"
-                style={{ left: `${LAGOON_LABEL.x}%`, top: `${LAGOON_LABEL.y}%` }}
-                className={`pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-white/15 bg-[oklch(0.17_0.012_60)]/70 px-3 py-1 backdrop-blur-md transition-opacity duration-300 ${
-                  dialogZone ? "opacity-0" : ""
-                }`}
-              >
-                <span className="label text-accent">{LAGOON_LABEL.name}</span>
-                <span className="label ml-1.5 text-white/70">{LAGOON_LABEL.purpose}</span>
-              </div>
             </div>
 
             {/* Jump to zone detail only does anything once the map and detail panel

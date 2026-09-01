@@ -327,17 +327,19 @@ function Home() {
       <section className="relative overflow-hidden">
         <div className="relative h-[70vh] md:h-[90vh]">
           <MaskedImage
-            src={img.lake}
+            src={img.lake2}
             alt="Sheen Lake at sunrise"
             className="h-full rounded-none"
+            imgClassName="object-[center_70%]"
             parallax={80}
+            scale={1}
           />
           <div className="absolute inset-0 bg-[oklch(0.17_0.012_60)]/35" />
           <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-            <SplitText
+            {/* <SplitText
               text="Design that defers to the land."
               className="display max-w-3xl text-4xl text-[oklch(0.97_0.01_84)] md:text-7xl"
-            />
+            /> */}
             <Reveal delay={0.2}>
               <p className="mx-auto mt-6 max-w-xl body-copy text-white/70">
                 Six acres of water, five landscaped islands and a kilometre of promenade — drawn

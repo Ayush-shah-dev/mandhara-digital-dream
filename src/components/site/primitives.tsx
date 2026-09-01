@@ -72,6 +72,7 @@ export function MaskedImage({
   className,
   imgClassName,
   parallax = 60,
+  scale = 1.12,
   priority = false,
 }: {
   src: string;
@@ -79,6 +80,7 @@ export function MaskedImage({
   className?: string;
   imgClassName?: string;
   parallax?: number;
+  scale?: number;
   priority?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -103,7 +105,7 @@ export function MaskedImage({
         src={src}
         alt={alt}
         loading={priority ? "eager" : "lazy"}
-        style={{ y: reduced ? 0 : y, scale: 1.12 }}
+        style={{ y: reduced ? 0 : y, scale }}
         className={`h-full w-full object-cover ${imgClassName ?? ""}`}
       />
     </div>

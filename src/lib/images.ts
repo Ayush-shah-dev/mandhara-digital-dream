@@ -36,9 +36,13 @@ import blacknigga from "@/assets/black_nigga.jpeg";
 import rshare from "@/assets/rshare.jpg";
 import equinox from "@/assets/equinox.jpg";
 import equinox2 from "@/assets/equinox2.jpg";
+import jsuite from "@/assets/jsuite.jpg";
+import lake2 from "@/assets/lake2.jpg";
 export const img = {
   hero,
   rshare,
+  lake2,
+  jsuite,
   equinox,
   equinox2,
   blacknigga,
